@@ -6,6 +6,7 @@ data class ArticleVO(
     var chapterId: Int,
     var chapterName: String,
     var collect: Boolean,
+    var fresh: Boolean,
     var courseId: Int,
     var desc: String,
     var link: String,

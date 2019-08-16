@@ -1,45 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="vm"
-            type="io.github.iamyours.wandroid.ui.home.HomeVM" />
+                name="vm"
+                type="io.github.iamyours.wandroid.ui.home.HomeVM"/>
     </data>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:onRefreshListener="@{() -> vm.loadData()}"
-        app:refreshing="@{vm.loading}">
-
-        <LinearLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            app:onRefreshListener="@{()->vm.refresh()}"
+            app:refreshing="@{vm.refreshing}"
+            app:moreLoading="@{vm.moreLoading}"
+            app:hasMore="@{vm.hasMore}"
+            app:onLoadMoreListener="@{()->vm.loadMore()}"
+            android:layout_height="match_parent">
 
-            <cn.bingoogolapple.bgabanner.BGABanner
-                android:id="@+id/banner"
+        <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                app:banner_indicatorGravity="bottom|right"
-                app:banner_isNumberIndicator="true"
-                app:banner_pointContainerBackground="#0000"
-                app:banner_transitionEffect="zoom" />
+                android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:background="#ccc"
-                android:gravity="center"
-                android:onClick="@{()->vm.loadData()}"
-                android:text="加载Banner" />
-        </LinearLayout>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                <cn.bingoogolapple.bgabanner.BGABanner
+                        android:id="@+id/banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        app:banner_indicatorGravity="bottom|right"
+                        app:banner_isNumberIndicator="true"
+                        app:banner_pointContainerBackground="#0000"
+                        app:banner_transitionEffect="zoom"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                        tools:listitem="@layout/item_article"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </layout>
