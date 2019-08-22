@@ -11,7 +11,6 @@ import cn.bingoogolapple.bgabanner.BGABanner
 import io.github.iamyours.wandroid.adapter.ArticleAdapter
 import io.github.iamyours.wandroid.databinding.ActivityMainBinding
 import io.github.iamyours.wandroid.extension.displayWithUrl
-import io.github.iamyours.wandroid.observer.LoadingObserver
 import io.github.iamyours.wandroid.ui.home.HomeVM
 import io.github.iamyours.wandroid.vo.BannerVO
 
