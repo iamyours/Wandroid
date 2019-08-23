@@ -25,8 +25,7 @@
 .menu_list li.level6{margin-left: 60px;}
 
 #blogDetail {
-  color: #333;
-  background: #fff;
+  color: #b1b1b1;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   text-rendering: optimizelegibility;
@@ -40,17 +39,17 @@
 #blogDetail h4,
 #blogDetail h5,
 #blogDetail h6{
-	color: #333;line-height: 1.5;margin-top: 15px;margin-bottom: 15px;font-weight: bold;
+	color: #b1b1b1;line-height: 1.5;margin-top: 15px;margin-bottom: 15px;font-weight: bold;
 }
-#blogDetail h1{font-size: 24px;}
+#blogDetail h1{font-size: 22px;}
 #blogDetail h2{font-size: 22px;}
 #blogDetail h3{font-size: 18px;}
 #blogDetail h4{font-size: 16px;}
 #blogDetail h5{font-size: 14px;}
 #blogDetail h6{font-size: 12px;}
 
-#blogDetail div.blog_header{overflow: hidden;border-bottom: 1px solid #eee;padding-bottom: 5px;margin-bottom: 10px;}
-#blogDetail h1.blog_title{margin-top:10px;margin-bottom:10px;}
+#blogDetail div.blog_header{overflow: hidden;border-bottom: 1px solid #5c5454;padding-bottom: 5px;margin-bottom: 10px;}
+#blogDetail h1.blog_title{margin-top:10px;margin-bottom:10px;color:#c8c8c8}
 #blogDetail p.blog_note{font-size: 14px;margin-top:0;margin-bottom: 0;}
 /*ä¸Šé¢æ”¶è—*/
 #blogDetail a.collect{color:#2782EF;cursor: pointer;}
@@ -88,9 +87,9 @@
     padding: 10px 10px 10px 1rem;
     font-size: 0.9em;
     margin: 15px 0px;
-    color: #666;
-    border-left: 6px solid #cdcdcd;
-    background: #f8f8f8;
+    color: #839496;
+    border-left: 6px solid #585656;
+    background: #282828;
     overflow: auto;
     word-wrap: normal;
     word-break: normal;}

@@ -5,12 +5,17 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.webkit.WebChromeClient
 import android.webkit.WebView
+import androidx.lifecycle.MutableLiveData
 import io.github.iamyours.wandroid.BuildConfig
 import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.base.BaseActivity
 import io.github.iamyours.wandroid.databinding.ActivityWebBinding
 import io.github.iamyours.wandroid.extension.arg
+import io.github.iamyours.wandroid.extension.viewModel
+import io.github.iamyours.wandroid.vo.WebViewVO
 import io.github.iamyours.wandroid.web.WanAndroidWebClient
 import io.github.iamyours.wandroid.web.WebViewClientFactory
 
@@ -28,10 +33,12 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
     override val layoutId: Int
         get() = R.layout.activity_web
     val link by arg<String>("link")
+    val vm by viewModel<WebVM>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        binding.vm = vm
         initWebView()
     }
 
@@ -40,11 +47,19 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
             javaScriptEnabled = true
         }
         binding.webView.run {
+            setBackgroundColor(0)
             loadUrl(link)
-            webViewClient = WebViewClientFactory.create(url)
+            webViewClient = WebViewClientFactory.create(url, vm.loaded)
+            webChromeClient = object : WebChromeClient() {
+                override fun onReceivedTitle(view: WebView?, title: String?) {
+                    super.onReceivedTitle(view, title)
+                    vm.title.value = title
+                }
+            }
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
         }
     }
+
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="vo"
+                type="io.github.iamyours.wandroid.vo.ArticleVO"/>
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            tools:background="@color/bg_dark"
+            android:layout_height="wrap_content">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textSize="16sp"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="16dp"
+                    android:text="@{vo.title}"
+                    android:paddingBottom="16dp"
+                    android:textColor="@color/title_color"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="@{vo.niceDate}"
+                    android:gravity="right"
+                    android:layout_marginRight="16dp"
+                    android:textColor="@color/text_color"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp"
+                    />
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#2f2f2f"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                />
+    </LinearLayout>
+</layout>

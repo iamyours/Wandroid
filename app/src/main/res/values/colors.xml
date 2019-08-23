@@ -6,4 +6,8 @@
     <color name="tab_select_color">#89B3F8</color>
     <color name="tab_unselect_color">#9AA0A6</color>
     <color name="bg_tab">#37383A</color>
+    <color name="bg_dark">#3f3f3f</color>
+    <color name="title_color">#c8c8c8</color>
+    <color name="text_color">#969696</color>
+    <color name="divider">#2f2f2f</color>
 </resources>

@@ -1,59 +1,95 @@
 package io.github.iamyours.wandroid
 
 import android.os.Bundle
-import android.widget.ImageView
+import android.view.LayoutInflater
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
-import cn.bingoogolapple.bgabanner.BGABanner
-import io.github.iamyours.wandroid.adapter.ArticleAdapter
+import androidx.fragment.app.Fragment
+import com.google.android.material.tabs.TabLayout
 import io.github.iamyours.wandroid.databinding.ActivityMainBinding
-import io.github.iamyours.wandroid.extension.displayWithUrl
-import io.github.iamyours.wandroid.ui.home.HomeVM
-import io.github.iamyours.wandroid.vo.BannerVO
+import io.github.iamyours.wandroid.ui.home.HomeFragment
+import io.github.iamyours.wandroid.ui.mine.MineFragment
+import io.github.iamyours.wandroid.ui.project.ProjectFragment
+import io.github.iamyours.wandroid.vo.TabItem
+import kotlinx.android.synthetic.main.view_tab.view.*
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
-    private val adapter = ArticleAdapter()
+    private val tabs = arrayOf(
+        TabItem(R.drawable.tab_home, "首页", HomeFragment::class.java),
+        TabItem(R.drawable.tab_project, "项目", ProjectFragment::class.java),
+        TabItem(R.drawable.tab_mine, "我", MineFragment::class.java)
+    )
+    private val fragments = ArrayList<Fragment>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        val vm = ViewModelProviders.of(this).get(HomeVM::class.java)
-        binding.lifecycleOwner = this
-        binding.vm = vm
-        binding.executePendingBindings()
-        initBanner()
-        initRecyclerView()
-        binding.refreshLayout.autoRefresh()
+        initFragments()
+        initTabLayout()
     }
 
-    private fun initRecyclerView() {
-        binding.recyclerView.let {
-            it.adapter = adapter
-            it.layoutManager = LinearLayoutManager(this)
+    /**
+     * fragment重叠
+     */
+    override fun onSaveInstanceState(outState: Bundle) {
+        fragments.forEach {
+            supportFragmentManager.putFragment(outState, it.javaClass.simpleName, it)
         }
-        binding.vm?.articlePage?.observe(this, Observer {
-            it?.run {
-                if (curPage == 1) {
-                    adapter.clearAddAll(datas)
-                } else {
-                    adapter.addAll(datas)
+        super.onSaveInstanceState(outState)
+    }
+
+    private fun initFragments() {
+        if (fragments.isEmpty()) {
+            tabs.forEach {
+                val f = it.fragmentCls.newInstance()
+                fragments.add(f)
+            }
+        }
+        val transaction = supportFragmentManager.beginTransaction()
+        fragments.forEach {
+            if (!it.isAdded) transaction.add(R.id.fl_content, it, it.javaClass
+                .simpleName).hide(it)
+        }
+        transaction.commit()
+    }
+    private fun initTabLayout() {
+        binding.tabLayout.run {
+            tabs.forEach {
+                addTab(newTab().setCustomView(getTabView(it)))
+            }
+
+            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabReselected(p0: TabLayout.Tab?) {}
+
+                override fun onTabUnselected(p0: TabLayout.Tab?) {}
+
+                override fun onTabSelected(p0: TabLayout.Tab) {
+                    initTab(p0.position)
                 }
-            }
-        })
+            })
+            getTabAt(0)?.select()
+        }
+        initTab(0)
     }
 
-    private fun initBanner() {
-        binding.run {
-            val bannerAdapter = BGABanner.Adapter<ImageView, BannerVO> { _, image, model, _ ->
-                image.displayWithUrl(model?.imagePath)
-            }
-            banner.setAdapter(bannerAdapter)
-            vm?.banners?.observe(this@MainActivity, Observer {
-                banner.setData(it, null)
-            })
-        }
+    private fun getTabView(it: TabItem): View {
+        val v = LayoutInflater.from(this).inflate(R.layout.view_tab, null)
+        v.tab_icon.setImageResource(it.icon)
+        v.tab_name.text = it.name
+        return v
     }
+
+    private fun initTab(position: Int) {
+        val transaction = supportFragmentManager.beginTransaction()
+        fragments.forEachIndexed { index, fragment ->
+            if (index == position) {
+                transaction.show(fragment)
+            } else {
+                transaction.hide(fragment)
+            }
+        }
+        transaction.commit()
+    }
+
 }

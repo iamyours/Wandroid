@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="vo"
+                type="io.github.iamyours.wandroid.vo.ProjectVO"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            tools:background="@color/bg_dark"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/img"
+                android:layout_width="60dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_margin="10dp"
+                android:layout_height="80dp"/>
+
+        <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toLeftOf="@id/img"
+                app:layout_constraintTop_toTopOf="@id/img"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="10dp"
+                tools:text="test"
+                android:text="@{vo.title}"
+                android:textSize="16sp"
+                android:textColor="@color/title_color"
+                />
+
+        <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                tools:text="desc"
+                android:text="@{vo.desc}"
+                android:textColor="@color/text_color"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                android:layout_marginTop="4dp"
+                app:layout_constraintLeft_toLeftOf="@id/tv_title"
+                app:layout_constraintRight_toRightOf="@id/tv_title"
+                />
+
+        <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="name"
+                android:text="@{vo.author}"
+                app:layout_constraintLeft_toLeftOf="@id/tv_title"
+                app:layout_constraintTop_toBottomOf="@id/tv_desc"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/text_color"
+                android:textSize="12sp"
+                />
+
+        <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="time"
+                android:text="@{vo.niceDate}"
+                app:layout_constraintTop_toTopOf="@id/tv_name"
+                app:layout_constraintRight_toRightOf="@id/tv_title"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_color"
+                android:textSize="12sp"
+                />
+
+        <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/b_bottom"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="tv_name,img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                app:layout_constraintTop_toBottomOf="@id/b_bottom"
+                android:layout_marginTop="10dp"
+                />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

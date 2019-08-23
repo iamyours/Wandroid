@@ -15,9 +15,14 @@ open abstract class BaseFragment<T : ViewDataBinding> : Fragment() {
     abstract val layoutId: Int
     lateinit var binding: T
     val loadingState = MutableLiveData<Boolean>()
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
         binding.lifecycleOwner = this
+        binding.executePendingBindings()
         return binding.root
     }
 

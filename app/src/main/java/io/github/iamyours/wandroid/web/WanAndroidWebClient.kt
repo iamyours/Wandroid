@@ -3,17 +3,22 @@ package io.github.iamyours.wandroid.web
 import android.util.Log
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
-import android.webkit.WebViewClient
-import io.github.iamyours.wandroid.ui.web.WebActivity
+import androidx.lifecycle.MutableLiveData
 
 /**
  * 适配WanAndroid网站手机端
  */
-class WanAndroidWebClient : BaseWebViewClient() {
-    private val articleByAuthor = "https://www.wanandroid.com/article/list/0?author="
-    private val articleByCapter = "https://www.wanandroid.com/article/list_by_chapter/1"
+class WanAndroidWebClient(vo: MutableLiveData<Boolean>) : BaseWebViewClient(vo) {
+    private val articleByAuthor =
+        "https://www.wanandroid.com/article/list/0?author="
+    private val articleByCapter =
+        "https://www.wanandroid.com/article/list_by_chapter/1"
 
-    private val cssFiles = arrayOf("blog/default.css", "pc/common.css", "pc/header.css", "wenda/wenda_md.css")
+    private val cssFiles = arrayOf(
+        "blog/default.css", "pc/common.css",
+        "pc/header.css", "wenda/wenda_md.css", "m/common.css"
+    )
+
     override fun shouldInterceptRequest(view: WebView?, url: String?)
             : WebResourceResponse? {
         Log.i("wenda", "url:$url")

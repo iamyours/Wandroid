@@ -11,6 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
 interface WanApi {
@@ -32,6 +33,7 @@ interface WanApi {
                 .create(WanApi::class.java)
         }
     }
+
     /**
      * 首页banner
      */
@@ -44,5 +46,14 @@ interface WanApi {
     @GET("article/list/{page}/json")
     fun articleList(
         @Path("page") page: Int
+    ): LiveData<ApiResponse<PageVO<ArticleVO>>>
+
+    /**
+     * 知识体系下文章
+     */
+    @GET("article/list/{page}/json")
+    fun articleList(
+        @Path("page") page: Int,
+        @Query("cid") cid: Int
     ): LiveData<ApiResponse<PageVO<ArticleVO>>>
 }

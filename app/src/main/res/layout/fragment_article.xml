@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="vm"
+                type="io.github.iamyours.wandroid.ui.article.ArticleVM"/>
+    </data>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
+            android:layout_width="match_parent"
+            app:onRefreshListener="@{()->vm.refresh()}"
+            app:refreshing="@{vm.refreshing}"
+            app:moreLoading="@{vm.moreLoading}"
+            app:hasMore="@{vm.hasMore}"
+            android:background="@color/bg_dark"
+            app:onLoadMoreListener="@{()->vm.loadMore()}"
+            android:layout_height="match_parent">
+
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                android:layout_width="match_parent"
+                app:srlAccentColor="@color/text_color"
+                app:srlPrimaryColor="@color/bg_dark"
+                android:layout_height="wrap_content"/>
+
+        <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="160dp">
+
+                    <cn.bingoogolapple.bgabanner.BGABanner
+                            android:id="@+id/banner"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:data="@{vm.banners}"
+                            app:banner_indicatorGravity="bottom|right"
+                            app:banner_isNumberIndicator="true"
+                            app:banner_pointContainerBackground="#0000"
+                            app:banner_transitionEffect="zoom"/>
+
+                    <View
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#3000"
+                            app:gone="@{!vm.refreshing}"
+                            />
+                </FrameLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="5dp"
+                        tools:listitem="@layout/item_article"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                android:layout_width="match_parent"
+                app:srlAccentColor="@color/text_color"
+                app:srlPrimaryColor="@color/bg_dark"
+                android:layout_height="wrap_content"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+</layout>

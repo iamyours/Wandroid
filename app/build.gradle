@@ -7,7 +7,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "io.github.iamyours.wandroid"
-        minSdkVersion 14
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -40,7 +40,9 @@ dependencies {
     implementation 'io.github.iamyours:flingappbarlayout:1.0.4'
     implementation 'com.kaopiz:kprogresshud:1.2.0'
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'
-
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'
+    implementation 'com.easywidgets.tablayout:EasyTabLayout:1.0.2'
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

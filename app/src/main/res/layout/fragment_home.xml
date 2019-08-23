@@ -1,18 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <variable
-                name="vm"
-                type="io.github.iamyours.wandroid.ui.home.HomeVM"/>
     </data>
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+    <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:background="@color/colorPrimary"
+            tools:background="@color/bg_dark"
             android:layout_height="match_parent">
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        <com.easywidgets.tablayout.EasyTabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                app:tl_indicator_color="@color/tab_select_color"
+                app:tl_textSelectColor="@color/tab_select_color"
+                app:tl_textUnselectColor="@color/tab_unselect_color"
+                app:tl_indicator_height="3dp"
+                app:tl_indicator_corner_radius="2dp"
+                app:tl_indicator_width="60dp"
+                app:tl_textsize="14sp"
+                app:tl_indicator_margin_bottom="3dp"
+                app:tl_textSelectSize="18sp"
+                android:layout_height="48dp"/>
+
+        <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+    </LinearLayout>
 </layout>

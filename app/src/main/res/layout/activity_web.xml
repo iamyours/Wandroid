@@ -1,18 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
+        <variable
+                name="vm"
+                type="io.github.iamyours.wandroid.ui.web.WebVM"/>
     </data>
 
     <LinearLayout
             android:orientation="vertical"
+            android:background="@color/bg_dark"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <WebView
-                android:id="@+id/webView"
+        <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="44dp"
+                android:textColor="@color/title_color"
+                android:textSize="14sp"
+                android:text="@{vm.title}"
+                android:gravity="center"
+                android:lines="1"
+                android:ellipsize="end"
+                />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/divider"
+                />
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <WebView
+                    android:id="@+id/webView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            <com.github.ybq.android.spinkit.SpinKitView
+                    android:id="@+id/spin_kit"
+                    style="@style/SpinKitView.Large.Circle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:gone="@{vm.loaded}"
+                    app:SpinKit_Color="@color/text_color"/>
+        </FrameLayout>
+
     </LinearLayout>
 </layout>

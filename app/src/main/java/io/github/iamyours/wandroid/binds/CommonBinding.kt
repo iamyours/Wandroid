@@ -1,11 +1,19 @@
 package io.github.iamyours.wandroid.binds
 
+import android.view.View
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import cn.bingoogolapple.bgabanner.BGABanner
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
+import io.github.iamyours.wandroid.extension.displayWithUrl
+import io.github.iamyours.wandroid.vo.BannerVO
 
-@BindingAdapter(value = ["refreshing", "moreLoading", "hasMore"], requireAll = false)
+@BindingAdapter(
+    value = ["refreshing", "moreLoading", "hasMore"],
+    requireAll = false
+)
 fun bindSmartRefreshLayout(
     smartLayout: SmartRefreshLayout,
     refreshing: Boolean,
@@ -18,7 +26,10 @@ fun bindSmartRefreshLayout(
     smartLayout.setEnableLoadMore(hasMore)
 }
 
-@BindingAdapter(value = ["onRefreshListener", "onLoadMoreListener"], requireAll = false)
+@BindingAdapter(
+    value = ["onRefreshListener", "onLoadMoreListener"],
+    requireAll = false
+)
 fun bindListener(
     smartLayout: SmartRefreshLayout,
     refreshListener: OnRefreshListener?,
@@ -28,5 +39,21 @@ fun bindListener(
     smartLayout.setOnLoadMoreListener(loadMoreListener)
 }
 
+@BindingAdapter(value = ["gone"])
+fun bindGone(v: View, gone: Boolean) {
+    v.visibility = if (gone) View.GONE else View.VISIBLE
+}
+
+@BindingAdapter(value = ["data"])
+fun bindBanner(banner: BGABanner, data: List<BannerVO>?) {
+    banner.setData(data, null)
+}
+
+@BindingAdapter(value = ["url", "radius"])
+fun bindImage(iv: ImageView, url: String?, radius: Int?) {
+    if (url != null) {
+        iv.displayWithUrl(url, (radius ?: 1).toFloat())
+    }
+}
 
 

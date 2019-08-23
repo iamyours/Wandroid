@@ -34,12 +34,9 @@ open abstract class DataBoundAdapter<T, V : ViewDataBinding> : RecyclerView.Adap
     }
 
     abstract fun initView(binding: V, item: T)
-    fun clearAddAll(list: List<T>) {
-        mData.clear()
-        addAll(list)
-    }
 
-    fun addAll(list: List<T>) {
+    fun addAll(list: List<T>, isFirst: Boolean) {
+        if (isFirst) mData.clear()
         mData.addAll(list)
         notifyDataSetChanged()
     }

@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 html,body{/* background-color: #f4f5f5; */}
-body{background: #f4f4f4;}
+body{background:#3f3f3f;color:#c8c8c8;}
 *{font-size: 16px;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
 input[type='text'], input[type='password']{text-indent: 3px;outline: none;padding: 0;border:1px solid #adadad;}
 input[readonly='readonly']{color: #959595;}
@@ -25,11 +25,11 @@ input[readonly='readonly']:focus{border:1px solid #adadad;}
 .fixed_content_l{float: left;width: 300px;margin:0px auto;margin-right: -330px;}
 
 
-.block{background-color: #fff;overflow: hidden;border-radius:3px;box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);}
+.block{overflow: hidden;border-radius:3px;box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);}
 .shadow{box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.03),0 1px 5px 0 rgba(0, 0, 0, 0.03), 0 3px 1px -2px rgba(0, 0, 0, 0.03);}
 .zone{padding: 10px;overflow: hidden;}
 
-.title{height: 40px;line-height: 40px;border-bottom: 2px solid #8DB5D0;font-size: 16px;font-weight:normal;
+.title{background:#3f3f3f;height: 40px;line-height: 40px;border-bottom: 2px solid #6f6f70;font-size: 16px;font-weight:normal;
 	color:#333;text-indent: 10px;overflow: hidden;white-space:nowrap;text-overflow:ellipsis;}
 .title .title_content{float: left;height: 40px;line-height: 40px;}
 .title .title_icon{float: left;width: 30px;height: 40px;}
@@ -58,14 +58,14 @@ input[readonly='readonly']:focus{border:1px solid #adadad;}
     background-size:15px;}
 
 /* æ–‡ç« åˆ—è¡¨ */
-.list_article{margin: 0;}
-.list_article li{width: 100%;overflow: hidden;border-bottom: 1px solid #e2e2e2;}
+.list_article{margin: 0;background:#3f3f3f;}
+.list_article li{width: 100%;overflow: hidden;border-bottom: 1px solid #545353;}
 .list_article li:hover{background-color: rgba(0,0,0,0.01);}
 .list_article li>div{width: 94%;margin: 22px auto;overflow: hidden;}
 
 .list_article .info_art{width: 95%;float: left;margin-left: 2%;}
 .list_article .info_art p{overflow: hidden;white-space:nowrap;text-overflow:ellipsis;margin-bottom: 10px;}
-.list_article .info_art p a{cursor: pointer;color: #2e3135;font-weight: bold;}
+.list_article .info_art p a{cursor: pointer;color: #c8c8c8;font-weight: bold;}
 .list_article .info_art p a:hover{text-decoration: underline;color: #007fff;}
 .list_article .info_art span{color:#999;font-size: 12px;margin-right: 6px;}
 .list_article .info_art span a{color:#484848;cursor: pointer;}

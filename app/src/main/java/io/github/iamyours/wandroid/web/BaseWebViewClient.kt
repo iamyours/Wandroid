@@ -2,10 +2,16 @@ package io.github.iamyours.wandroid.web
 
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.lifecycle.MutableLiveData
 import io.github.iamyours.wandroid.ui.web.WebActivity
+import io.github.iamyours.wandroid.vo.WebViewVO
 
-open class BaseWebViewClient : WebViewClient() {
-    override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
+open class BaseWebViewClient(private var vo: MutableLiveData<Boolean>) :
+    WebViewClient() {
+    override fun shouldOverrideUrlLoading(
+        view: WebView,
+        url: String?
+    ): Boolean {
         if (url == null) {
             return false
         }
@@ -15,5 +21,11 @@ open class BaseWebViewClient : WebViewClient() {
             true
         } else
             super.shouldOverrideUrlLoading(view, url ?: "")
+    }
+
+    override fun onPageFinished(view: WebView?, url: String?) {
+        super.onPageFinished(view, url)
+        vo.value = true
+
     }
 }

@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+html,body{font-size: 16px;background-color: #3f3f3f;width: 100%;height: 100%;}
+*{font-size: 16px;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	-webkit-tap-highlight-color: rgba(0,0,0,0);}
+/*头部*/
+header{width: 100%;height: 50px;background-color: #fff;
+	box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.1);
+	position: fixed;left:0;top:0;z-index: 999;}
+header .logo{width: 55px;height:40px;margin: 5px 5px 5px 20px;}
+header .logo img{width: 100%;height: 100%;}
+
+.e{min-width: 320px;height: 100%;margin: 0 auto;}
+.app{min-height: 100%;display: flex;flex-direction: column;width: 100%;}
+.c{padding: 0 15px;flex-grow:1;}

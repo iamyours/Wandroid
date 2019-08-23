@@ -83,7 +83,7 @@
 
 /*è¿”å›žé¡¶éƒ¨*/
 .gotop{display:block;width: 35px;height: 35px;position: fixed;bottom:60px;right:50px;cursor:pointer;
-	border:1px solid #6EB8FC;border-radius:3px;background-color:#fff;
+	border:1px solid #6EB8FC;border-radius:3px;background-color:#3f3f3f;
 	background-image: url("../../../resources/image/pc/gotop.svg");
 	background-image: url("../../../resources/image/pc/gotop.png")\9;
 	background-repeat: no-repeat;
