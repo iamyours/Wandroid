@@ -8,7 +8,8 @@ import androidx.lifecycle.MutableLiveData
 /**
  * 适配WanAndroid网站手机端
  */
-class WanAndroidWebClient(vo: MutableLiveData<Boolean>) : BaseWebViewClient(vo) {
+class WanAndroidWebClient(url:String,vo: MutableLiveData<Boolean>) :
+BaseWebViewClient(url,vo) {
     private val articleByAuthor =
         "https://www.wanandroid.com/article/list/0?author="
     private val articleByCapter =

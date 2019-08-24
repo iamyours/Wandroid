@@ -10,6 +10,7 @@ import android.os.Handler
 import android.os.Message
 import android.view.View
 import android.webkit.WebChromeClient
+import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.lifecycle.MutableLiveData
 import io.github.iamyours.wandroid.BuildConfig
@@ -21,6 +22,7 @@ import io.github.iamyours.wandroid.extension.viewModel
 import io.github.iamyours.wandroid.vo.WebViewVO
 import io.github.iamyours.wandroid.web.WanAndroidWebClient
 import io.github.iamyours.wandroid.web.WebViewClientFactory
+import io.github.iamyours.wandroid.widget.WanWebView
 
 class WebActivity : BaseActivity<ActivityWebBinding>() {
     companion object {
@@ -37,6 +39,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
         get() = R.layout.activity_web
     val link by arg<String>("link")
     val vm by viewModel<WebVM>()
+    var navTitle = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,18 +72,29 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
     private fun initWebView() {
         binding.webView.settings.run {
             javaScriptEnabled = true
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+            }
         }
         binding.webView.run {
             setBackgroundColor(0)
             loadUrl(link)
             webViewClient = WebViewClientFactory.create(url, vm.loaded)
             webChromeClient = object : WebChromeClient() {
-                override fun onReceivedTitle(view: WebView?, title: String?) {
-                    super.onReceivedTitle(view, title)
-                    vm.title.value = title
+                override fun onReceivedTitle(view: WebView?, t: String?) {
+                    super.onReceivedTitle(view, t)
+                    navTitle = t ?: ""
                 }
             }
+
+            scrollListener = object : WanWebView.OnScrollChangedListener {
+                override fun onScroll(dx: Int, dy: Int, oldX: Int, oldY: Int) {
+                    vm.title.value = if (dy < 10) "" else navTitle
+                }
+
+            }
             checkHeightHandler.sendEmptyMessageDelayed(1, 60)
+
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)

@@ -1,6 +1,7 @@
 package io.github.iamyours.wandroid.web
 
 import android.os.Handler
+import android.os.Message
 import android.util.Log
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
@@ -9,24 +10,17 @@ import com.google.gson.Gson
 import com.google.gson.JsonObject
 import okhttp3.*
 import java.io.IOException
+import java.lang.ref.WeakReference
 
 /**
  * 掘金app适配
  */
-class JueJinWebClient(vo: MutableLiveData<Boolean>) : BaseWebViewClient(vo) {
+class JueJinWebClient(url: String, vo: MutableLiveData<Boolean>) :
+    BaseWebViewClient
+        (url, vo) {
     var detailApi = ""
 
-    val script = """
-        javascript:(function(){
-            var arr = document.getElementsByClassName("lazyload");
-            for(var i=0;i<arr.length;i++){
-                var img = arr[i];
-                var src = img.getAttribute("data-src");
-                img.src = src;
 
-            }
-        })();
-    """.trimIndent()
     var load = false
     val handler = Handler()
     val juejinUrl = "https://juejin.im/post/"
@@ -36,11 +30,30 @@ class JueJinWebClient(vo: MutableLiveData<Boolean>) : BaseWebViewClient(vo) {
             if (load) return
             val postId = url?.substring(juejinUrl.length) ?: ""
             detailApi = getDetailApi(postId)
-            handler.postDelayed({
-                view?.loadUrl(script)
-                load = true
-                loadUser(view!!)
-            }, 100)
+            ImageLoaderHandler(view!!).sendEmptyMessageDelayed(1, 60)
+            handler.postDelayed({ loadUser(view!!) }, 150)
+        }
+    }
+
+    class ImageLoaderHandler(webView: WebView) : Handler() {
+        val script = """
+        javascript:(function(){
+            var arr = document.getElementsByClassName("lazyload");
+            for(var i=0;i<arr.length;i++){
+                var img = arr[i];
+                var src = img.getAttribute("data-src");
+                img.src = src;
+            }
+        })();
+    """.trimIndent()
+        var time = 0
+        var webViewRef: WeakReference<WebView>? = WeakReference(webView)
+        override fun handleMessage(msg: Message?) {
+            super.handleMessage(msg)
+            if (time > 5) return
+            time++
+            webViewRef?.get()?.loadUrl(script)
+            sendEmptyMessageDelayed(1, 60)
         }
     }
 

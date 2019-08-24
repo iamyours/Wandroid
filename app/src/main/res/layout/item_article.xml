@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -22,7 +23,7 @@
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{vo.title}"
+                app:html="@{vo.mixedTitle}"
                 android:textSize="16sp"
                 android:textColor="@color/title_color"
                 tools:text="test"
@@ -47,12 +48,12 @@
                     android:layout_height="30dp"
                     android:text="@{vo.superChapterName}"
                     android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="5dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     android:textSize="12sp"
                     android:textColor="@color/text_color"
                     tools:text="tag1"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="10dp"
                     android:background="@drawable/bg_tag"
                     />
 
@@ -61,10 +62,10 @@
                     android:layout_height="30dp"
                     android:text="@{vo.chapterName}"
                     android:gravity="center_vertical"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="8dp"
                     android:textColor="@color/text_color"
-                    android:paddingRight="5dp"
-                    android:layout_marginLeft="5dp"
+                    android:paddingRight="8dp"
+                    android:layout_marginLeft="10dp"
                     tools:text="tag2"
                     android:background="@drawable/bg_tag"
                     android:textSize="12sp"

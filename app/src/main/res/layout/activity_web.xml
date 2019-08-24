@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -15,16 +16,41 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <TextView
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:textColor="@color/title_color"
-                android:textSize="14sp"
-                android:text="@{vm.title}"
-                android:gravity="center"
-                android:lines="1"
-                android:ellipsize="end"
-                />
+                android:layout_height="48dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_back"
+                    app:back="@{true}"
+                    app:tint="@color/tab_text_color"
+                    />
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    android:layout_weight="1"
+                    android:text="@{vm.title}"
+                    android:gravity="center"
+                    tools:text="test"
+                    android:lines="1"
+                    android:ellipsize="end"
+                    android:layout_height="match_parent"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:padding="12dp"
+                    app:tint="@color/tab_text_color"
+                    android:src="@drawable/ic_favour"
+                    app:select="@{vm.collect}"
+                    android:onClick="@{()->vm.collectOrNot()}"
+                    />
+        </LinearLayout>
 
         <View
                 android:layout_width="match_parent"
@@ -36,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <WebView
+            <io.github.iamyours.wandroid.widget.WanWebView
                     android:id="@+id/webView"
                     android:layout_width="match_parent"
                     android:overScrollMode="never"

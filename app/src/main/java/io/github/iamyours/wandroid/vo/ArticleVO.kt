@@ -15,4 +15,15 @@ data class ArticleVO(
     var superChapterId: Int,
     var superChapterName: String,
     var title: String
-)
+) {
+    fun getMixedTitle(): String {
+        return when {
+            link.contains("www.wanandroid.com") -> "【玩】$title"
+            link.contains("www.jianshu.com") -> "【简】$title"
+            link.contains("juejin.im") -> "【掘】$title"
+            link.contains("blog.csdn.net") -> "【CSDN】$title"
+            link.contains("weixin.qq.com") -> "【微】$title"
+            else -> title
+        }
+    }
+}

@@ -1,5 +1,6 @@
 package io.github.iamyours.wandroid.binds
 
+import android.app.Activity
 import android.text.Html
 import android.view.View
 import android.widget.ImageView
@@ -69,6 +70,16 @@ fun bindImage(iv: ImageView, id: Int?) {
 fun bindSelect(v: View, select: Boolean) {
     v.isSelected = select
 }
+
+@BindingAdapter(value = ["back"])
+fun bindBackAction(v: View, select: Boolean) {
+    if (select) {
+        v.setOnClickListener {
+            (v.context as Activity).finish()
+        }
+    }
+}
+
 
 @BindingAdapter(value = ["html"])
 fun bindHtml(tv: TextView, text: String) {

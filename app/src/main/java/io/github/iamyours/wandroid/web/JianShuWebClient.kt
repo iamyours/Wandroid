@@ -13,7 +13,8 @@ import java.util.regex.Pattern
 /**
  * 简书app适配
  */
-class JianShuWebClient(vo: MutableLiveData<Boolean>) : BaseWebViewClient(vo) {
+class JianShuWebClient(url:String,vo: MutableLiveData<Boolean>) :
+BaseWebViewClient(url,vo) {
 //    val script = """
 //        javascript:(function(){
 //            document.getElementsByClassName("switch                                                   -btn")[0].click();
