@@ -11,6 +11,7 @@ import io.github.iamyours.wandroid.base.BaseFragment
 import io.github.iamyours.wandroid.databinding.FragmentArticleBinding
 import io.github.iamyours.wandroid.extension.displayWithUrl
 import io.github.iamyours.wandroid.extension.viewModel
+import io.github.iamyours.wandroid.ui.web.WebActivity
 import io.github.iamyours.wandroid.vo.BannerVO
 
 /**
@@ -40,7 +41,15 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding>() {
                     image.displayWithUrl(model?.imagePath)
                 }
             setAdapter(adapter)
+            setDelegate { _, _, model, _ ->
+                if (model is BannerVO) {
+                    WebActivity.nav(model.url, activity!!)
+                }
+            }
         }
+        vm.banners.observe(this, Observer {
+            binding.banner.setData(it, null)
+        })
     }
 
     private fun initRecyclerView() {

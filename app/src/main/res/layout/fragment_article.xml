@@ -48,7 +48,6 @@
                             android:id="@+id/banner"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            app:data="@{vm.banners}"
                             app:banner_indicatorGravity="bottom|right"
                             app:banner_isNumberIndicator="true"
                             app:banner_pointContainerBackground="#0000"
