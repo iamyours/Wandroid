@@ -30,12 +30,12 @@ class JueJinWebClient(url: String, vo: MutableLiveData<Boolean>) :
             if (load) return
             val postId = url?.substring(juejinUrl.length) ?: ""
             detailApi = getDetailApi(postId)
+            loadUser()
             ImageLoaderHandler(view!!).sendEmptyMessageDelayed(1, 60)
-            handler.postDelayed({ loadUser(view!!) }, 150)
         }
     }
 
-    class ImageLoaderHandler(webView: WebView) : Handler() {
+    inner class ImageLoaderHandler(webView: WebView) : Handler() {
         val script = """
         javascript:(function(){
             var arr = document.getElementsByClassName("lazyload");
@@ -53,11 +53,25 @@ class JueJinWebClient(url: String, vo: MutableLiveData<Boolean>) :
             if (time > 5) return
             time++
             webViewRef?.get()?.loadUrl(script)
+            loadUserScript()
             sendEmptyMessageDelayed(1, 60)
+        }
+
+        fun loadUserScript() {
+            val script = """
+                javascript:(function(){
+                    document.getElementsByClassName("author-info-block")[0].children[0].children[0].style.backgroundImage = "url('$head')";
+                    document.getElementsByClassName("username")[0].innerHTML="$username";
+                })();
+            """.trimIndent()
+            webViewRef?.get()?.loadUrl(script)
         }
     }
 
-    private fun loadUser(webView: WebView) {
+    private var head = ""
+    private var username = ""
+
+    private fun loadUser() {
         val client = OkHttpClient.Builder().build()
         val req = Request.Builder().url(detailApi).build()
         val call = client.newCall(req)
@@ -69,28 +83,16 @@ class JueJinWebClient(url: String, vo: MutableLiveData<Boolean>) :
                 val res = response.body()?.string() ?: "{}"
                 val obj =
                     Gson().fromJson<JsonObject>(res, JsonObject::class.java)
-                updateUser(obj, webView)
+                obj?.getAsJsonObject("d")
+                    ?.getAsJsonObject("user")?.run {
+                        head = get("avatarLarge").asString
+                        username = get("username").asString
+                    }
+
             }
         })
     }
 
-    private fun updateUser(obj: JsonObject?, webView: WebView) {
-        val user = obj?.getAsJsonObject("d")
-            ?.getAsJsonObject("user")
-        user?.run {
-            val head = get("avatarLarge").asString
-            val username = get("username").asString
-            val script = """
-                javascript:(function(){
-                    document.getElementsByClassName("author-info-block")[0].children[0].children[0].style.backgroundImage = "url('$head')";
-                    document.getElementsByClassName("username")[0].innerHTML="$username";
-                })();
-            """.trimIndent()
-            handler.post {
-                webView.loadUrl(script)
-            }
-        }
-    }
 
     private fun getDetailApi(postId: String): String {//头像没有加载，手动调用
         return "https://post-storage-api-ms.juejin" +

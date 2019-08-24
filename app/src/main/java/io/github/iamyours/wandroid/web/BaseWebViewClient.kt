@@ -1,13 +1,16 @@
 package io.github.iamyours.wandroid.web
 
+import android.content.Intent
 import android.net.http.SslError
 import android.util.Log
 import android.webkit.SslErrorHandler
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import io.github.iamyours.wandroid.ui.web.WebActivity
 import io.github.iamyours.wandroid.vo.WebViewVO
+import java.net.URISyntaxException
 
 open class BaseWebViewClient(
     private var originUrl: String, private var vo:
@@ -20,6 +23,24 @@ open class BaseWebViewClient(
     ): Boolean {
         if (url == null) {
             return false
+        }
+        if (url.startsWith("intent")) run {
+            try {
+                val context = view.context
+                val intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME)
+                if (intent.resolveActivity(context.packageManager) != null) {
+                    context.startActivity(intent)
+                } else {
+                    Toast.makeText(
+                        context.applicationContext, "无法打开", Toast
+                            .LENGTH_SHORT
+                    ).show()
+                }
+            } catch (e: URISyntaxException) {
+                e.printStackTrace()
+            }
+
+            return true
         }
         val isHttp = url.startsWith("http://") || url.startsWith("https://")
         val fileName = url.substring(url.lastIndexOf("/"))
