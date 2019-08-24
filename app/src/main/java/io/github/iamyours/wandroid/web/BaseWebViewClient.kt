@@ -16,7 +16,8 @@ open class BaseWebViewClient(private var vo: MutableLiveData<Boolean>) :
             return false
         }
         val isHttp = url.startsWith("http://") || url.startsWith("https://")
-        return if (isHttp) {
+        val isResource = url.contains("/[\\s\\S]*?\\.[\\s\\S]*?$".toRegex())
+        return if (isHttp && !isResource) {
             WebActivity.nav(url, view.context)
             true
         } else

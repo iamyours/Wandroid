@@ -2,9 +2,7 @@ package io.github.iamyours.wandroid.net
 
 import androidx.lifecycle.LiveData
 import io.github.iamyours.wandroid.BuildConfig
-import io.github.iamyours.wandroid.vo.ArticleVO
-import io.github.iamyours.wandroid.vo.BannerVO
-import io.github.iamyours.wandroid.vo.PageVO
+import io.github.iamyours.wandroid.vo.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -56,4 +54,20 @@ interface WanApi {
         @Path("page") page: Int,
         @Query("cid") cid: Int
     ): LiveData<ApiResponse<PageVO<ArticleVO>>>
+
+
+    /**
+     * 项目分类
+     */
+    @GET("project/tree/json")
+    fun projectTree(): LiveData<ApiResponse<List<ProjectCategoryVO>>>
+
+    /**
+     * 项目列表
+     */
+    @GET("project/list/{page}/json")
+    fun projectList(
+        @Path("page") page: Int,
+        @Query("cid") cid: Int
+    ): LiveData<ApiResponse<PageVO<ProjectVO>>>
 }

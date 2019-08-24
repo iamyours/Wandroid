@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{vo.title}"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 android:textColor="@color/title_color"
                 tools:text="test"
                 />

@@ -9,7 +9,7 @@ import com.fastloan.app.ui.adapter.DataBoundViewHolder
 
 open abstract class DataBoundAdapter<T, V : ViewDataBinding> : RecyclerView.Adapter<DataBoundViewHolder<V>>() {
     abstract val layoutId: Int
-    private val mData = ArrayList<T>()
+    protected val mData = ArrayList<T>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):

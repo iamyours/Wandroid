@@ -1,10 +1,13 @@
 package io.github.iamyours.wandroid.ui.web
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebView
@@ -42,6 +45,27 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
         initWebView()
     }
 
+    private var checkHeightHandler = @SuppressLint("HandlerLeak")
+    object : Handler() {
+        override fun handleMessage(msg: Message?) {
+            super.handleMessage(msg)
+            if (vm.loaded.value == true) {
+                return
+            }
+            checkWebHeight()
+            sendEmptyMessageDelayed(1, 60)
+        }
+    }
+
+    private fun checkWebHeight() {//检查内容高度，隐藏加载进度
+        binding.webView.run {
+            if (contentHeight > height) {
+                vm.loaded.value = true
+            }
+        }
+    }
+
+
     private fun initWebView() {
         binding.webView.settings.run {
             javaScriptEnabled = true
@@ -56,6 +80,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                     vm.title.value = title
                 }
             }
+            checkHeightHandler.sendEmptyMessageDelayed(1, 60)
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)

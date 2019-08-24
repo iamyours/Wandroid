@@ -23,7 +23,7 @@ open class BaseViewModel : ViewModel() {
         moreLoading.value = true
     }
 
-    fun refresh() {
+    open fun refresh() {
         page.value = 0
         refreshing.value = true
     }

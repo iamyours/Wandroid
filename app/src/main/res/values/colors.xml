@@ -10,4 +10,5 @@
     <color name="title_color">#c8c8c8</color>
     <color name="text_color">#969696</color>
     <color name="divider">#2f2f2f</color>
+    <color name="category_select_color">#616161</color>
 </resources>

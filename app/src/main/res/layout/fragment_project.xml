@@ -20,7 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:textColor="@color/title_color"
-                android:text="项目"
+                android:text="@{vm.selectCategory.name}"
                 android:textSize="16sp"
                 android:gravity="center"
                 />
@@ -37,7 +37,10 @@
                 android:layout_height="match_parent">
 
             <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="100dp"
+                    android:id="@+id/rvCategory"
+                    tools:listitem="@layout/item_project_category"
+                    android:overScrollMode="never"
+                    android:layout_width="80dp"
                     android:layout_height="match_parent"/>
 
             <com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -59,7 +62,8 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerView"
-                        tools:listitem="@layout/item_qa"
+                        android:overScrollMode="never"
+                        tools:listitem="@layout/item_project"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
 

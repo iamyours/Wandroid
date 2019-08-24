@@ -39,14 +39,16 @@
             <WebView
                     android:id="@+id/webView"
                     android:layout_width="match_parent"
+                    android:overScrollMode="never"
                     android:layout_height="match_parent"/>
 
             <com.github.ybq.android.spinkit.SpinKitView
                     android:id="@+id/spin_kit"
-                    style="@style/SpinKitView.Large.Circle"
+                    style="@style/SpinKitView.RotatingCircle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="120dp"
                     app:gone="@{vm.loaded}"
                     app:SpinKit_Color="@color/text_color"/>
         </FrameLayout>

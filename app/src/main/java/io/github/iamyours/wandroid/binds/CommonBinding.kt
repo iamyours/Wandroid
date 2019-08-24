@@ -1,12 +1,15 @@
 package io.github.iamyours.wandroid.binds
 
+import android.text.Html
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import cn.bingoogolapple.bgabanner.BGABanner
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
+import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.extension.displayWithUrl
 import io.github.iamyours.wandroid.vo.BannerVO
 
@@ -55,5 +58,22 @@ fun bindImage(iv: ImageView, url: String?, radius: Int?) {
         iv.displayWithUrl(url, (radius ?: 1).toFloat())
     }
 }
+
+@BindingAdapter(value = ["imageId"])
+fun bindImage(iv: ImageView, id: Int?) {
+    if (id != null)
+        iv.setImageResource(id)
+}
+
+@BindingAdapter(value = ["select"])
+fun bindSelect(v: View, select: Boolean) {
+    v.isSelected = select
+}
+
+@BindingAdapter(value = ["html"])
+fun bindHtml(tv: TextView, text: String) {
+    tv.text = Html.fromHtml(text)
+}
+
 
 
