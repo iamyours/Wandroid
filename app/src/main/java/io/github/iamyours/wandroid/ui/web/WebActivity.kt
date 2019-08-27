@@ -62,7 +62,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
 
     private fun checkWebHeight() {//检查内容高度，隐藏加载进度
         binding.webView.run {
-            if (contentHeight > height) {
+            if (contentHeight > height / 2) {
                 vm.loaded.value = true
             }
         }

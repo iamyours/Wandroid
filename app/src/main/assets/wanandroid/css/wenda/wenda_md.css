@@ -27,8 +27,9 @@
 
 #wenda_md_container blockquote {
 	margin-left: 0;
-	color: #819198;
-	border-left: .3rem solid #dce6f0;
+	color: #969696;
+	background:#555;
+	border-left: 3px solid #222;
 	font-size: 1em;
 	padding: 3px 0px 3px 8px;
 }
@@ -130,10 +131,11 @@
 
 .code_block blockquote {
 	margin-left: 0;
-	color: #819198;
-	border-left: .3rem solid #dce6f0;
+	color: #969696;
+	background: #555;
+	border-left: 3px solid #222;
 	font-size: 1em;
-	padding: 3px 0px 3px 8px;
+	padding: 8px 0px 8px 8px;
 	margin-bottom: 8px;
 	margin-top: 8px;
 }
