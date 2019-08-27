@@ -70,4 +70,19 @@ interface WanApi {
         @Path("page") page: Int,
         @Query("cid") cid: Int
     ): LiveData<ApiResponse<PageVO<ProjectVO>>>
+
+    /**
+     * 公众号分类
+     */
+    @GET("wxarticle/chapters/json")
+    fun wxChapters(): LiveData<ApiResponse<List<WXChapterVO>>>
+
+    /**
+     * 公众号文章
+     */
+    @GET("wxarticle/list/{id}/{page}/json")
+    fun wxArticlePage(
+        @Path("id") id: Int,
+        @Path("page") page: Int
+    ): LiveData<ApiResponse<PageVO<ArticleVO>>>
 }

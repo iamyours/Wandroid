@@ -11,6 +11,7 @@ import io.github.iamyours.wandroid.databinding.ActivityMainBinding
 import io.github.iamyours.wandroid.ui.home.HomeFragment
 import io.github.iamyours.wandroid.ui.mine.MineFragment
 import io.github.iamyours.wandroid.ui.project.ProjectFragment
+import io.github.iamyours.wandroid.ui.wx.WxArticleFragment
 import io.github.iamyours.wandroid.vo.TabItem
 import kotlinx.android.synthetic.main.view_tab.view.*
 
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity() {
     private val tabs = arrayOf(
         TabItem(R.drawable.tab_home, "首页", HomeFragment::class.java),
         TabItem(R.drawable.tab_project, "项目", ProjectFragment::class.java),
+        TabItem(R.drawable.tab_wx, "公众号", WxArticleFragment::class.java),
         TabItem(R.drawable.tab_mine, "我", MineFragment::class.java)
     )
     private val fragments = ArrayList<Fragment>()
@@ -34,7 +36,11 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onSaveInstanceState(outState: Bundle) {
         fragments.forEach {
-            supportFragmentManager.putFragment(outState, it.javaClass.simpleName, it)
+            supportFragmentManager.putFragment(
+                outState,
+                it.javaClass.simpleName,
+                it
+            )
         }
         super.onSaveInstanceState(outState)
     }
@@ -48,11 +54,14 @@ class MainActivity : AppCompatActivity() {
         }
         val transaction = supportFragmentManager.beginTransaction()
         fragments.forEach {
-            if (!it.isAdded) transaction.add(R.id.fl_content, it, it.javaClass
-                .simpleName).hide(it)
+            if (!it.isAdded) transaction.add(
+                R.id.fl_content, it, it.javaClass
+                    .simpleName
+            ).hide(it)
         }
         transaction.commit()
     }
+
     private fun initTabLayout() {
         binding.tabLayout.run {
             tabs.forEach {

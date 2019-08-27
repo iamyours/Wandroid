@@ -17,10 +17,18 @@ open class BaseViewModel : ViewModel() {
     val refreshing = MutableLiveData<Boolean>()
     val moreLoading = MutableLiveData<Boolean>()
     val hasMore = MutableLiveData<Boolean>()
+    val autoRefresh = MutableLiveData<Boolean>()
 
     fun loadMore() {
         page.value = (page.value ?: 0) + 1
         moreLoading.value = true
+    }
+
+    /**
+     * 自动刷新
+     */
+    fun autoRefresh() {
+        autoRefresh.value = true
     }
 
     open fun refresh() {
@@ -38,5 +46,10 @@ open class BaseViewModel : ViewModel() {
             hasMore.value = !(it?.data?.over ?: false)
             it.data
         }
+    }
+
+    open fun loadData() {
+        refreshTrigger.value = true
+        loading.value = true
     }
 }

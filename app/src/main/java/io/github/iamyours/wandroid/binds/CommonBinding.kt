@@ -31,6 +31,16 @@ fun bindSmartRefreshLayout(
 }
 
 @BindingAdapter(
+    value = ["autoRefresh"]
+)
+fun bindSmartRefreshLayout(
+    smartLayout: SmartRefreshLayout,
+    autoRefresh: Boolean
+) {
+    if (autoRefresh) smartLayout.autoRefresh()
+}
+
+@BindingAdapter(
     value = ["onRefreshListener", "onLoadMoreListener"],
     requireAll = false
 )
@@ -65,6 +75,7 @@ fun bindImage(iv: ImageView, id: Int?) {
     if (id != null)
         iv.setImageResource(id)
 }
+
 
 @BindingAdapter(value = ["select"])
 fun bindSelect(v: View, select: Boolean) {

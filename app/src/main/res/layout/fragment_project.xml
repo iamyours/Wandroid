@@ -50,6 +50,7 @@
                     app:refreshing="@{vm.refreshing}"
                     app:moreLoading="@{vm.moreLoading}"
                     app:hasMore="@{vm.hasMore}"
+                    app:autoRefresh="@{vm.autoRefresh}"
                     android:background="@color/bg_dark"
                     app:onLoadMoreListener="@{()->vm.loadMore()}"
                     android:layout_height="match_parent">

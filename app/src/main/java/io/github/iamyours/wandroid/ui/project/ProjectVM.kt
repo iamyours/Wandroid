@@ -27,7 +27,7 @@ class ProjectVM : BaseViewModel() {
     init {
         selectCategory.observeForever {
             //每次选择重新刷新数据
-            page.value = 1
+            autoRefresh()
         }
     }
 
@@ -40,7 +40,7 @@ class ProjectVM : BaseViewModel() {
     /**
      * 首次加载
      */
-    fun loadData() {
+    override fun loadData() {
         refreshTrigger.value = true
     }
 

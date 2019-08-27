@@ -8,9 +8,7 @@
 ### 项目架构
 - 基于mvvm模式开发
 - 网络层使用[LiveData+Retrofit](https://www.jianshu.com/p/34fb6ffaa684)，剔除RxJava
-- 使用DataBinding展示数据，自定义属性，事件[CommonBinding](https://github
-.com/iamyours/Wandroid/blob/master/app/src/main/java/io/github/iamyours/wandroid
-/binds/CommonBinding.kt)，简化数据交互
+- 使用DataBinding展示数据，自定义属性，事件[CommonBinding](https://github.com/iamyours/Wandroid/blob/master/app/src/main/java/io/github/iamyours/wandroid/binds/CommonBinding.kt)，简化数据交互
 - 自定义WebViewClient，适配简书，掘金，wanandroid手机端，注入css,js适配文章暗黑模式
 
 ### 效果
