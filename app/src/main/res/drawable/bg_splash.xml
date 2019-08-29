@@ -1,0 +1,11 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+        >
+    <!-- The background color, preferably the same as your normal theme -->
+    <item android:drawable="@color/bg_dark"/>
+    <!-- Your product logo - 144dp color version of your app icon -->
+    <item>
+        <bitmap
+                android:src="@drawable/ic_launcher"
+                android:gravity="center_horizontal|bottom"/>
+    </item>
+</layer-list>
