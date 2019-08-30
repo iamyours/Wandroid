@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+                name="vm"
+                type="io.github.iamyours.wandroid.ui.login.LoginVM"/>
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:src="@drawable/ic_close"
+                app:tint="@color/text_color"
+                android:padding="14dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="10dp"
+                />
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_margin="16dp"
+                android:layout_height="wrap_content">
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="用户名"
+                    android:lines="1"
+                    android:text="@={vm.username}"
+                    android:textColor="@color/title_color"
+                    android:textColorHint="@color/text_color"
+                    />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_height="wrap_content">
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="密码"
+                    android:textColorHighlight="@color/tab_select_color"
+                    android:lines="1"
+                    android:inputType="textPassword"
+                    android:text="@={vm.password}"
+                    android:textColor="@color/title_color"
+                    android:textColorHint="@color/text_color"
+                    />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:text="登 录"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:textColor="#333"
+                android:onClick="@{()->vm.login()}"
+                android:textColorHighlight="@color/tab_select_color"
+                android:layout_margin="30dp"
+                android:background="@drawable/bg_button"
+                />
+    </LinearLayout>
+</layout>

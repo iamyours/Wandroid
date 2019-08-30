@@ -7,6 +7,20 @@
         <item name="colorPrimaryDark">@color/bg_dark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/bg_dark</item>
+        <item name="android:textColorHint">@color/text_color</item>
+        <item name="colorControlNormal">@color/text_color</item>
+        <item name="colorControlActivated">@color/tab_select_color</item>
+        <item name="colorControlHighlight">@color/tab_select_color</item>
     </style>
 
+    <style name="TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/title_color</item>
+        <item name="android:textSize">14sp</item>
+        <item name="colorControlNormal">@color/text_color</item>
+
+        //added attributes
+        <item name="colorControlActivated">@color/tab_select_color</item>
+        <item name="colorControlHighlight">@color/tab_select_color</item>
+
+    </style>
 </resources>

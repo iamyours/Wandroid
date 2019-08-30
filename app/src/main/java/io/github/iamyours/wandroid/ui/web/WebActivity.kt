@@ -13,6 +13,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import io.github.iamyours.wandroid.BuildConfig
 import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.base.BaseActivity
@@ -21,8 +22,10 @@ import io.github.iamyours.wandroid.extension.arg
 import io.github.iamyours.wandroid.extension.viewModel
 import io.github.iamyours.wandroid.vo.WebViewVO
 import io.github.iamyours.wandroid.web.WanAndroidWebClient
+import io.github.iamyours.wandroid.web.WanObject
 import io.github.iamyours.wandroid.web.WebViewClientFactory
 import io.github.iamyours.wandroid.widget.WanWebView
+import kotlinx.android.synthetic.main.activity_web.*
 
 class WebActivity : BaseActivity<ActivityWebBinding>() {
     companion object {
@@ -86,7 +89,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                     navTitle = t ?: ""
                 }
             }
-
+            addJavascriptInterface(WanObject(this@WebActivity), "android")
             scrollListener = object : WanWebView.OnScrollChangedListener {
                 override fun onScroll(dx: Int, dy: Int, oldX: Int, oldY: Int) {
                     vm.title.value = if (dy < 10) "" else navTitle
@@ -99,6 +102,29 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
         }
+        if (link!!.contains(WebViewClientFactory.WAN_ANDROID)) {
+            vm.loaded.observe(this, Observer {
+                webView.loadUrl(script)
+            })
+        }
     }
 
+    /**
+     * 问答点赞功能
+     */
+    private val script = """
+        javascript:(function(){
+            console.log(">>>>>>>>>>>>>>>>>>>>>");
+            $(".zan_show").unbind();
+            $(".zan_show").click(function(){
+                var reg = /loginUserName=/g;
+                var cookie = document.cookie;
+                if(reg.test(cookie)){
+
+                }else{
+                    android.toLogin();
+                }
+            });
+        })();
+    """.trimIndent()
 }

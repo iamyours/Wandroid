@@ -1,13 +1,19 @@
 package io.github.iamyours.wandroid.net
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import io.github.iamyours.wandroid.BuildConfig
+import io.github.iamyours.wandroid.util.SP
 import io.github.iamyours.wandroid.vo.*
+import okhttp3.Cookie
+import okhttp3.CookieJar
+import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
@@ -22,6 +28,18 @@ interface WanApi {
                 loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
                 clientBuilder.addInterceptor(loggingInterceptor)
             }
+            clientBuilder.cookieJar(object : CookieJar {
+                override fun saveFromResponse(
+                    url: HttpUrl,
+                    cookies: MutableList<Cookie>
+                ) {
+                    SP.saveCookies(cookies)
+                }
+
+                override fun loadForRequest(url: HttpUrl): MutableList<Cookie> {
+                    return SP.getCookies()
+                }
+            })
             return Retrofit.Builder()
                 .baseUrl("https://www.wanandroid.com/")
                 .client(clientBuilder.build())
@@ -85,4 +103,13 @@ interface WanApi {
         @Path("id") id: Int,
         @Path("page") page: Int
     ): LiveData<ApiResponse<PageVO<ArticleVO>>>
+
+    /**
+     * 登录
+     */
+    @POST("user/login")
+    fun login(
+        @Query("username") username: String,
+        @Query("password") password: String
+    ): LiveData<ApiResponse<LoginUserVO>>
 }

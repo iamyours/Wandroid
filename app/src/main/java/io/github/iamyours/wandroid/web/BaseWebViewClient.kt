@@ -13,7 +13,7 @@ import io.github.iamyours.wandroid.vo.WebViewVO
 import java.net.URISyntaxException
 
 open class BaseWebViewClient(
-    private var originUrl: String, private var vo:
+    protected var originUrl: String, private var vo:
     MutableLiveData<Boolean>
 ) :
     WebViewClient() {

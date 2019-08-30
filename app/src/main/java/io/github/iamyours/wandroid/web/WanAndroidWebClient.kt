@@ -8,8 +8,8 @@ import androidx.lifecycle.MutableLiveData
 /**
  * 适配WanAndroid网站手机端
  */
-class WanAndroidWebClient(url:String,vo: MutableLiveData<Boolean>) :
-BaseWebViewClient(url,vo) {
+class WanAndroidWebClient(url: String, vo: MutableLiveData<Boolean>) :
+    BaseWebViewClient(url, vo) {
     private val articleByAuthor =
         "https://www.wanandroid.com/article/list/0?author="
     private val articleByCapter =
@@ -19,6 +19,8 @@ BaseWebViewClient(url,vo) {
         "blog/default.css", "pc/common.css",
         "pc/header.css", "wenda/wenda_md.css", "m/common.css"
     )
+
+
 
     override fun shouldInterceptRequest(view: WebView?, url: String?)
             : WebResourceResponse? {
@@ -32,5 +34,4 @@ BaseWebViewClient(url,vo) {
         }
         return super.shouldInterceptRequest(view, url)
     }
-
 }

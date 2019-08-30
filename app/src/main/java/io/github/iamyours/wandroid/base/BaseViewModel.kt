@@ -52,4 +52,13 @@ open class BaseViewModel : ViewModel() {
         refreshTrigger.value = true
         loading.value = true
     }
+
+    /**
+     * 绑定登录状态
+     */
+    fun attachLoading(otherState: MutableLiveData<Boolean>) {
+        loading.observeForever {
+            otherState.value = it
+        }
+    }
 }
