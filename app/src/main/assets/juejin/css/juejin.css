@@ -17,6 +17,16 @@ margin-right:8px;}
 font-size:12px;
 color:#9AA0A6;
 }
+.article-banner{display:none;}
+.books-recommend{display:none;}
+.footer-author-block{display:none;}
+.action-box{display:none;}
+.sidebar{display:none;}
+.article-suspended-panel{display:none;}
+.image-viewer-box{display:none;}
+.open-in-app{display:none;}
+.tag-list-box{display:none;}
+.comment-list-box{display:none;}
 .article-title{font-size:22px;color:#c8c8c8;}
 h1{font-size:22px;}
 h2{font-size:20px;}
