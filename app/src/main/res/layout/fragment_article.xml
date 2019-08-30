@@ -50,6 +50,7 @@
                             android:layout_height="match_parent"
                             app:banner_indicatorGravity="bottom|right"
                             app:banner_isNumberIndicator="true"
+                            app:data="@{vm.banners}"
                             app:banner_pointContainerBackground="#0000"
                             app:banner_transitionEffect="zoom"/>
 

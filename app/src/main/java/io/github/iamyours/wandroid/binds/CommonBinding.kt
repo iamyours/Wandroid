@@ -59,8 +59,10 @@ fun bindGone(v: View, gone: Boolean) {
 }
 
 @BindingAdapter(value = ["data"])
-fun bindBanner(banner: BGABanner, data: List<BannerVO>?) {
-    banner.setData(data, null)
+fun bindBanner(banner: BGABanner, data: List<Any>?) {
+    data?.run {
+        banner.setData(this, null)
+    }
 }
 
 @BindingAdapter(value = ["url", "radius"])

@@ -47,9 +47,9 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding>() {
                 }
             }
         }
-        vm.banners.observe(this, Observer {
-            binding.banner.setData(it, null)
-        })
+//        vm.banners.observe(this, Observer {//改用databinding
+//            binding.banner.setData(it, null)
+//        })
     }
 
     private fun initRecyclerView() {
