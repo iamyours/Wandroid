@@ -33,6 +33,13 @@ h2{font-size:20px;}
 h3{font-size:18px;}
 h4{font-size:16px;}
 a{text-decoration:none;}
+.article-content{word-break: break-word}
+.article-content table{display:inline-block!important;font-size:1rem;width:auto;max-width:100%;overflow:auto;border:1px solid #555;}
+.article-content thead{background:#333;color:#969696;text-align:left}
+.article-content tr:nth-child(2n){background-color:#555}
+.article-content td,.article-content th{padding:5px;min-width:80px;max-width:120px;}
+.article-content td{min-width:80px;max-width:120px;}
+tr{}
 .views-count{margin-left:8px;}
 .hljs {
 	display: block;
