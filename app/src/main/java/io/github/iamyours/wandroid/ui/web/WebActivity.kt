@@ -104,7 +104,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
         }
         if (link!!.contains(WebViewClientFactory.WAN_ANDROID)) {
             vm.loaded.observe(this, Observer {
-                webView.loadUrl(script)
+                webView.loadUrl(getScript())
             })
         }
     }
@@ -112,7 +112,9 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
     /**
      * 问答点赞功能
      */
-    private val script = """
+    private fun getScript(): String {
+        val id = link!!.substring(link!!.lastIndexOf("/") + 1)
+        return """
         javascript:(function(){
             console.log(">>>>>>>>>>>>>>>>>>>>>");
             $(".zan_show").unbind();
@@ -120,11 +122,15 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                 var reg = /loginUserName=/g;
                 var cookie = document.cookie;
                 if(reg.test(cookie)){
-
+                    var cid = $(this).attr("cid");
+    		        var isZan = $(this).attr("is_zan");
+                    ajaxZan(cid,"$id",isZan != 1);
                 }else{
                     android.toLogin();
                 }
             });
         })();
     """.trimIndent()
+    }
+
 }
