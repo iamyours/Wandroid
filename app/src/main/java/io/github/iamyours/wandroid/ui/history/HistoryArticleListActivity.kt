@@ -5,7 +5,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import io.github.iamyours.router.annotation.Route
 import io.github.iamyours.wandroid.R
-import io.github.iamyours.wandroid.adapter.QaAdapter
+import io.github.iamyours.wandroid.adapter.HistoryArticleAdapter
 import io.github.iamyours.wandroid.base.BaseActivity
 import io.github.iamyours.wandroid.databinding.ActivityHistoryArticleListBinding
 import io.github.iamyours.wandroid.extension.viewModel
@@ -16,7 +16,7 @@ class HistoryArticleListActivity :
     override val layoutId: Int
         get() = R.layout.activity_history_article_list
     val vm by viewModel<HistoryVM>()
-    val adapter = QaAdapter()
+    val adapter = HistoryArticleAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
