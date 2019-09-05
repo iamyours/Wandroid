@@ -20,5 +20,4 @@ open abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
         loadingState.observe(this, LoadingObserver(this))
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
-
 }

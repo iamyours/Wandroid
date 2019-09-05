@@ -1,8 +1,13 @@
 package io.github.iamyours.wandroid.vo
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import io.github.iamyours.wandroid.R
 
+@Entity
 data class ArticleVO(
+    @PrimaryKey
     var id: Int,
     var author: String,
     var chapterId: Int,
@@ -16,8 +21,18 @@ data class ArticleVO(
     var publishTime: Long,
     var superChapterId: Int,
     var superChapterName: String,
-    var title: String
+    var title: String,
+    var envelopePic: String,
+    @Ignore
+    var read: Boolean
 ) {
+
+
+    constructor() : this(
+        -1, "", -1, "",
+        false, false, -1, "", "", "", 0L, -1, "",
+        "", "", false
+    )
 
     fun getFixedTitle(): String {//空出5个空格，用于显示logo
         return "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$title"
@@ -33,4 +48,5 @@ data class ArticleVO(
             else -> R.drawable.ic_logo_other
         }
     }
+
 }

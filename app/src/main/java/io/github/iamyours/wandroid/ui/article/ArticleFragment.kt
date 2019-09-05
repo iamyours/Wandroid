@@ -30,6 +30,7 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding>() {
         binding.vm = vm
         binding.executePendingBindings()
         binding.refreshLayout.autoRefresh()
+
     }
 
     private fun initBanner() {

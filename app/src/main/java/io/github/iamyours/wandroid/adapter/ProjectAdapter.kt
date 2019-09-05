@@ -3,12 +3,12 @@ package io.github.iamyours.wandroid.adapter
 import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.databinding.ItemProjectBinding
 import io.github.iamyours.wandroid.ui.web.WebActivity
-import io.github.iamyours.wandroid.vo.ProjectVO
+import io.github.iamyours.wandroid.vo.ArticleVO
 
-class ProjectAdapter : DataBoundAdapter<ProjectVO, ItemProjectBinding>() {
+class ProjectAdapter : DataBoundAdapter<ArticleVO, ItemProjectBinding>() {
     override fun initView(
         binding: ItemProjectBinding,
-        item: ProjectVO
+        item: ArticleVO
     ) {
         binding.vo = item
         binding.root.setOnClickListener {

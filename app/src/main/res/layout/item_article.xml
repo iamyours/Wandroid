@@ -29,8 +29,9 @@
                     android:layout_height="wrap_content"
                     app:html="@{vo.fixedTitle}"
                     android:textSize="16dp"
-                    android:textColor="@color/title_color"
+                    android:textColor="@color/article_title_color"
                     tools:text="     test"
+                    app:select="@{vo.read}"
                     />
 
             <ImageView

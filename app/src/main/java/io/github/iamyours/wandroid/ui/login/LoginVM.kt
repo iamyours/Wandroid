@@ -15,8 +15,14 @@ class LoginVM : BaseViewModel() {
         it.data
     }
 
+    val close = MutableLiveData<Boolean>()
+
     fun login() {
         refreshTrigger.value = true
         loading.value = true
+    }
+
+    fun closeAction() {
+        close.value = true
     }
 }

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Wandroid</string>
+    <string name="login">登陆</string>
+    <string name="logout">退出登陆</string>
 </resources>

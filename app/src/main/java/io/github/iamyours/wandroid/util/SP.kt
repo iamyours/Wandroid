@@ -45,20 +45,22 @@ object SP {
 
     fun saveCookies(cookies: List<Cookie>) {
         val editor = getCookieSpref().edit()
-        var domain = "www.wanandroid.com"
+        val domain = "www.wanandroid.com"
         val cookie = StringBuilder()
+        val cookieManager = CookieManager.getInstance()
+        cookieManager.setAcceptCookie(true)
         cookies.forEach {
             editor.putString(it.name(), it.value())
             cookie.append(it.name()).append("=").append(it.value()).append(";")
+            cookieManager.setCookie(it.domain(), "${it.name()}=${it.value()}")
         }
         editor.apply()
         SP.put(KEY_DOMAIN, domain)
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             CookieSyncManager.createInstance(App.instance)
         }
-        val cookieManager = CookieManager.getInstance()
-        cookieManager.setCookie(domain, cookie.toString())
-        cookieManager.setAcceptCookie(true)
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             cookieManager.flush()
         }
@@ -79,5 +81,22 @@ object SP {
                 )
             }
         }
+    }
+
+    fun logout() {
+        val cookieManager = CookieManager.getInstance()
+        cookieManager.setAcceptCookie(true)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.removeSessionCookies(null)
+            cookieManager.removeAllCookie()
+            cookieManager.flush()
+        } else {
+            cookieManager.removeSessionCookie()
+            cookieManager.removeAllCookie()
+            CookieSyncManager.getInstance().sync()
+        }
+        SP.put(KEY_IS_LOGIN, false)
+        SP.put(KEY_NICK_NAME, "")
+        SP.put(KEY_USER_NAME, "")
     }
 }

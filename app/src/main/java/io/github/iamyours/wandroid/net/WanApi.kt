@@ -33,7 +33,12 @@ interface WanApi {
                     url: HttpUrl,
                     cookies: MutableList<Cookie>
                 ) {
-                    SP.saveCookies(cookies)
+                    if (url.toString().startsWith(
+                            "https://www.wanandroid.com/user/login?"
+                        )
+                    ) {
+                        SP.saveCookies(cookies)
+                    }
                 }
 
                 override fun loadForRequest(url: HttpUrl): MutableList<Cookie> {
@@ -87,7 +92,7 @@ interface WanApi {
     fun projectList(
         @Path("page") page: Int,
         @Query("cid") cid: Int
-    ): LiveData<ApiResponse<PageVO<ProjectVO>>>
+    ): LiveData<ApiResponse<PageVO<ArticleVO>>>
 
     /**
      * 公众号分类
@@ -112,4 +117,10 @@ interface WanApi {
         @Query("username") username: String,
         @Query("password") password: String
     ): LiveData<ApiResponse<LoginUserVO>>
+
+    /**
+     * 用户信息（积分/排名等）
+     */
+    @GET("lg/coin/userinfo/json")
+    fun userInfo(): LiveData<ApiResponse<UserInfoVO>>
 }
