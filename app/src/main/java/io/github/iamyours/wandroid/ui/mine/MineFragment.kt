@@ -20,7 +20,10 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
         vm.toLogin.observe(this, Observer {
             loginAction()
         })
-
+        vm.toCollect.observe(this, Observer {
+            ARouter.getInstance().build("/history")
+                .navigation(activity)
+        })
     }
 
     private fun loginAction() {

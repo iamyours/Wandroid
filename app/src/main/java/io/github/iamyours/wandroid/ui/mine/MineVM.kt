@@ -46,10 +46,10 @@ class MineVM : BaseViewModel() {
     }
 
     fun isNotLogin(): Boolean {
-        return if (isLogin.value == true) true
+        return if (isLogin.value == true) false
         else {
             toLogin.value = true
-            false
+            true
         }
     }
 
@@ -62,12 +62,12 @@ class MineVM : BaseViewModel() {
         isLogin.value = false
     }
 
-    fun toCollect() {
+    fun toCollectAction() {
         if (isNotLogin()) return
         toCollect.value = true
     }
 
-    fun toHistory() {
+    fun toHistoryAction() {
         if (isNotLogin()) return
         toHistory.value = true
     }

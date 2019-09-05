@@ -21,6 +21,7 @@
         </activity>
         <activity android:name=".ui.web.WebActivity"/>
         <activity android:name=".ui.login.LoginActivity"/>
+        <activity android:name=".ui.history.HistoryArticleListActivity"/>
     </application>
 
 </manifest>
