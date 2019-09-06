@@ -7,7 +7,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.fastloan.app.ui.adapter.DataBoundViewHolder
 
-open abstract class DataBoundAdapter<T, V : ViewDataBinding> : RecyclerView.Adapter<DataBoundViewHolder<V>>() {
+open abstract class DataBoundAdapter<T, V : ViewDataBinding> :
+    RecyclerView.Adapter<DataBoundViewHolder<V>>() {
     abstract val layoutId: Int
     protected val mData = ArrayList<T>()
 
@@ -28,7 +29,10 @@ open abstract class DataBoundAdapter<T, V : ViewDataBinding> : RecyclerView.Adap
         return mData.size
     }
 
-    override fun onBindViewHolder(holder: DataBoundViewHolder<V>, position: Int) {
+    override fun onBindViewHolder(
+        holder: DataBoundViewHolder<V>,
+        position: Int
+    ) {
         initView(holder.binding, mData[position])
         holder.binding.executePendingBindings()//必须调用，否则闪屏
     }
@@ -39,5 +43,9 @@ open abstract class DataBoundAdapter<T, V : ViewDataBinding> : RecyclerView.Adap
         if (isFirst) mData.clear()
         mData.addAll(list)
         notifyDataSetChanged()
+    }
+
+    fun getData(): List<T> {
+        return mData
     }
 }

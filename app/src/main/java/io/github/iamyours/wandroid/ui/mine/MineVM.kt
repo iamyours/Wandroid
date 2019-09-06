@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import io.github.iamyours.wandroid.base.BaseViewModel
 import io.github.iamyours.wandroid.util.AbsentLiveData
+import io.github.iamyours.wandroid.util.LiveDataBus
 import io.github.iamyours.wandroid.util.SP
 
 class MineVM : BaseViewModel() {
@@ -60,6 +61,7 @@ class MineVM : BaseViewModel() {
     fun logout() {
         SP.logout()
         isLogin.value = false
+        LiveDataBus.username.postValue("")
     }
 
     fun toCollectAction() {

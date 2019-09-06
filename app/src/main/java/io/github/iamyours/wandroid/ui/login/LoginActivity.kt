@@ -8,6 +8,7 @@ import io.github.iamyours.wandroid.base.BaseActivity
 import io.github.iamyours.wandroid.databinding.ActivityLoginBinding
 import io.github.iamyours.wandroid.extension.viewModel
 import io.github.iamyours.wandroid.util.Constants
+import io.github.iamyours.wandroid.util.LiveDataBus
 import io.github.iamyours.wandroid.util.SP
 
 @Route(path = "/login")
@@ -27,6 +28,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
                 SP.put(SP.KEY_NICK_NAME, nickname)
                 SP.put(SP.KEY_USER_NAME, username)
                 setResult(Constants.RESULT_LOGIN)
+                LiveDataBus.username.postValue(username)
                 finish()
             }
         })

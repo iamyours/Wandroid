@@ -7,11 +7,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import cn.bingoogolapple.bgabanner.BGABanner
 import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.adapter.ArticleAdapter
+import io.github.iamyours.wandroid.base.BaseActivity
 import io.github.iamyours.wandroid.base.BaseFragment
 import io.github.iamyours.wandroid.databinding.FragmentArticleBinding
+import io.github.iamyours.wandroid.db.AppDataBase
 import io.github.iamyours.wandroid.extension.displayWithUrl
 import io.github.iamyours.wandroid.extension.viewModel
 import io.github.iamyours.wandroid.ui.web.WebActivity
+import io.github.iamyours.wandroid.util.LiveDataBus
 import io.github.iamyours.wandroid.vo.BannerVO
 
 /**
@@ -48,9 +51,7 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding>() {
                 }
             }
         }
-//        vm.banners.observe(this, Observer {//改用databinding
-//            binding.banner.setData(it, null)
-//        })
+        //登录状态变化
     }
 
     private fun initRecyclerView() {
