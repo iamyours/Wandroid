@@ -2,7 +2,7 @@ package io.github.iamyours.wandroid.adapter
 
 import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.databinding.ItemWxArticleBinding
-import io.github.iamyours.wandroid.ui.web.WebActivity
+import io.github.iamyours.wandroid.util.RouterUtil
 import io.github.iamyours.wandroid.vo.ArticleVO
 
 class WxArticleAdapter :
@@ -10,7 +10,7 @@ class WxArticleAdapter :
     override fun initView(binding: ItemWxArticleBinding, item: ArticleVO) {
         binding.vo = item
         binding.root.setOnClickListener {
-            WebActivity.nav(item.link, it.context)
+            RouterUtil.navWeb(item,it.context)
         }
     }
 

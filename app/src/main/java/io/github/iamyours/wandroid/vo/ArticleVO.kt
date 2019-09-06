@@ -1,5 +1,6 @@
 package io.github.iamyours.wandroid.vo
 
+import android.text.TextUtils
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
@@ -24,14 +25,16 @@ data class ArticleVO(
     var title: String,
     var envelopePic: String,
     @Ignore
-    var read: Boolean
+    var read: Boolean,
+    @Ignore
+    var originId: Int
 ) {
 
 
     constructor() : this(
         -1, "", -1, "",
         false, false, -1, "", "", "", 0L, -1, "",
-        "", "", false
+        "", "", false, -1
     )
 
     fun getFixedTitle(): String {//空出5个空格，用于显示logo
@@ -49,4 +52,7 @@ data class ArticleVO(
         }
     }
 
+    fun getSuperEmpty(): Boolean {
+        return TextUtils.isEmpty(superChapterName)
+    }
 }

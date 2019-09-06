@@ -7,12 +7,11 @@
 
         <variable
                 name="vm"
-                type="io.github.iamyours.wandroid.ui.web.WebVM"/>
+                type="io.github.iamyours.wandroid.ui.collect.CollectVM"/>
     </data>
 
     <LinearLayout
             android:orientation="vertical"
-            android:background="@color/bg_dark"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -34,9 +33,8 @@
                     android:textColor="@color/title_color"
                     android:textSize="16sp"
                     android:layout_weight="1"
-                    android:text="@{vm.title}"
+                    android:text="收藏的文章"
                     android:gravity="center"
-                    tools:text="test"
                     android:lines="1"
                     android:ellipsize="end"
                     android:layout_height="match_parent"/>
@@ -44,12 +42,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="48dp"
                     android:layout_height="match_parent"
-                    android:padding="12dp"
-                    app:tint="@color/tab_text_color"
-                    android:src="@drawable/ic_favour"
-                    app:select="@{vm.collect}"
-                    android:onClick="@{()->vm.collectOrNot()}"
-                    app:gone="@{vm.articleId==0}"
+
                     />
         </LinearLayout>
 
@@ -59,26 +52,37 @@
                 android:background="@color/divider"
                 />
 
-        <FrameLayout
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refreshLayout"
                 android:layout_width="match_parent"
+                app:onRefreshListener="@{()->vm.refresh()}"
+                app:refreshing="@{vm.refreshing}"
+                app:moreLoading="@{vm.moreLoading}"
+                app:hasMore="@{vm.hasMore}"
+                app:autoRefresh="@{vm.autoRefresh}"
+                android:background="@color/bg_dark"
+                app:onLoadMoreListener="@{()->vm.loadMore()}"
                 android:layout_height="match_parent">
 
-            <io.github.iamyours.wandroid.widget.WanWebView
-                    android:id="@+id/webView"
+            <com.scwang.smartrefresh.layout.header.ClassicsHeader
                     android:layout_width="match_parent"
+                    app:srlAccentColor="@color/text_color"
+                    app:srlPrimaryColor="@color/bg_dark"
+                    android:layout_height="wrap_content"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
                     android:overScrollMode="never"
+                    tools:listitem="@layout/item_qa"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
 
-            <com.github.ybq.android.spinkit.SpinKitView
-                    android:id="@+id/spin_kit"
-                    style="@style/SpinKitView.RotatingCircle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="120dp"
-                    app:gone="@{vm.loaded}"
-                    app:SpinKit_Color="@color/text_color"/>
-        </FrameLayout>
+            <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                    android:layout_width="match_parent"
+                    app:srlAccentColor="@color/text_color"
+                    app:srlPrimaryColor="@color/bg_dark"
+                    android:layout_height="wrap_content"/>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     </LinearLayout>
 </layout>

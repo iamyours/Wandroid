@@ -3,7 +3,7 @@ package io.github.iamyours.wandroid.adapter
 import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.databinding.ItemArticleBinding
 import io.github.iamyours.wandroid.db.AppDataBase
-import io.github.iamyours.wandroid.ui.web.WebActivity
+import io.github.iamyours.wandroid.util.RouterUtil
 import io.github.iamyours.wandroid.util.SP
 import io.github.iamyours.wandroid.vo.ArticleVO
 import io.github.iamyours.wandroid.vo.HistoryArticleVO
@@ -20,7 +20,7 @@ class ArticleAdapter : DataBoundAdapter<ArticleVO, ItemArticleBinding>() {
             dao.addHistory(history)
             item.read = true
             notifyDataSetChanged()
-            WebActivity.nav(item.link, it.context)
+            RouterUtil.navWeb(item,it.context)
         }
     }
 

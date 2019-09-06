@@ -14,12 +14,14 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import io.github.iamyours.router.annotation.Route
 import io.github.iamyours.wandroid.BuildConfig
 import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.base.BaseActivity
 import io.github.iamyours.wandroid.databinding.ActivityWebBinding
 import io.github.iamyours.wandroid.extension.arg
 import io.github.iamyours.wandroid.extension.viewModel
+import io.github.iamyours.wandroid.util.Constants
 import io.github.iamyours.wandroid.vo.WebViewVO
 import io.github.iamyours.wandroid.web.WanAndroidWebClient
 import io.github.iamyours.wandroid.web.WanObject
@@ -27,6 +29,7 @@ import io.github.iamyours.wandroid.web.WebViewClientFactory
 import io.github.iamyours.wandroid.widget.WanWebView
 import kotlinx.android.synthetic.main.activity_web.*
 
+@Route(path = "/web")
 class WebActivity : BaseActivity<ActivityWebBinding>() {
     companion object {
         fun nav(link: String, context: Context) {
@@ -41,7 +44,11 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
     override val layoutId: Int
         get() = R.layout.activity_web
     val link by arg<String>("link")
-    val vm by viewModel<WebVM>()
+
+    val vm by viewModel<WebVM> {
+        collect.value = intent.getBooleanExtra("collect", false)
+        articleId.value = intent.getIntExtra("articleId", 0)
+    }
     var navTitle = ""
 
 
@@ -49,6 +56,12 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
         super.onCreate(savedInstanceState)
         binding.vm = vm
         initWebView()
+        vm.attachLoading(loadingState)
+        vm.collect.observe(this, Observer {
+            val data = Intent()
+            data.putExtra("collect", vm.collect.value ?: false)
+            setResult(Constants.RESULT_COLLECT_CHANGED, data)
+        })
     }
 
     private var checkHeightHandler = @SuppressLint("HandlerLeak")

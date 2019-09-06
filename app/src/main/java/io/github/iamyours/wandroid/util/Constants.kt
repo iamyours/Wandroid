@@ -4,6 +4,7 @@ import io.github.iamyours.wandroid.R
 
 object Constants {
     val RESULT_LOGIN = 200
+    val RESULT_COLLECT_CHANGED = 201
 
     val categoryIcons = arrayOf(
         R.drawable.ic_category0,

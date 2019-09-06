@@ -1,6 +1,5 @@
 package io.github.iamyours.wandroid.net
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import io.github.iamyours.wandroid.BuildConfig
 import io.github.iamyours.wandroid.util.SP
@@ -123,4 +122,22 @@ interface WanApi {
      */
     @GET("lg/coin/userinfo/json")
     fun userInfo(): LiveData<ApiResponse<UserInfoVO>>
+
+    /**
+     * 收藏
+     */
+    @POST("lg/collect/{id}/json")
+    fun collect(@Path("id") articleId: Int): LiveData<ApiResponse<String>>
+
+    /**
+     * 取消收藏
+     */
+    @POST("lg/uncollect_originId/{id}/json")
+    fun uncollect(@Path("id") articleId: Int): LiveData<ApiResponse<String>>
+
+    /**
+     * 收藏文章分页列表
+     */
+    @GET("lg/collect/list/{page}/json")
+    fun collectPage(@Path("page") page: Int): LiveData<ApiResponse<PageVO<ArticleVO>>>
 }

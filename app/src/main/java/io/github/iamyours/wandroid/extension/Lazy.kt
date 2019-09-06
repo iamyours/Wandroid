@@ -22,9 +22,13 @@ inline fun <reified T : ViewModel> Fragment.viewModel() =
  * 相同类型使用多个的情况下
  */
 @JvmOverloads
-inline fun <reified T : ViewModel> Fragment.viewModel(key: Int? = null, crossinline block: T.() -> Unit) =
+inline fun <reified T : ViewModel> Fragment.viewModel(
+    key: Int? = null,
+    crossinline block: T.() -> Unit
+) =
     lazy {
-        ViewModelProviders.of(this).get(key.toString(), T::class.java).apply(block)
+        ViewModelProviders.of(this).get(key.toString(), T::class.java)
+            .apply(block)
     }
 
 /**
@@ -36,6 +40,7 @@ inline fun <reified T> Activity.arg(key: String) =
             String::class.java -> intent.getStringExtra(key)
             Int::class.java -> intent.getIntExtra(key, 0)
             Float::class.java -> intent.getFloatExtra(key, 0f)
+            Boolean::class.java -> intent.getBooleanExtra(key, false)
             else -> (intent.getParcelableExtra(key) as Parcelable)
         }
         ret as T?
