@@ -14,6 +14,7 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import io.github.iamyours.router.ARouter
 import io.github.iamyours.router.annotation.Route
 import io.github.iamyours.wandroid.BuildConfig
 import io.github.iamyours.wandroid.R
@@ -61,6 +62,15 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
             val data = Intent()
             data.putExtra("collect", vm.collect.value ?: false)
             setResult(Constants.RESULT_COLLECT_CHANGED, data)
+        })
+        vm.toLogin.observe(this, Observer {
+            ARouter.getInstance()
+                .build("/login")
+                .navigation(this) { _, resultCode, _ ->
+                    if (resultCode == Constants.RESULT_LOGIN) {
+                        vm.isLogin.value = true
+                    }
+                }
         })
     }
 

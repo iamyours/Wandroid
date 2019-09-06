@@ -36,6 +36,7 @@ class WebVM : BaseViewModel() {
     }
 
     fun collectOrNot() {
+        if (isNotLogin()) return
         val state = !(collect.value ?: false)
         refreshTrigger.value = state
         loading.value = true

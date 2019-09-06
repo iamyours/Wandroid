@@ -9,20 +9,12 @@ import io.github.iamyours.wandroid.util.LiveDataBus
 import io.github.iamyours.wandroid.util.SP
 
 class MineVM : BaseViewModel() {
-    //跳转登录
-    val toLogin = MutableLiveData<Boolean>()
+
     //跳转收藏
     val toCollect = MutableLiveData<Boolean>()
     //跳转阅读历史
     val toHistory = MutableLiveData<Boolean>()
 
-    val isLogin = MutableLiveData<Boolean>()
-
-    val name = Transformations.map(isLogin) {
-        val username = SP.getString(SP.KEY_USER_NAME)
-        val nickname = SP.getString(SP.KEY_NICK_NAME)
-        if (TextUtils.isEmpty(nickname)) username else nickname
-    }
 
     private val _userInfo = Transformations.switchMap(isLogin) {
         if (it) {
@@ -44,15 +36,10 @@ class MineVM : BaseViewModel() {
             //登录成功，加载进度获取个人信息
             if (it) loading.value = true
         }
+
     }
 
-    fun isNotLogin(): Boolean {
-        return if (isLogin.value == true) false
-        else {
-            toLogin.value = true
-            true
-        }
-    }
+
 
     fun login() {
         isNotLogin()
