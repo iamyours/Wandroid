@@ -3,6 +3,7 @@ package io.github.iamyours.wandroid.ui.home
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
+import io.github.iamyours.router.ARouter
 import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.base.BaseFragment
 import io.github.iamyours.wandroid.databinding.FragmentHomeBinding
@@ -18,6 +19,9 @@ class HomeFragment :
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initViewPager()
+        binding.ivSearch.setOnClickListener {
+            ARouter.getInstance().build("/search").navigation(activity)
+        }
     }
 
     private fun initViewPager() {

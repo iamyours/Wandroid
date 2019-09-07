@@ -20,4 +20,8 @@ class SearchVM : BaseViewModel() {
     fun search() {
         autoRefresh()
     }
+
+    fun cancel() {
+        keyword.value = ""
+    }
 }

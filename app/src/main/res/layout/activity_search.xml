@@ -29,6 +29,7 @@
                     android:textColor="@color/text_color"
                     android:layout_alignParentRight="true"
                     android:text="取消"
+                    android:onClick="@{()->vm.cancel()}"
                     app:gone="@{vm.empty}"
                     />
 
@@ -67,6 +68,7 @@
                 android:layout_height="1px"
                 android:background="@color/divider"
                 />
+
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
                 android:id="@+id/refreshLayout"
                 android:layout_width="match_parent"

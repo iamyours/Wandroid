@@ -23,6 +23,7 @@
         <activity android:name=".ui.login.LoginActivity"/>
         <activity android:name=".ui.history.HistoryArticleListActivity"/>
         <activity android:name=".ui.collect.CollectListActivity"/>
+        <activity android:name=".ui.search.SearchActivity"/>
     </application>
 
 </manifest>

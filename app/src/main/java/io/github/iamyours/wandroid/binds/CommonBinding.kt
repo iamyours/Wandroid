@@ -57,10 +57,10 @@ fun bindListener(
 }
 
 @BindingAdapter(value = ["searchAction"])
-fun bindSearch(et: EditText, onClickListener: OnClickListener) {
+fun bindSearch(et: EditText, onClickListener: () -> Unit) {
     et.setOnEditorActionListener { v, actionId, event ->
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-            onClickListener.onClick(et)
+            onClickListener()
         }
         true
     }
