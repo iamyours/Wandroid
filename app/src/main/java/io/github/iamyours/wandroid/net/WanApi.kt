@@ -140,4 +140,13 @@ interface WanApi {
      */
     @GET("lg/collect/list/{page}/json")
     fun collectPage(@Path("page") page: Int): LiveData<ApiResponse<PageVO<ArticleVO>>>
+
+    /**
+     * 搜索
+     */
+    @GET("article/query/{page}/json")
+    fun searchArticlePage(
+        @Path("page") page: Int,
+        @Query("k") keyword: String
+    ): LiveData<ApiResponse<PageVO<ArticleVO>>>
 }

@@ -3,6 +3,8 @@ package io.github.iamyours.wandroid.binds
 import android.app.Activity
 import android.text.Html
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -12,6 +14,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.extension.displayWithUrl
+import io.github.iamyours.wandroid.generated.callback.OnClickListener
 import io.github.iamyours.wandroid.vo.BannerVO
 
 @BindingAdapter(
@@ -51,6 +54,16 @@ fun bindListener(
 ) {
     smartLayout.setOnRefreshListener(refreshListener)
     smartLayout.setOnLoadMoreListener(loadMoreListener)
+}
+
+@BindingAdapter(value = ["searchAction"])
+fun bindSearch(et: EditText, onClickListener: OnClickListener) {
+    et.setOnEditorActionListener { v, actionId, event ->
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            onClickListener.onClick(et)
+        }
+        true
+    }
 }
 
 @BindingAdapter(value = ["gone"])
