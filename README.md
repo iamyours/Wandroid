@@ -1,6 +1,6 @@
 ### 暗黑系WanAndroid客户端
 - 首款全暗黑系玩Android APP
-- 适配wanandroid 每日一问，手机看答案，体验升级
+- 适配wanandroid 每日一问，手机看答案，cookie同步，手机点赞实现，体验升级
 - 适配简书文章，去广告，无需手动折叠打开
 - 适配掘金文章，去header/footer，关注内容本身
 - 适配CSDN文章
@@ -8,6 +8,7 @@
 
 ### 项目架构
 - 基于mvvm模式开发
+- Room数据库
 - 网络层使用[LiveData+Retrofit](https://www.jianshu.com/p/34fb6ffaa684)，剔除RxJava
 - 使用DataBinding展示数据，自定义属性，事件[CommonBinding](https://github.com/iamyours/Wandroid/blob/master/app/src/main/java/io/github/iamyours/wandroid/binds/CommonBinding.kt)，简化数据交互
 - 自定义WebViewClient，适配简书，掘金，wanandroid手机端，注入css,js适配文章暗黑模式
