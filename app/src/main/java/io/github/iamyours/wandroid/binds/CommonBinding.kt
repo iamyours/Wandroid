@@ -14,6 +14,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.extension.displayWithUrl
+import io.github.iamyours.wandroid.extension.hideKeyboard
 import io.github.iamyours.wandroid.generated.callback.OnClickListener
 import io.github.iamyours.wandroid.vo.BannerVO
 
@@ -57,10 +58,11 @@ fun bindListener(
 }
 
 @BindingAdapter(value = ["searchAction"])
-fun bindSearch(et: EditText, onClickListener: () -> Unit) {
+fun bindSearch(et: EditText, callback: () -> Unit) {
     et.setOnEditorActionListener { v, actionId, event ->
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-            onClickListener()
+            callback()
+            et.hideKeyboard()
         }
         true
     }

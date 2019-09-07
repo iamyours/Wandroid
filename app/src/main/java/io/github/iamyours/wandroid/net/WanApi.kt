@@ -144,7 +144,7 @@ interface WanApi {
     /**
      * 搜索
      */
-    @GET("article/query/{page}/json")
+    @POST("article/query/{page}/json")
     fun searchArticlePage(
         @Path("page") page: Int,
         @Query("k") keyword: String

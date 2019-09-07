@@ -29,8 +29,7 @@
                     android:textColor="@color/text_color"
                     android:layout_alignParentRight="true"
                     android:text="取消"
-                    android:onClick="@{()->vm.cancel()}"
-                    app:gone="@{vm.empty}"
+                    app:back="@{true}"
                     />
 
             <EditText
@@ -39,6 +38,7 @@
                     android:layout_toLeftOf="@id/tv_cancel"
                     android:lines="1"
                     android:layout_marginRight="10dp"
+                    android:inputType="text"
                     android:paddingLeft="40dp"
                     android:hint="搜索关键词以空格隔开"
                     android:layout_centerVertical="true"
@@ -76,6 +76,7 @@
                 app:refreshing="@{vm.refreshing}"
                 app:moreLoading="@{vm.moreLoading}"
                 app:hasMore="@{vm.hasMore}"
+                app:autoRefresh="@{vm.autoRefresh}"
                 android:background="@color/bg_dark"
                 app:onLoadMoreListener="@{()->vm.loadMore()}"
                 android:layout_height="match_parent">
