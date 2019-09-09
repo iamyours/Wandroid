@@ -30,7 +30,7 @@
 使用`ViewModel`+`DataBinding`解藕业务逻辑。
 
 ### 相关文章整理
-[MVVM模式封装实践](https://juejin.im/post/5d764e54e51d4561d044cd4b)
-[LiveData+Retrofit网络请求实战](https://juejin.im/post/5d56497f518825107c565d88)
-[基于Transform实现更高效的组件化路由框架](https://juejin.im/post/5cf35bde6fb9a07ed440e99a)
-[打造一个简易版ARouter框架](https://juejin.im/post/5cecce216fb9a07f04202904)
+- [MVVM模式封装实践](https://juejin.im/post/5d764e54e51d4561d044cd4b)
+- [LiveData+Retrofit网络请求实战](https://juejin.im/post/5d56497f518825107c565d88)
+- [基于Transform实现更高效的组件化路由框架](https://juejin.im/post/5cf35bde6fb9a07ed440e99a)
+- [打造一个简易版ARouter框架](https://juejin.im/post/5cecce216fb9a07f04202904)
