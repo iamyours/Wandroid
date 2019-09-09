@@ -20,7 +20,7 @@ open class BaseViewModel : ViewModel() {
     val refreshing = MutableLiveData<Boolean>()
     val moreLoading = MutableLiveData<Boolean>()
     val hasMore = MutableLiveData<Boolean>()
-    val autoRefresh = MutableLiveData<Boolean>()
+    val autoRefresh = MutableLiveData<Boolean>()//SmartRefreshLayout自动刷新标记
 
     /*
     * 登录相关
