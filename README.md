@@ -9,6 +9,8 @@
 
 ### 项目地址
 [https://github.com/iamyours/Wandroid](https://github.com/iamyours/Wandroid)
+[下载地址](https://github.com/iamyours/Wandroid/releases/download/v1.0.0/wanandroid-v1.0.0.apk)
+[版本历史](https://github.com/iamyours/Wandroid/releases)
 
 ### 效果图
 #### 掘金/简书/CSDN
