@@ -37,7 +37,8 @@
   **[] $VALUES;
   public *;
 }
-
+-keep class okhttp3.internal.publicsuffix.PublicSuffixDatabase
+-keepnames class okhttp3.internal.publicsuffix.PublicSuffixDatabas
 
 -optimizationpasses 5
 -dontusemixedcaseclassnames
