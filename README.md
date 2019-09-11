@@ -9,7 +9,7 @@
 
 ### 项目地址
 [https://github.com/iamyours/Wandroid](https://github.com/iamyours/Wandroid)<br/>
-[下载地址](https://github.com/iamyours/Wandroid/releases/download/v1.0.0/wanandroid-v1.0.0.apk)<br/>
+[下载地址v1.0.0](https://github.com/iamyours/Wandroid/releases/download/v1.0.0/wanandroid-v1.0.0.apk)<br/>
 [历史版本](https://github.com/iamyours/Wandroid/releases)<br/>
 
 ### 效果图
