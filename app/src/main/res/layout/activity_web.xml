@@ -49,7 +49,7 @@
                     android:src="@drawable/ic_favour"
                     app:select="@{vm.collect}"
                     android:onClick="@{()->vm.collectOrNot()}"
-                    app:gone="@{vm.articleId==0}"
+                    app:invisible="@{vm.articleId==0}"
                     />
         </LinearLayout>
 
