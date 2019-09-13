@@ -3,10 +3,9 @@ package io.github.iamyours.wandroid
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
+import io.github.iamyours.wandroid.base.BaseActivity
 import io.github.iamyours.wandroid.databinding.ActivityMainBinding
 import io.github.iamyours.wandroid.ui.home.HomeFragment
 import io.github.iamyours.wandroid.ui.mine.MineFragment
@@ -15,8 +14,9 @@ import io.github.iamyours.wandroid.ui.wx.WxArticleFragment
 import io.github.iamyours.wandroid.vo.TabItem
 import kotlinx.android.synthetic.main.view_tab.view.*
 
-class MainActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+class MainActivity : BaseActivity<ActivityMainBinding>() {
+    override val layoutId: Int
+        get() = R.layout.activity_main
     private val tabs = arrayOf(
         TabItem(R.drawable.tab_home, "首页", HomeFragment::class.java),
         TabItem(R.drawable.tab_project, "项目", ProjectFragment::class.java),
@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
     private val fragments = ArrayList<Fragment>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         initFragments()
         initTabLayout()
     }

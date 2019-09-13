@@ -31,7 +31,7 @@ fun bindSmartRefreshLayout(
 ) {
     if (!refreshing) smartLayout.finishRefresh()
     if (!moreLoading) smartLayout.finishLoadMore()
-    smartLayout.setEnableLoadMore(hasMore)
+    smartLayout.setNoMoreData(!hasMore)
 }
 
 @BindingAdapter(
