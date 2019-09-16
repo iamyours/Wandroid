@@ -75,7 +75,7 @@ open class BaseViewModel : ViewModel() {
             refreshing.value = false
             moreLoading.value = false
             hasMore.value = !(it?.data?.over ?: false)
-            it.data
+            it.data ?: PageVO(1, ArrayList(), 0, true, 1, 20, 0)
         }
     }
 

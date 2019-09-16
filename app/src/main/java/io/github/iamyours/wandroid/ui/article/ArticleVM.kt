@@ -18,7 +18,7 @@ class ArticleVM : BaseViewModel() {
     val _articlePage = mapPage(articleList)
 
     val articlePage = Transformations.map(_articlePage) {
-        it.datas.forEach { a ->
+        it?.datas?.forEach { a ->
             a.read = dao.isRead(username, a.id)
         }
         it

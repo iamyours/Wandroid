@@ -23,13 +23,14 @@ class WxArticleFragment : BaseFragment<FragmentWxArticleBinding>() {
         binding.vm = vm
         binding.executePendingBindings()
         vm.chapters.observe(this, Observer {
-            Log.e("test","$it")
+            Log.e("test", "$it")
             initViewPager(it)
         })
         vm.loadData()
     }
 
     private fun initViewPager(chapters: List<WXChapterVO>) {
+        if (chapters.isEmpty()) return
         val titles = arrayOfNulls<String>(chapters.size)
         chapters.forEachIndexed { index, vo ->
             titles[index] = vo.name
