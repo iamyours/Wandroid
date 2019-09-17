@@ -28,11 +28,13 @@
 ![Android群英传](https://github.com/iamyours/Wandroid/raw/master/screen/wx-qunyingzhuan.gif)
 
 ### 项目架构
-整个项目使用MVVM架构，数据库使用Room，网络使用[LiveData+Retrofit](https://juejin.im/post/5d56497f518825107c565d88),路由为[SimpleRouter](https://github.com/iamyours/SimpleRouter)
-使用`ViewModel`+`DataBinding`解藕业务逻辑。
+MVVM+Room实现<br/>
+网络使用[LiveData+Retrofit](https://juejin.im/post/5d56497f518825107c565d88)(无RxJava),<br/>
+路由为[SimpleRouter](https://github.com/iamyours/SimpleRouter)（基于Transform实现，无反射，回调解藕）<br/>
+使用`ViewModel`+`DataBinding`解藕业务逻辑。<br/>
 
 ### 相关文章整理
-- [MVVM模式封装实践](https://juejin.im/post/5d764e54e51d4561d044cd4b)
-- [LiveData+Retrofit网络请求实战](https://juejin.im/post/5d56497f518825107c565d88)
-- [基于Transform实现更高效的组件化路由框架](https://juejin.im/post/5cf35bde6fb9a07ed440e99a)
-- [打造一个简易版ARouter框架](https://juejin.im/post/5cecce216fb9a07f04202904)
+- [MVVM模式封装实践](https://juejin.im/post/5d764e54e51d4561d044cd4b)<br/>
+- [LiveData+Retrofit网络请求实战](https://juejin.im/post/5d56497f518825107c565d88)<br/>
+- [基于Transform实现更高效的组件化路由框架](https://juejin.im/post/5cf35bde6fb9a07ed440e99a)<br/>
+- [打造一个简易版ARouter框架](https://juejin.im/post/5cecce216fb9a07f04202904)<br/>
