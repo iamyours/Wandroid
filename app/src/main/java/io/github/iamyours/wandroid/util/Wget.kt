@@ -1,25 +1,12 @@
 package io.github.iamyours.wandroid.util
 
-import okhttp3.Cookie
-import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import java.net.URL
 
 object Wget {
     fun get(url: String): String {
         val client = OkHttpClient.Builder()
             .build()
-//        val httpUrl = HttpUrl.get(URL(url))!!
-//        val list = client.cookieJar().loadForRequest(httpUrl)
-//        val cookie = Cookie.Builder()
-//            .name("read_mode").value("night")
-//            .domain(httpUrl.host()).build()
-//        try {
-//            list.add(cookie)
-//            client.cookieJar().saveFromResponse(httpUrl, list)
-//        } catch (e: Exception) {
-//        }
         val request = Request.Builder()
             .url(url)
             .header(

@@ -15,22 +15,6 @@ import java.util.regex.Pattern
  */
 class JianShuWebClient(url:String,vo: MutableLiveData<Boolean>) :
 BaseWebViewClient(url,vo) {
-//    val script = """
-//        javascript:(function(){
-//            document.getElementsByClassName("switch                                                   -btn")[0].click();
-//        })();
-//    """
-//    var load = false
-//
-//    override fun onPageFinished(view: WebView, url: String) {
-//        super.onPageFinished(view, url)
-//        if (load) return
-//        if (url.startsWith("https://www.jianshu.com/p/")) {
-//            Log.i("jianshu", "loadScript:$script")
-//            view.loadUrl(script)
-//            load = true
-//        }
-//    }
 
     override fun shouldInterceptRequest(view: WebView?, url: String?)
             : WebResourceResponse? {
