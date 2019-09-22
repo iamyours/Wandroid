@@ -30,7 +30,7 @@ BaseWebViewClient(url,vo) {
     }
 
     private val rex = "(<style data-vue-ssr-id=[\\s\\S]*?>)([\\s\\S]*]?)(<\\/style>)"
-    private val bodyRex = "<body class=\"([\\ss\\S]*?)\""
+    private val bodyRex = "<body class=\"([\\s\\S]*?)\""
     private fun darkBody(res: String): String {
         val pattern = Pattern.compile(bodyRex)
         val m = pattern.matcher(res)
