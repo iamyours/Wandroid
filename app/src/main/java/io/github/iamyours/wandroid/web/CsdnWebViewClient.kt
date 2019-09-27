@@ -26,6 +26,13 @@ class CsdnWebViewClient(url: String, vo: MutableLiveData<Boolean>) :
                     view!!.context.assets.open("csdn/md.css")
                 return WebResourceResponse("text/css", "utf-8", stream)
             }
+            if (urlStr.startsWith("https://csdnimg.cn/release/phoenix/template")) {
+                if (urlStr.contains("wap_detail_view") && urlStr.endsWith(".css")) {
+                    val stream =
+                        view!!.context.assets.open("csdn/wap_detail_view.css")
+                    return WebResourceResponse("text/css", "utf-8", stream)
+                }
+            }
         }
 
         return super.shouldInterceptRequest(view, url)
