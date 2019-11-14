@@ -7,7 +7,7 @@ class WanRepository {
   static Future<PageVO<ArticleVO>> articlePage(int page) async {
     var res = await HttpManager.get("article/list/$page/json", {});
     var data = res["data"];
-    var list = data["datas"].map((item) => ArticleVO.fromJson(item));
+    var list = data["datas"].map<ArticleVO>((item) => ArticleVO.fromJson(item)).toList();
     return PageVO(data["curPage"], list, data["offset"], data["over"], data["pageCount"], data["size"], data["total"]);
   }
 }

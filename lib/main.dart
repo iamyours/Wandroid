@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'utils/image_helper.dart';
 import 'utils/my_colors.dart';
 import 'pages/home_page.dart';
+import 'utils/status_util.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: MyColors.textColor
       ),
       home: _Main(),
     );
@@ -40,6 +41,7 @@ class _MainState extends State<_Main> {
 
   @override
   Widget build(BuildContext context) {
+    StatusUtil.setColor(false, MyColors.bgDark);
     return Scaffold(
       backgroundColor: MyColors.bgDark,
       body: PageView.builder(controller: _controller, itemBuilder: (ctx, index) => pages[index]),

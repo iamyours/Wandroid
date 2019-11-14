@@ -6,11 +6,12 @@ part of 'article_vo.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ArticleVO _$ArticleVOFromJson(Map<String, dynamic> json) {
+ArticleVO _$ArticleVOFromJson(Map<dynamic, dynamic> json) {
   return $checkedNew('ArticleVO', json, () {
     final val = ArticleVO();
     $checkedConvert(json, 'id', (v) => val.id = v as int);
     $checkedConvert(json, 'author', (v) => val.author = v as String);
+    $checkedConvert(json, 'shareUser', (v) => val.shareUser = v as String);
     $checkedConvert(json, 'chapterId', (v) => val.chapterId = v as int);
     $checkedConvert(json, 'chapterName', (v) => val.chapterName = v as String);
     $checkedConvert(json, 'collect', (v) => val.collect = v as bool);
@@ -26,7 +27,6 @@ ArticleVO _$ArticleVOFromJson(Map<String, dynamic> json) {
         json, 'superChapterName', (v) => val.superChapterName = v as String);
     $checkedConvert(json, 'title', (v) => val.title = v as String);
     $checkedConvert(json, 'envelopePic', (v) => val.envelopePic = v as String);
-    $checkedConvert(json, 'read', (v) => val.read = v as bool);
     $checkedConvert(json, 'originId', (v) => val.originId = v as int);
     return val;
   });
