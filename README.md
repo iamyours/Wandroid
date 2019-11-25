@@ -12,6 +12,10 @@
 [下载地址v1.0.0](https://github.com/iamyours/Wandroid/releases/download/v1.0.0/wanandroid-v1.0.0.apk)<br/>
 [历史版本](https://github.com/iamyours/Wandroid/releases)<br/>
 
+### Flutter版本
+[https://github.com/iamyours/flutter_wandroid](https://github.com/iamyours/flutter_wandroid)
+- [WebView](https://github.com/iamyours/webview_flutter)基于官方`webview_flutter`改造，添加支持`加载离线资源`，`进度监听`等功能
+
 ### 效果图
 #### 掘金/简书/CSDN
 ![掘金](https://github.com/iamyours/Wandroid/raw/master/screen/juejin.gif)
