@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import io.github.iamyours.wandroid.observer.LoadingObserver
 import io.github.iamyours.wandroid.ui.login.LoginActivity
+import io.github.iamyours.wandroid.util.Constants
+import io.github.iamyours.wandroid.util.FileUtil
 
 class WanObject(var context: Context) {
     val loading = MutableLiveData<Boolean>()
@@ -34,5 +36,25 @@ class WanObject(var context: Context) {
     fun toLogin() {
         val intent = Intent(context, LoginActivity::class.java)
         context.startActivity(intent)
+    }
+
+    /**
+     * 离线保存html
+     */
+    @JavascriptInterface
+    fun saveHtml(url: String, html: String) {
+        loading.postValue(true)
+        Constants.IO.execute {
+            FileUtil.saveHtml(url, html)
+            loading.postValue(false)
+        }
+    }
+
+    /**
+     * 显示图片
+     */
+    @JavascriptInterface
+    fun showImage(url: String) {
+
     }
 }

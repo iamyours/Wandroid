@@ -8,6 +8,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import io.github.iamyours.wandroid.extension.logE
 import io.github.iamyours.wandroid.ui.web.WebActivity
 import io.github.iamyours.wandroid.vo.WebViewVO
 import java.net.URISyntaxException
@@ -21,6 +22,7 @@ open class BaseWebViewClient(
         view: WebView,
         url: String?
     ): Boolean {
+        "shouldOverrideUrlLoading：$url".logE()
         if (url == null) {
             return false
         }

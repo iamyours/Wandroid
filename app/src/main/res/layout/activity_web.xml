@@ -46,10 +46,8 @@
                     android:layout_height="match_parent"
                     android:padding="12dp"
                     app:tint="@color/tab_text_color"
-                    android:src="@drawable/ic_favour"
-                    app:select="@{vm.collect}"
-                    android:onClick="@{()->vm.collectOrNot()}"
-                    app:invisible="@{vm.articleId==0}"
+                    app:srcCompat="@drawable/ic_more"
+                    android:onClick="@{()->vm.showMore()}"
                     />
         </LinearLayout>
 

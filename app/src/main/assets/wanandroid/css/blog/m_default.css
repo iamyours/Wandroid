@@ -1,0 +1,125 @@
+@CHARSET "UTF-8";
+
+#blogDetail {
+
+  padding: 0 0 20px;
+}
+#blogDetail div.blog_header{border-bottom:0px solid #dedede;padding:10px 0;}
+#blogDetail h1.blog_title{font-size: 26px;}
+#blogDetail *{word-wrap:break-word;word-break:break-all;}
+#blogDetail pre{overflow: auto;}
+
+/*回复*/
+#blogDetail .comment_content .commnet_title{margin: 60px 0 30px;border-bottom:1px solid #2f2f2f;padding: 10px 0;font-size: 16px;font-weight: bold;}
+#blogDetail .comment_content .comment_item{border-bottom: 1px solid #2f2f2f;margin-top: 10px;padding-bottom: 10px;}
+#blogDetail .comment_content .last{border-bottom: none;}
+#blogDetail .comment_content .user_info span{color:#3498db;font-size: 14px;font-weight: bold;}
+#blogDetail .comment_content .user_info span.time{color:#c8c8c8;font-size: 12px;font-weight: normal;}
+#blogDetail .comment_content .user_comment{margin: 10px 0 0;}
+#blogDetail .comment_content .user_comment p{margin:0;line-height: 20px;}
+#blogDetail .comment_content .answer_list{margin: 5px 0 0 10px;background-color: #282b2e;border-radius: 3px;padding: 3px;}
+#blogDetail .comment_content .answer_list span{color:#767676;font-size: 12px;}
+#blogDetail .comment_content .answer_list span.answer_user{color:#3498db;}
+#blogDetail .comment_content .answer_list span.time{color:#c8c8c8;}
+#blogDetail .comment_content .answer_list span.comment_by{font-style: italic;}
+#blogDetail .comment_content .answer_list p{margin: 0;font-size: 12px;}
+
+#blogDetail .comment_content h1, #blogDetail .comment_content h2,#blogDetail .comment_content h3,#blogDetail .comment_content h4,
+#blogDetail .comment_content h5,#blogDetail .comment_content h6{margin: 10px 0;font-size: 20px;}
+#blogDetail .comment_content h2{font-size: 18px;}
+#blogDetail .comment_content h3{font-size: 16px;}
+#blogDetail .comment_content h4{font-size: 14px;}
+#blogDetail .comment_content h5{font-size: 12px;}
+#blogDetail .comment_content h6{font-size: 10px;}
+
+/*回答代码块*/
+#blogDetail .comment_content .hljs {
+  color: #333;
+  background-color: #282b2e;
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  font-size: 12px !important;
+}
+#blogDetail .comment_content .hljs-params
+{
+  color: #ec6b17;
+  font-weight: normal;
+}
+.hljs {
+  color: #a9b7c6!important;
+  background: #282b2e;
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  font-size: 12px !important;
+}
+#blogDetail .hljs *{font-size: 12px;}
+.hljs-params
+{
+  color: #ff9823;
+}
+.hljs-number,
+.hljs-literal,
+.hljs-symbol,
+.hljs-bullet {
+  color: #AE87FA;
+}
+
+.hljs-function,
+.hljs-built_in,
+.hljs-name,
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-deletion {
+  color: #f82375;
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link {
+  color: #629755;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #808080;
+}
+
+.hljs-meta {
+  color: #5bdaed;
+}
+
+.hljs-string,
+.hljs-attribute,
+.hljs-addition {
+  color: #eedc70;
+}
+
+.hljs-attr,
+.hljs-section,
+.hljs-title,
+.hljs-type {
+  color: #a5da2d;
+}
+
+.hljs-selector-class
+{
+   color: #a5da2d;
+}
+
+.hljs-name,
+.hljs-selector-id
+{
+  color: #f92672;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+

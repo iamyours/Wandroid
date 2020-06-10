@@ -10,6 +10,7 @@ class WebVM : BaseViewModel() {
     val title = MutableLiveData<String>()
     val collect = MutableLiveData<Boolean>()
     val articleId = MutableLiveData<Int>()
+    val showMore = MutableLiveData<Boolean>()
 
     /**
      * 收藏接口
@@ -40,5 +41,9 @@ class WebVM : BaseViewModel() {
         val state = !(collect.value ?: false)
         refreshTrigger.value = state
         loading.value = true
+    }
+
+    fun showMore() {
+        showMore.value = true
     }
 }

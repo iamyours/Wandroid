@@ -1,10 +1,11 @@
 package io.github.iamyours.wandroid.web
 
 import android.content.Context
-import android.util.Log
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import androidx.lifecycle.MutableLiveData
+import io.github.iamyours.wandroid.extension.logE
+import io.github.iamyours.wandroid.util.FileUtil
 import io.github.iamyours.wandroid.util.StringUtil
 import io.github.iamyours.wandroid.util.Wget
 import java.io.ByteArrayInputStream
@@ -13,23 +14,49 @@ import java.util.regex.Pattern
 /**
  * 简书app适配
  */
-class JianShuWebClient(url:String,vo: MutableLiveData<Boolean>) :
-BaseWebViewClient(url,vo) {
+class JianShuWebClient(url: String, vo: MutableLiveData<Boolean>) :
+    BaseWebViewClient(url, vo) {
 
     override fun shouldInterceptRequest(view: WebView?, url: String?)
             : WebResourceResponse? {
-        Log.i("jianshu", "url:$url")
         val urlStr = url ?: ""
         if (urlStr.startsWith("https://www.jianshu.com/p/")) {
-            val response = Wget.get(url ?: "")
-            val res = darkBody(replaceCss(response, view!!.context))
+            val cache = FileUtil.getHtml(originUrl)
+            val response = cache ?: Wget.get(url ?: "")
+            val res = cache ?: darkBody(replaceCss(response, view!!.context))
             val input = ByteArrayInputStream(res.toByteArray())
             return WebResourceResponse("text/html", "utf-8", input)
         }
         return super.shouldInterceptRequest(view, url)
     }
 
-    private val rex = "(<style data-vue-ssr-id=[\\s\\S]*?>)([\\s\\S]*]?)(<\\/style>)"
+    override fun onPageFinished(view: WebView?, url: String?) {
+        super.onPageFinished(view, url)
+        val script =
+            """javascript:(function(){
+                            console.log("script......"+document.body.getBoundingClientRect);
+                            var t1 = 0;
+                            var t2 = 0;
+                            var timer = null;
+                            var loadImage = function(){
+                                    var imgs = document.getElementsByTagName("img");
+                                    for(var i=0;i<imgs.length;i++){
+                                        var image = imgs[i];
+                                        if(image.dataset){
+                                            if(image.className && image.className == "user-avatar")continue;
+                                            image.src = "https:"+image.dataset.originalSrc;
+                                            image.classList.remove("image-loading");
+                                        }
+                                    }
+                            };
+                            loadImage();
+                        })();
+                    """.trimIndent()
+        view?.loadUrl(script)
+    }
+
+    private val rex =
+        "(<style data-vue-ssr-id=[\\s\\S]*?>)([\\s\\S]*]?)(<\\/style>)"
     private val bodyRex = "<body class=\"([\\s\\S]*?)\""
     private fun darkBody(res: String): String {
         val pattern = Pattern.compile(bodyRex)
@@ -44,13 +71,13 @@ BaseWebViewClient(url,vo) {
         val pattern = Pattern.compile(rex)
         val m = pattern.matcher(res)
         return if (m.find()) {
-            val css = StringUtil.getString(context.assets.open("jianshu/jianshu.css"))
+            val css =
+                StringUtil.getString(context.assets.open("jianshu/jianshu.css"))
             val sb = StringBuilder()
             sb.append(m.group(1))
             sb.append(css)
             sb.append(m.group(3))
             val res = res.replace(rex.toRegex(), sb.toString())
-            Log.e("test", "$res")
             res
         } else {
             res

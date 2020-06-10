@@ -23,4 +23,17 @@
         <item name="colorControlHighlight">@color/tab_select_color</item>
 
     </style>
+    <style name="BottomDialogsAnimation">
+        <item name="android:windowEnterAnimation">@anim/sheet_show</item>
+        <item name="android:windowExitAnimation">@anim/sheet_hide</item>
+    </style>
+    <style name="BottomDialogs" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.4</item>
+        <item name="android:windowAnimationStyle">@style/BottomDialogsAnimation</item>
+    </style>
 </resources>

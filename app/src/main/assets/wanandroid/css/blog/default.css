@@ -74,14 +74,14 @@
 #blogDetail p strong{font-weight: bold;}
 #blogDetail p em{font-style: italic;}
 #blogDetail p strong em{font-weight: bold;}
-#blogDetail p code{word-wrap: break-word;padding: 3px 4px;border-radius: 4px;margin: 0px 2px;color: #c7254e;background: #282828;font-size: 14px;}
+#blogDetail p code{word-wrap: break-word;padding: 3px 4px;border-radius: 4px;margin: 0px 2px;color: #c7254e;background: #282828;font-size: 12px;}
 #blogDetail ul, #blogDetail ol{padding-left: 32px; margin-top:15px;margin-bottom: 15px;}
 #blogDetail ul ul, #blogDetail ol ol,#blogDetail ul ol, #blogDetail ol ul{margin-top: 10px;}
 #blogDetail ul{list-style-type: disc;}
 #blogDetail ol{list-style-type: decimal;}
 #blogDetail ol>li>ul, #blogDetail ol>li>ol{list-style-type: lower-alpha;}
 
-#blogDetail li{margin-bottom: 10px;}
+#blogDetail li{margin-bottom: 10px;line-height:22px;}
 #blogDetail li p{margin: 2px 0;}
 #blogDetail blockquote{display: block;
     padding: 10px 10px 10px 1rem;
@@ -136,6 +136,83 @@
 
 #blogDetail table tr:nth-child(odd) {
   background-color: #f8f8f8;
+}
+
+@CHARSET "UTF-8";
+.hljs {
+  color: #a9b7c6;
+  background: #282b2e;
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  font-size: 12px !important;
+}
+#blogDetail .hljs *{font-size: 12px;}
+.hljs-params
+{
+  color: #ff9823;
+}
+.hljs-number,
+.hljs-literal,
+.hljs-symbol,
+.hljs-bullet {
+  color: #AE87FA;
+}
+
+.hljs-function,
+.hljs-built_in,
+.hljs-name,
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-deletion {
+  color: #f82375;
+}
+
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link {
+  color: #629755;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #808080;
+}
+
+.hljs-meta {
+  color: #5bdaed;
+}
+
+.hljs-string,
+.hljs-attribute,
+.hljs-addition {
+  color: #eedc70;
+}
+
+.hljs-attr,
+.hljs-section,
+.hljs-title,
+.hljs-type {
+  color: #a5da2d;
+}
+
+.hljs-selector-class
+{
+   color: #a5da2d;
+}
+
+.hljs-name,
+.hljs-selector-id
+{
+  color: #f92672;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
 }
 
 .imgView{display:none;position:fixed;top:0;left:0;height:100%;width:100%;z-index:99999999;

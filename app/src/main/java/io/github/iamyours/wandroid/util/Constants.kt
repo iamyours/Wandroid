@@ -1,10 +1,12 @@
 package io.github.iamyours.wandroid.util
 
 import io.github.iamyours.wandroid.R
+import java.util.concurrent.Executors
 
 object Constants {
     val RESULT_LOGIN = 200
     val RESULT_COLLECT_CHANGED = 201
+    val IO = Executors.newFixedThreadPool(1)
 
     val categoryIcons = arrayOf(
         R.drawable.ic_category0,

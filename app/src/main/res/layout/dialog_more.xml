@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_more"
+        android:orientation="vertical">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+        <LinearLayout
+                android:id="@+id/dv_collect"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:padding="10dp"
+                    android:src="@drawable/selector_star"
+                    android:tint="@color/tab_select_color" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-5dp"
+                    android:text="收藏"
+                    android:textColor="@color/tab_select_color"
+                    android:textSize="12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/dv_download"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:padding="10dp"
+                    android:src="@drawable/selector_download"
+                    android:tint="@color/tab_select_color" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-5dp"
+                    android:text="下载"
+                    android:textColor="@color/tab_select_color"
+                    android:textSize="12dp" />
+        </LinearLayout>
+        <LinearLayout
+                android:id="@+id/dv_link"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:padding="10dp"
+                    android:tint="@color/tab_select_color"
+                    app:srcCompat="@drawable/ic_link" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-5dp"
+                    android:text="复制链接"
+                    android:textColor="@color/tab_select_color"
+                    android:textSize="12dp" />
+        </LinearLayout>
+        <LinearLayout
+                android:id="@+id/dv_open_link"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:padding="12dp"
+                    android:tint="@color/tab_select_color"
+                    app:srcCompat="@drawable/ic_open_link" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-5dp"
+                    android:text="浏览器打开"
+                    android:textColor="@color/tab_select_color"
+                    android:textSize="12dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <VideoView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="10dp"
+            android:background="#2f2f2f" />
+
+    <TextView
+            android:id="@+id/dtv_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="@color/text_color"
+            android:textSize="14dp" />
+</LinearLayout>

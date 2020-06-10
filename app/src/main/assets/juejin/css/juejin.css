@@ -94,3 +94,6 @@ tr{}
  .hljs-link {
 	text-decoration: underline
 }
+#note-show .content .show-content-free .collapse-free-content:after{
+    position:relative!important;
+}

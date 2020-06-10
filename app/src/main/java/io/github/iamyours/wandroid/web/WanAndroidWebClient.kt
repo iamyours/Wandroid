@@ -16,7 +16,7 @@ class WanAndroidWebClient(url: String, vo: MutableLiveData<Boolean>) :
         "https://www.wanandroid.com/article/list_by_chapter/1"
 
     private val cssFiles = arrayOf(
-        "blog/default.css", "pc/common.css",
+        "blog/default.css","blog/m_default.css", "pc/common.css",
         "pc/header.css", "wenda/wenda_md.css", "m/common.css"
     )
 

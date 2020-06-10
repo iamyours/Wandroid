@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.view.LayoutInflater
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
@@ -23,12 +24,17 @@ import io.github.iamyours.wandroid.databinding.ActivityWebBinding
 import io.github.iamyours.wandroid.extension.arg
 import io.github.iamyours.wandroid.extension.viewModel
 import io.github.iamyours.wandroid.util.Constants
+import io.github.iamyours.wandroid.util.FileUtil
+import io.github.iamyours.wandroid.util.MD5Utils
 import io.github.iamyours.wandroid.vo.WebViewVO
 import io.github.iamyours.wandroid.web.WanAndroidWebClient
 import io.github.iamyours.wandroid.web.WanObject
 import io.github.iamyours.wandroid.web.WebViewClientFactory
+import io.github.iamyours.wandroid.widget.BottomStyleDialog
 import io.github.iamyours.wandroid.widget.WanWebView
 import kotlinx.android.synthetic.main.activity_web.*
+import kotlinx.android.synthetic.main.dialog_more.view.*
+import java.io.File
 
 @Route(path = "/web")
 class WebActivity : BaseActivity<ActivityWebBinding>() {
@@ -72,6 +78,21 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                     }
                 }
         })
+        vm.showMore.observe(this, Observer {
+            showMoreDialog()
+        })
+    }
+
+    private var imageScriptLoaded = false
+
+    private fun showMoreDialog() {
+        val v = LayoutInflater.from(this).inflate(R.layout.dialog_more, null)
+        val dialog = BottomStyleDialog(this)
+        dialog.setContentView(v)
+        v.dv_download.setOnClickListener {
+            downHtml()
+        }
+        dialog.show()
     }
 
     private var checkHeightHandler = @SuppressLint("HandlerLeak")
@@ -98,14 +119,15 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
     private fun initWebView() {
         binding.webView.settings.run {
             javaScriptEnabled = true
+            cacheMode = WebSettings.LOAD_NO_CACHE
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
             }
         }
         binding.webView.run {
             setBackgroundColor(0)
-            loadUrl(link)
-            webViewClient = WebViewClientFactory.create(url, vm.loaded)
+            loadWeb(this, link)
+            webViewClient = WebViewClientFactory.create(link!!, vm.loaded)
             webChromeClient = object : WebChromeClient() {
                 override fun onReceivedTitle(view: WebView?, t: String?) {
                     super.onReceivedTitle(view, t)
@@ -130,6 +152,25 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                 webView.loadUrl(getScript())
             })
         }
+    }
+
+    private fun loadWeb(webview: WanWebView, url: String?) {
+        webview.loadUrl(url)
+    }
+
+
+    /**
+     * 保存css/图片/html内容
+     */
+    private fun downHtml() {
+        val script = """
+            javascript:(function(){
+                var url = document.URL.toString();
+                var html = document.documentElement.outerHTML;
+                android.saveHtml(url,html);
+            })();
+        """.trimIndent()
+        webView.loadUrl(script)
     }
 
     /**
