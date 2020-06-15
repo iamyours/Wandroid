@@ -22,6 +22,8 @@ import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.base.BaseActivity
 import io.github.iamyours.wandroid.databinding.ActivityWebBinding
 import io.github.iamyours.wandroid.extension.arg
+import io.github.iamyours.wandroid.extension.copy
+import io.github.iamyours.wandroid.extension.openBrowser
 import io.github.iamyours.wandroid.extension.viewModel
 import io.github.iamyours.wandroid.util.Constants
 import io.github.iamyours.wandroid.util.FileUtil
@@ -91,7 +93,22 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
         dialog.setContentView(v)
         v.dv_download.setOnClickListener {
             downHtml()
+            dialog.dismiss()
         }
+        v.dv_link.setOnClickListener {
+            link?.copy(it.context)
+            dialog.dismiss()
+        }
+        v.dv_open_link.setOnClickListener {
+            link?.openBrowser(it.context)
+            dialog.dismiss()
+        }
+        v.dv_collect.isSelected = vm.collect.value ?: false
+        v.dv_collect.setOnClickListener {
+            vm.collectOrNot()
+            dialog.dismiss()
+        }
+        v.dtv_cancel.setOnClickListener { dialog.dismiss() }
         dialog.show()
     }
 

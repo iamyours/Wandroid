@@ -2,7 +2,6 @@ package io.github.iamyours.wandroid.web
 
 import android.os.Handler
 import android.os.Message
-import android.util.Log
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import androidx.lifecycle.MutableLiveData
@@ -101,7 +100,6 @@ class JueJinWebClient(url: String, vo: MutableLiveData<Boolean>) :
 
     override fun shouldInterceptRequest(view: WebView?, url: String?)
             : WebResourceResponse? {
-        Log.i("掘金", "url:$url")
         val urlStr = url ?: ""
         if (urlStr.startsWith("https://b-gold-cdn.xitu.io/v3/static/css/0")
             && urlStr.endsWith(".css")

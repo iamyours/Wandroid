@@ -22,7 +22,7 @@ open class BaseWebViewClient(
         view: WebView,
         url: String?
     ): Boolean {
-        "shouldOverrideUrlLoading：$url".logE()
+        "shouldOverrideUrlLoading：$url,thread:${Thread.currentThread()}".logE()
         if (url == null) {
             return false
         }

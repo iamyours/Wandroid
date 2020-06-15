@@ -1,6 +1,7 @@
 package io.github.iamyours.wandroid.util
 
 import android.text.TextUtils
+import io.github.iamyours.wandroid.BuildConfig
 import io.github.iamyours.wandroid.extension.logE
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -17,7 +18,7 @@ object FileUtil {
 
     fun saveHtml(url: String, html: String) {
         val name = "${md5(url)}.html"
-        val htmlPath = "/data/data/io.github.iamyours.wandroid/html"
+        val htmlPath = "/data/data/${BuildConfig.APPLICATION_ID}/html"
         val file = File("$htmlPath/resources")
         if (!file.exists()) file.mkdirs()
         writeString2File("$htmlPath/$name", html)
@@ -51,7 +52,7 @@ object FileUtil {
     }
 
     fun getHtmlFile(fileName: String): String {
-        return "/data/data/io.github.iamyours.wandroid/html/$fileName"
+        return "/data/data/${BuildConfig.APPLICATION_ID}/html/$fileName"
     }
 
     fun getHtml(url: String): String? {

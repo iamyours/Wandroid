@@ -1,5 +1,6 @@
 package io.github.iamyours.wandroid.util
 
+import io.github.iamyours.wandroid.extension.logE
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.ResponseBody
@@ -18,5 +19,20 @@ object Wget {
             .build()
         val response = client.newCall(request).execute()
         return response.body()?.string() ?: ""
+    }
+
+    fun head(url: String?): String {
+        val client = OkHttpClient.Builder()
+            .build()
+        val request = Request.Builder()
+            .url(url)
+            .head()
+            .build()
+        val t = System.currentTimeMillis()
+        val res = client.newCall(request).execute()
+        val time = System.currentTimeMillis() - t
+        val type = res.header("content-type")
+        "time:$time,$type"
+        return type ?: ""
     }
 }
