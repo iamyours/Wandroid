@@ -1,6 +1,5 @@
 package io.github.iamyours.wandroid.ui.mine
 
-import android.text.TextUtils
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import io.github.iamyours.wandroid.base.BaseViewModel
@@ -12,8 +11,11 @@ class MineVM : BaseViewModel() {
 
     //跳转收藏
     val toCollect = MutableLiveData<Boolean>()
+
     //跳转阅读历史
     val toHistory = MutableLiveData<Boolean>()
+
+    val toCache = MutableLiveData<Boolean>()
 
 
     private val _userInfo = Transformations.switchMap(isLogin) {
@@ -40,7 +42,6 @@ class MineVM : BaseViewModel() {
     }
 
 
-
     fun login() {
         isNotLogin()
     }
@@ -59,5 +60,9 @@ class MineVM : BaseViewModel() {
     fun toHistoryAction() {
         if (isNotLogin()) return
         toHistory.value = true
+    }
+
+    fun toCacheList() {
+        toCache.value = true
     }
 }

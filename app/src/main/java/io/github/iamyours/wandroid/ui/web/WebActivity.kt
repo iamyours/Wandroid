@@ -21,6 +21,7 @@ import io.github.iamyours.wandroid.BuildConfig
 import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.base.BaseActivity
 import io.github.iamyours.wandroid.databinding.ActivityWebBinding
+import io.github.iamyours.wandroid.db.AppDataBase
 import io.github.iamyours.wandroid.extension.arg
 import io.github.iamyours.wandroid.extension.copy
 import io.github.iamyours.wandroid.extension.openBrowser
@@ -28,6 +29,7 @@ import io.github.iamyours.wandroid.extension.viewModel
 import io.github.iamyours.wandroid.util.Constants
 import io.github.iamyours.wandroid.util.FileUtil
 import io.github.iamyours.wandroid.util.MD5Utils
+import io.github.iamyours.wandroid.vo.CacheArticleVO
 import io.github.iamyours.wandroid.vo.WebViewVO
 import io.github.iamyours.wandroid.web.WanAndroidWebClient
 import io.github.iamyours.wandroid.web.WanObject
@@ -53,6 +55,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
     override val layoutId: Int
         get() = R.layout.activity_web
     val link by arg<String>("link")
+    val cacheDao = AppDataBase.get().cacheDao()
 
     val vm by viewModel<WebVM> {
         collect.value = intent.getBooleanExtra("collect", false)
@@ -85,14 +88,18 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
         })
     }
 
-    private var imageScriptLoaded = false
-
     private fun showMoreDialog() {
         val v = LayoutInflater.from(this).inflate(R.layout.dialog_more, null)
         val dialog = BottomStyleDialog(this)
         dialog.setContentView(v)
+        val cached = cacheDao.hasCache(link ?: "")
+        if (vm.articleId.value == 0) {
+            v.dv_collect.visibility = View.GONE
+        }
+        v.dv_download.isSelected = cached
         v.dv_download.setOnClickListener {
             downHtml()
+            saveCacheOrNot(link, navTitle, cached)
             dialog.dismiss()
         }
         v.dv_link.setOnClickListener {
@@ -110,6 +117,22 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
         }
         v.dtv_cancel.setOnClickListener { dialog.dismiss() }
         dialog.show()
+    }
+
+    private fun saveCacheOrNot(
+        link: String?,
+        navTitle: String,
+        cached: Boolean
+    ) {
+        link?.let {
+            if (cached) {
+                cacheDao.delete(link)
+            } else {
+                val cache =
+                    CacheArticleVO(it, navTitle, System.currentTimeMillis())
+                cacheDao.add(cache)
+            }
+        }
     }
 
     private var checkHeightHandler = @SuppressLint("HandlerLeak")

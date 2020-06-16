@@ -28,6 +28,10 @@ class MineFragment : BaseFragment<FragmentMineBinding>() {
             ARouter.getInstance().build("/collect")
                 .navigation(activity)
         })
+        vm.toCache.observe(this, Observer {
+            ARouter.getInstance().build("/cache")
+                .navigation(activity)
+        })
     }
 
     private fun loginAction() {

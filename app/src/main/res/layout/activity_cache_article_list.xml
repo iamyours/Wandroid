@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="vm"
+                type="io.github.iamyours.wandroid.ui.cache.CacheVM" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:padding="6dp"
+                    app:back="@{true}"
+                    app:srcCompat="@drawable/ic_back"
+                    app:tint="@color/tab_text_color" />
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:text="缓存的文章"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+
+                    />
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/divider" />
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bg_dark"
+                app:autoRefresh="@{vm.autoRefresh}"
+                app:hasMore="@{vm.hasMore}"
+                app:moreLoading="@{vm.moreLoading}"
+                app:onLoadMoreListener="@{()->vm.loadMore()}"
+                app:onRefreshListener="@{()->vm.refresh()}"
+                app:refreshing="@{vm.refreshing}">
+
+            <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srlAccentColor="@color/text_color"
+                    app:srlPrimaryColor="@color/bg_dark" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"
+                    tools:listitem="@layout/item_qa" />
+
+            <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srlAccentColor="@color/text_color"
+                    app:srlPrimaryColor="@color/bg_dark" />
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    </LinearLayout>
+</layout>

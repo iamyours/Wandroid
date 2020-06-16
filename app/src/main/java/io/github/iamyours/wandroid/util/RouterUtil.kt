@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import io.github.iamyours.router.ARouter
 import io.github.iamyours.wandroid.vo.ArticleVO
+import io.github.iamyours.wandroid.vo.CacheArticleVO
 
 object RouterUtil {
     @JvmOverloads
@@ -24,5 +25,18 @@ object RouterUtil {
                     callback?.invoke(item.collect)
                 }
             }
+    }
+
+    @JvmOverloads
+    fun navWeb(
+        item: CacheArticleVO,
+        context: Context,
+        callback: ((Boolean) -> Unit)? = null //回调
+    ) {
+        val bundle = Bundle()
+        bundle.putString("link", item.link)
+        ARouter.getInstance().build("/web")
+            .with(bundle)
+            .navigation(context)
     }
 }
