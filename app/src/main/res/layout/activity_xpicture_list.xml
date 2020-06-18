@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="vm"
+                type="io.github.iamyours.wandroid.ui.xxmh.XPictureVM" />
+    </data>
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/item_xpicture" />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#9000" />
+
+        <com.github.ybq.android.spinkit.SpinKitView
+                style="@style/SpinKitView.Wave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="120dp"
+                app:SpinKit_Color="@color/text_color"
+                app:gone="@{!vm.loading}" />
+    </FrameLayout>
+</layout>

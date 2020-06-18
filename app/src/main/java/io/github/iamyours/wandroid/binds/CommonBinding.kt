@@ -14,6 +14,7 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.extension.displayWithUrl
+import io.github.iamyours.wandroid.extension.displayWithUrl2
 import io.github.iamyours.wandroid.extension.hideKeyboard
 import io.github.iamyours.wandroid.generated.callback.OnClickListener
 import io.github.iamyours.wandroid.vo.BannerVO
@@ -89,6 +90,14 @@ fun bindBanner(banner: BGABanner, data: List<Any>?) {
 fun bindImage(iv: ImageView, url: String?, radius: Int?) {
     if (url != null) {
         iv.displayWithUrl(url, (radius ?: 1).toFloat())
+    }
+}
+
+
+@BindingAdapter(value = ["picUrl"])
+fun bindImage2(iv: ImageView, url: String?) {
+    if (url != null) {
+        iv.displayWithUrl2(url)
     }
 }
 

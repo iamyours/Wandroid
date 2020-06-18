@@ -27,6 +27,9 @@
         <activity android:name=".ui.collect.CollectListActivity" />
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.cache.CacheArticleListActivity" />
+        <activity android:name=".ui.xxmh.XBookListActivity" />
+        <activity android:name=".ui.xxmh.XBookDetailActivity" />
+        <activity android:name=".ui.xxmh.XPictureListActivity" />
     </application>
 
 </manifest>

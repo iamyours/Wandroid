@@ -9,14 +9,7 @@ import io.github.iamyours.wandroid.util.SP
 
 class MineVM : BaseViewModel() {
 
-    //跳转收藏
-    val toCollect = MutableLiveData<Boolean>()
-
-    //跳转阅读历史
-    val toHistory = MutableLiveData<Boolean>()
-
-    val toCache = MutableLiveData<Boolean>()
-
+    val route = MutableLiveData<String>()
 
     private val _userInfo = Transformations.switchMap(isLogin) {
         if (it) {
@@ -54,15 +47,19 @@ class MineVM : BaseViewModel() {
 
     fun toCollectAction() {
         if (isNotLogin()) return
-        toCollect.value = true
+        route.value = "/collect"
     }
 
     fun toHistoryAction() {
         if (isNotLogin()) return
-        toHistory.value = true
+        route.value = "/history"
     }
 
     fun toCacheList() {
-        toCache.value = true
+        route.value = "/cache"
+    }
+
+    fun toXBook(){
+        route.value = "/xbook"
     }
 }

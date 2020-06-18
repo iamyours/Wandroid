@@ -3,17 +3,19 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'RouterPlugin'
+apply plugin: 'org.anarres.jarjar'
 
 android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "io.github.iamyours.wandroid"
         minSdkVersion 19
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
     }
     signingConfigs {
         config {
@@ -28,18 +30,30 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug{
+        debug {
             signingConfig signingConfigs.config
         }
     }
     dataBinding {
         enabled = true
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.core:core-ktx:1.0.2'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
@@ -60,7 +74,7 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.1.0'
     kapt 'androidx.room:room-compiler:2.1.0'
     implementation 'com.google.android.material:material:1.0.0'
-
+    implementation 'com.android.support:multidex:1.0.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

@@ -18,6 +18,11 @@ fun ImageView.displayWithUrl(url: String?) {
         .into(this)
 }
 
+fun ImageView.displayWithUrl2(url: String) {
+    Glide.with(this).load(url)
+        .into(this)
+}
+
 fun ImageView.displayWithUrl(url: String?, radius: Float) {
     val radiusPx = radius.dp2IntPx(context)
     val empty = EmptyCornerDrawable(0xff969696.toInt(), radiusPx.toFloat())
