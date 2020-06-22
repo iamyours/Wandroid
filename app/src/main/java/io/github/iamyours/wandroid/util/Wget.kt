@@ -1,10 +1,11 @@
 package io.github.iamyours.wandroid.util
 
-import io.github.iamyours.wandroid.extension.logE
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.ResponseBody
-import java.io.InputStream
+import java.security.SecureRandom
+import java.security.cert.CertificateException
+import java.security.cert.X509Certificate
+import javax.net.ssl.*
 
 object Wget {
     fun get(url: String): String {
@@ -18,6 +19,14 @@ object Wget {
             )
             .build()
         val response = client.newCall(request).execute()
+        return response.body()?.string() ?: ""
+    }
+
+    @JvmStatic
+    fun getUnsafe(url: String): String {
+        val request = Request.Builder().url(url).build()
+        val response =
+            ClientUtil.getUnsafeOkHttpClient().newCall(request).execute();
         return response.body()?.string() ?: ""
     }
 

@@ -19,21 +19,16 @@
 
         <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
+                android:layout_height="180dp">
 
             <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
                     android:scaleType="centerCrop"
-                    app:radius="@{2}"
-                    app:url="@{vo.coverUrl}"
+                    app:picUrl="@{vo.coverUrl}"
                     tools:src="@mipmap/ic_launcher" />
 
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#e000" />
         </FrameLayout>
 
 

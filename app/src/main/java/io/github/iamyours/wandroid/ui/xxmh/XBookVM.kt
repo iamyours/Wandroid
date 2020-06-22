@@ -13,6 +13,9 @@ class XBookVM : BaseViewModel() {
         moreLoading.value = false
         refreshing.value = false
         hasMore.value = !it.content.isLastPage
+        it.content.list.forEach { b ->
+            b.coverUrl = b.coverUrl.replace(".jpg", ".html")
+        }
         it.content.list
     }
 

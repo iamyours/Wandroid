@@ -22,15 +22,15 @@ interface XBookApi {
 
         fun get2(): XBookApi {
             return get(
-                "http://47.91.251.32:8080/apis/"
+                "http://api-service.live:8080/"
             )
         }
 
         fun get(url: String): XBookApi {
             val clientBuilder = OkHttpClient.Builder()
                 .connectTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(1,TimeUnit.MINUTES)
-                .writeTimeout(1,TimeUnit.MINUTES)
+                .readTimeout(1, TimeUnit.MINUTES)
+                .writeTimeout(1, TimeUnit.MINUTES)
             if (BuildConfig.DEBUG) {
                 val loggingInterceptor = HttpLoggingInterceptor()
                 loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -47,7 +47,7 @@ interface XBookApi {
         }
     }
 
-    @GET("home/query/books?type=cartoon&ranking=&paged=true&size=20")
+    @GET("home/query/books?filter=competitive&type=cartoon&paged=true&size=20")
     fun bookPage(@Query("page") page: Int): LiveData<XResponse<XPage<XBook>>>
 
     @GET("home/query/directory")

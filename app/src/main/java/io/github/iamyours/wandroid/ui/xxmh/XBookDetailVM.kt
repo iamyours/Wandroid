@@ -7,13 +7,16 @@ import io.github.iamyours.wandroid.net.xxmh.XBookApi
 import io.github.iamyours.wandroid.vo.xxmh.XBook
 
 class XBookDetailVM : BaseViewModel() {
-    val xApi = XBookApi.get1()
+    private val xApi = XBookApi.get1()
     val book = MutableLiveData<XBook>()
     private val _list = Transformations.switchMap(refreshTrigger) {
         xApi.chapterList(book.value?.id ?: 0)
     }
     val list = Transformations.map(_list) {
-        refreshing.value = false
+        loading.value = false
+        it.content.forEach { c ->
+            c.coverUrl = c.coverUrl.replace(".jpg", ".html")
+        }
         it.content
     }
 }

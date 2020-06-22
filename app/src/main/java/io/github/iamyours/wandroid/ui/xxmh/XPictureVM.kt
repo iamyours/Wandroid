@@ -19,6 +19,9 @@ class XPictureVM : BaseViewModel() {
 
     val list = Transformations.map(_pictures) {
         loading.value = false
+        it.content.forEach { p ->
+            p.url = p.url.replace(".jpg", ".html")
+        }
         it.content
     }
 }

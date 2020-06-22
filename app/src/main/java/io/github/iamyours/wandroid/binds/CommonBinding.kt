@@ -1,6 +1,7 @@
 package io.github.iamyours.wandroid.binds
 
 import android.app.Activity
+import android.graphics.Bitmap
 import android.text.Html
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -9,14 +10,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import cn.bingoogolapple.bgabanner.BGABanner
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import io.github.iamyours.wandroid.R
-import io.github.iamyours.wandroid.extension.displayWithUrl
-import io.github.iamyours.wandroid.extension.displayWithUrl2
-import io.github.iamyours.wandroid.extension.hideKeyboard
+import io.github.iamyours.wandroid.extension.*
 import io.github.iamyours.wandroid.generated.callback.OnClickListener
+import io.github.iamyours.wandroid.util.EmptyCornerDrawable
 import io.github.iamyours.wandroid.vo.BannerVO
 
 @BindingAdapter(
@@ -93,11 +99,52 @@ fun bindImage(iv: ImageView, url: String?, radius: Int?) {
     }
 }
 
+@BindingAdapter(value = ["url", "radius", "h"])
+fun bindImage(
+    iv: ImageView,
+    url: String?,
+    radius: Int,
+    height: Int?
+) {
+    if (url != null) {
+        val radiusPx = radius.dp2IntPx(iv.context)
+        val empty = EmptyCornerDrawable(0xff969696.toInt(), radiusPx.toFloat())
+        Glide.with(iv).asBitmap()
+            .load(url)
+            .apply(
+                RequestOptions().transforms(
+                    CenterCrop(),
+                    RoundedCorners(radiusPx)
+                )
+                    .placeholder(empty).error(
+                        empty
+                    )
+            )
+            .into(object : SimpleTarget<Bitmap>() {
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: Transition<in Bitmap>?
+                ) {
+                    val w = resource.width
+                    val h = resource.height
+                    val lp = iv.layoutParams
+
+                    if (height != null) {
+                        val nW = height.dp2IntPx(iv.context) * w / h
+                        lp.width = nW.toInt()
+                    }
+                    iv.layoutParams = lp
+                    iv.setImageBitmap(resource)
+                }
+            })
+    }
+}
+
 
 @BindingAdapter(value = ["picUrl"])
 fun bindImage2(iv: ImageView, url: String?) {
     if (url != null) {
-        iv.displayWithUrl2(url)
+        iv.displayBase64(url)
     }
 }
 
