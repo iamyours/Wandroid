@@ -14,13 +14,8 @@ import java.util.concurrent.TimeUnit
 
 interface XBookApi {
     companion object {
-        fun get1(): XBookApi {
-            return get(
-                "http://xxmh106.com/"
-            )
-        }
 
-        fun get2(): XBookApi {
+        fun get(): XBookApi {
             return get(
                 "http://api-service.live:8080/"
             )
@@ -47,10 +42,10 @@ interface XBookApi {
         }
     }
 
-    @GET("home/query/books?filter=competitive&type=cartoon&paged=true&size=20")
+    @GET("xbook/bookPage?size=20")
     fun bookPage(@Query("page") page: Int): LiveData<XResponse<XPage<XBook>>>
 
-    @GET("home/query/directory")
+    @GET("xbook/getChapters")
     fun chapterList(@Query("bookId") bookId: Int): LiveData<XResponse<List<XChapter>>>
 
     @GET("xbook/getPictures")

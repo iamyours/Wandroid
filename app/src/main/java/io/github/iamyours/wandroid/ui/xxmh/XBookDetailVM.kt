@@ -7,7 +7,7 @@ import io.github.iamyours.wandroid.net.xxmh.XBookApi
 import io.github.iamyours.wandroid.vo.xxmh.XBook
 
 class XBookDetailVM : BaseViewModel() {
-    private val xApi = XBookApi.get1()
+    private val xApi = XBookApi.get()
     val book = MutableLiveData<XBook>()
     private val _list = Transformations.switchMap(refreshTrigger) {
         xApi.chapterList(book.value?.id ?: 0)

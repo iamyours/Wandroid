@@ -7,7 +7,7 @@ import io.github.iamyours.wandroid.net.xxmh.XBookApi
 import io.github.iamyours.wandroid.vo.xxmh.XChapter
 
 class XPictureVM : BaseViewModel() {
-    val xApi = XBookApi.get2()
+    val xApi = XBookApi.get()
     val chapter = MutableLiveData<XChapter>()
     private val _pictures = Transformations.switchMap(refreshTrigger) {
         val c = chapter.value

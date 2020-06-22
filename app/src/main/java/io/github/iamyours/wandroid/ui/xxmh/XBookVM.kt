@@ -5,7 +5,7 @@ import io.github.iamyours.wandroid.base.BaseViewModel
 import io.github.iamyours.wandroid.net.xxmh.XBookApi
 
 class XBookVM : BaseViewModel() {
-    val xApi = XBookApi.get1()
+    val xApi = XBookApi.get()
     private val bookPage = Transformations.switchMap(page) {
         xApi.bookPage(it)
     }
