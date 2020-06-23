@@ -1,5 +1,7 @@
 package io.github.iamyours.wandroid.util;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.cert.CertificateException;
 
 import javax.net.ssl.HostnameVerifier;
@@ -9,7 +11,14 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import io.github.iamyours.wandroid.App;
+import io.github.iamyours.wandroid.net.CacheInterceptor;
+import okhttp3.Cache;
+import okhttp3.CacheControl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class ClientUtil {
     public static OkHttpClient getUnsafeOkHttpClient() {
@@ -35,9 +44,11 @@ public class ClientUtil {
 
             // Install the all-trusting trust manager
             final SSLContext sslContext = SSLContext.getInstance("SSL");
-            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+            sslContext.init(null, trustAllCerts,
+                    new java.security.SecureRandom());
             // Create an ssl socket factory with our all-trusting manager
-            final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+            final SSLSocketFactory sslSocketFactory =
+                    sslContext.getSocketFactory();
 
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             builder.sslSocketFactory(sslSocketFactory, trustManager);
@@ -47,8 +58,10 @@ public class ClientUtil {
                     return true;
                 }
             });
-
-            OkHttpClient okHttpClient = builder.build();
+            File file = new File(App.instance.getCacheDir(), "http-cache");
+            OkHttpClient okHttpClient = builder
+                    .cache(new Cache(file, 1024 * 1024 * 20))
+                    .addNetworkInterceptor(new CacheInterceptor()).build();
             return okHttpClient;
         } catch (Exception e) {
             throw new RuntimeException(e);

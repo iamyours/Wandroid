@@ -1,6 +1,8 @@
 package io.github.iamyours.wandroid
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
 import io.github.iamyours.wandroid.db.AppDataBase
 import java.security.SecureRandom
 import javax.net.ssl.HttpsURLConnection
@@ -49,5 +51,14 @@ class App : Application() {
 
     companion object {
         lateinit var instance: Application
+        fun isNetworkConnected(): Boolean {
+            val mConnectivityManager = instance
+                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val mNetworkInfo = mConnectivityManager.activeNetworkInfo
+            if (mNetworkInfo != null) {
+                return mNetworkInfo.isAvailable
+            }
+            return false
+        }
     }
 }
