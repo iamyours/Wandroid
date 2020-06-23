@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="vo"
+                type="io.github.iamyours.wandroid.vo.xxmh.XChapter" />
+
+        <variable
+                name="chapterIndex"
+                type="java.lang.Integer" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    app:radius="@{3}"
+                    app:url="@{vo.coverUrl}"
+                    tools:layout_width="100dp" />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginRight="2dp"
+                        android:tint="@color/chapter_read_color"
+                        app:gone="@{vo.sequence!=chapterIndex}"
+                        app:srcCompat="@drawable/ic_location" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:text="@{vo.title}"
+                        android:textColor="@color/chapter_text_color"
+                        android:textSize="16dp"
+                        app:select="@{vo.sequence == chapterIndex}"
+                        tools:text="七公主" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/divider" />
+    </LinearLayout>
+
+</layout>

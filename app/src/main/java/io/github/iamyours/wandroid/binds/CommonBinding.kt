@@ -3,12 +3,16 @@ package io.github.iamyours.wandroid.binds
 import android.app.Activity
 import android.graphics.Bitmap
 import android.text.Html
+import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.Bindable
 import androidx.databinding.BindingAdapter
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.RecyclerView
 import cn.bingoogolapple.bgabanner.BGABanner
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -22,6 +26,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.extension.*
 import io.github.iamyours.wandroid.generated.callback.OnClickListener
+import io.github.iamyours.wandroid.listener.SimpleRecyclerOnScrollerListener
 import io.github.iamyours.wandroid.util.EmptyCornerDrawable
 import io.github.iamyours.wandroid.vo.BannerVO
 
@@ -39,6 +44,14 @@ fun bindSmartRefreshLayout(
     if (!refreshing) smartLayout.finishRefresh()
     if (!moreLoading) smartLayout.finishLoadMore()
     smartLayout.setNoMoreData(!hasMore)
+}
+
+@BindingAdapter(value = ["refreshEnable"])
+fun bindSmartRefreshLayoutRefresh(
+    smartLayout: SmartRefreshLayout,
+    refreshEnable: Boolean
+) {
+    smartLayout.setEnableRefresh(refreshEnable)
 }
 
 @BindingAdapter(
@@ -73,6 +86,18 @@ fun bindSearch(et: EditText, callback: () -> Unit) {
         }
         true
     }
+}
+
+@BindingAdapter(value = ["onFirstObject"])
+fun bindRecyclerView(
+    rv: RecyclerView,
+    callback: (Any) -> Unit
+) {
+    rv.setOnScrollListener(object : SimpleRecyclerOnScrollerListener() {
+        override fun onFirstObject(obj: Any) {
+            callback(obj)
+        }
+    })
 }
 
 @BindingAdapter(value = ["gone"])
@@ -169,11 +194,21 @@ fun bindBackAction(v: View, select: Boolean) {
     }
 }
 
+@BindingAdapter(value = ["open"])
+fun bindDrawer(v: DrawerLayout, open: Boolean) {
+    if (open) {
+        v.openDrawer(Gravity.LEFT)
+    } else {
+        v.closeDrawer(Gravity.LEFT)
+    }
+}
+
 
 @BindingAdapter(value = ["html"])
 fun bindHtml(tv: TextView, text: String) {
     tv.text = Html.fromHtml(text)
 }
+
 
 
 

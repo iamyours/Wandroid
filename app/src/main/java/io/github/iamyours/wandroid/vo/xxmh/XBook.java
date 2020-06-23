@@ -3,7 +3,12 @@ package io.github.iamyours.wandroid.vo.xxmh;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class XBook implements Parcelable {
+    @PrimaryKey
     public int id;
     public String name;
     public String author;
@@ -15,6 +20,11 @@ public class XBook implements Parcelable {
     public String extensionUrl;
     public int chapterCount;
     public double score;
+    public int chapterIndex;
+    public long lastReadTime;
+
+    public XBook() {
+    }
 
     protected XBook(Parcel in) {
         id = in.readInt();

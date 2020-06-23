@@ -5,4 +5,9 @@ public class XPicture {
     public String url;
     public int sequence;
     public long chapterId;
+    public int chapterSequence;
+
+    public String getSequenceText() {
+        return "" + sequence;
+    }
 }

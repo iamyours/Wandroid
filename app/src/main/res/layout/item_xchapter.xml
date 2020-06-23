@@ -8,6 +8,10 @@
         <variable
                 name="vo"
                 type="io.github.iamyours.wandroid.vo.xxmh.XChapter" />
+
+        <variable
+                name="chapterIndex"
+                type="java.lang.Integer" />
     </data>
 
     <LinearLayout
@@ -18,26 +22,41 @@
             tools:background="@color/bg_dark">
 
         <ImageView
+                android:layout_width="120dp"
                 android:layout_height="150dp"
                 android:layout_marginTop="4dp"
-                android:layout_width="120dp"
-                app:h="@{150}"
                 android:scaleType="fitXY"
+                app:h="@{150}"
                 app:radius="@{2}"
                 app:url="@{vo.coverUrl}"
                 tools:src="@mipmap/ic_launcher" />
 
-
-        <TextView
-                android:layout_width="wrap_content"
+        <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:ellipsize="end"
-                android:lines="1"
-                android:text="@{vo.title}"
-                android:textColor="@color/title_color"
-                android:textSize="14dp"
-                tools:text="七公主" />
+                android:gravity="center_vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginRight="2dp"
+                    android:tint="@color/chapter_read_color"
+                    app:gone="@{vo.sequence!=chapterIndex}"
+                    app:srcCompat="@drawable/ic_location" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text="@{vo.title}"
+                    android:textColor="@color/chapter_text_color"
+                    android:textSize="14dp"
+                    app:select="@{vo.sequence == chapterIndex}"
+                    tools:text="七公主" />
+        </LinearLayout>
+
 
     </LinearLayout>
 </layout>

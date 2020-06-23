@@ -29,7 +29,7 @@
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_gravity="top"
-                    android:padding="6dp"
+                    android:padding="10dp"
                     app:back="@{true}"
                     app:srcCompat="@drawable/ic_back"
                     app:tint="@color/tab_text_color" />

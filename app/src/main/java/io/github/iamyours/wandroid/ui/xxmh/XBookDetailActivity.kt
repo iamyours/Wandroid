@@ -8,6 +8,7 @@ import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.adapter.XChapterAdapter
 import io.github.iamyours.wandroid.base.BaseActivity
 import io.github.iamyours.wandroid.databinding.ActivityXbookDetailBinding
+import io.github.iamyours.wandroid.db.AppDataBase
 import io.github.iamyours.wandroid.extension.viewModel
 import io.github.iamyours.wandroid.vo.xxmh.XBook
 
@@ -23,6 +24,7 @@ class XBookDetailActivity : BaseActivity<ActivityXbookDetailBinding>() {
         binding.vm = vm
         binding.executePendingBindings()
         vm.book.value = intent.getParcelableExtra("book")
+        adapter.book = vm.book.value
         initRecyclerView()
         vm.loadData()
     }

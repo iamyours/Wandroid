@@ -50,7 +50,7 @@ open class BaseViewModel : ViewModel() {
         }
     }
 
-    fun loadMore() {
+    open fun loadMore() {
         page.value = (page.value ?: 0) + 1
         moreLoading.value = true
     }

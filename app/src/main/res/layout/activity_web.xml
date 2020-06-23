@@ -23,8 +23,8 @@
             <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="48dp"
                     android:layout_height="match_parent"
-                    android:padding="6dp"
-                    android:src="@drawable/ic_back"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/ic_back"
                     app:back="@{true}"
                     app:tint="@color/tab_text_color"
                     />
@@ -44,7 +44,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="48dp"
                     android:layout_height="match_parent"
-                    android:padding="12dp"
+                    android:padding="16dp"
                     app:tint="@color/tab_text_color"
                     app:srcCompat="@drawable/ic_more"
                     android:onClick="@{()->vm.showMore()}"

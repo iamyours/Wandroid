@@ -3,6 +3,8 @@ package io.github.iamyours.wandroid.vo.xxmh;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 public class XChapter implements Parcelable {
     public long id;
     public String title;
@@ -11,6 +13,10 @@ public class XChapter implements Parcelable {
     public int sequence;
     public int state;//0:没有数据  1:抓取中   2:有数据
     public boolean freeFlag;
+    public List<XPicture> pictureList;
+
+    public XChapter() {
+    }
 
     protected XChapter(Parcel in) {
         id = in.readLong();
@@ -60,4 +66,6 @@ public class XChapter implements Parcelable {
                 ", sequence=" + sequence +
                 '}';
     }
+
+
 }

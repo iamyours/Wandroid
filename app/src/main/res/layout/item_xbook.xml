@@ -26,7 +26,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
                     android:scaleType="centerCrop"
-                    app:picUrl="@{vo.coverUrl}"
+                    app:url="@{vo.coverUrl}"
+                    app:radius="@{4}"
                     tools:src="@mipmap/ic_launcher" />
 
         </FrameLayout>

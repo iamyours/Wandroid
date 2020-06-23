@@ -10,29 +10,128 @@
                 type="io.github.iamyours.wandroid.ui.xxmh.XPictureVM" />
     </data>
 
-    <FrameLayout
+    <androidx.drawerlayout.widget.DrawerLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            app:open="@{vm.drawOpen}">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
+        <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/item_xpicture" />
+                android:orientation="vertical">
 
-        <View
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                    android:id="@+id/refreshLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/bg_dark"
+                    app:hasMore="@{vm.hasMore}"
+                    app:moreLoading="@{vm.moreLoading}"
+                    app:onLoadMoreListener="@{()->vm.loadMore()}"
+                    app:srlEnableRefresh="false">
+
+                <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:srlAccentColor="@color/text_color"
+                        app:srlPrimaryColor="@color/bg_dark" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clipToPadding="false"
+                        android:overScrollMode="never"
+                        android:paddingTop="48dp"
+                        app:onFirstObject="@{(pic)->vm.changeFirstPicture(pic)}"
+                        tools:listitem="@layout/item_xpicture" />
+
+                <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:srlAccentColor="@color/text_color"
+                        app:srlPrimaryColor="@color/bg_dark"
+                        app:srlTextLoading="正在加载下一话" />
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="48dp"
+                        android:layout_height="match_parent"
+                        android:padding="10dp"
+                        app:back="@{true}"
+                        app:srcCompat="@drawable/ic_back"
+                        app:tint="@color/tab_text_color" />
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:lines="1"
+                        android:text="@{vm.chapter.title}"
+                        android:textColor="@color/title_color"
+                        android:textSize="16sp" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="48dp"
+                        android:layout_height="match_parent"
+                        android:onClick="@{()->vm.openDrawer()}"
+                        android:padding="15dp"
+                        app:srcCompat="@drawable/ic_menu"
+                        app:tint="@color/tab_text_color" />
+            </LinearLayout>
+
+            <com.github.ybq.android.spinkit.SpinKitView
+                    style="@style/SpinKitView.Wave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="120dp"
+                    app:SpinKit_Color="@color/text_color"
+                    app:gone="@{!vm.loading}" />
+        </FrameLayout>
+
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#9000" />
+                android:layout_gravity="start"
+                android:background="@color/bg_dark2"
+                android:orientation="vertical">
 
-        <com.github.ybq.android.spinkit.SpinKitView
-                style="@style/SpinKitView.Wave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="120dp"
-                app:SpinKit_Color="@color/text_color"
-                app:gone="@{!vm.loading}" />
-    </FrameLayout>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{vm.book.name}"
+                    android:textColor="@color/title_color"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="44dp"
+                        android:gravity="center_vertical|left"
+                        android:paddingLeft="10dp"
+                        android:text="@{vm.book.simpleDesc}"
+                        android:textColor="@color/title_color"
+                        android:textSize="16dp" />
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvChapter"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+        </LinearLayout>
+    </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

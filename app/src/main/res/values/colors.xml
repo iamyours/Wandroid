@@ -9,8 +9,10 @@
     <color name="article_unread_color">#c8c8c8</color>
     <color name="bg_tab">#37383A</color>
     <color name="bg_dark">#3f3f3f</color>
+    <color name="bg_dark2">#333</color>
     <color name="title_color">#c8c8c8</color>
     <color name="text_color">#969696</color>
     <color name="divider">#2f2f2f</color>
     <color name="category_select_color">#616161</color>
+    <color name="chapter_read_color">#FE5823</color>
 </resources>

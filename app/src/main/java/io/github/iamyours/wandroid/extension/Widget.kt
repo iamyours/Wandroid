@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import io.github.iamyours.wandroid.util.EmptyCornerDrawable
 import io.github.iamyours.wandroid.util.glide.GlideApp
 
@@ -25,7 +26,9 @@ fun ImageView.displayWithUrl2(url: String) {
 }
 
 fun ImageView.displayBase64(url: String) {
-    GlideApp.with(this).load(url)
+    GlideApp.with(this)
+        .load(url)
+        .override(Target.SIZE_ORIGINAL,Target.SIZE_ORIGINAL)
         .into(this)
 }
 

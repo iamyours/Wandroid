@@ -1,7 +1,9 @@
 package io.github.iamyours.wandroid.adapter
 
+import androidx.recyclerview.widget.DiffUtil
 import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.databinding.ItemXpictureBinding
+import io.github.iamyours.wandroid.vo.xxmh.XChapter
 import io.github.iamyours.wandroid.vo.xxmh.XPicture
 
 class XPictureAdapter :
@@ -12,4 +14,79 @@ class XPictureAdapter :
 
     override val layoutId: Int
         get() = R.layout.item_xpicture
+
+
+    /**
+     * 展示连续章节
+     */
+    fun update(list: List<XChapter>, chapterSequence: Int) {
+        val validList = findSequencePicture(list, chapterSequence)
+        val diffResult = DiffUtil.calculateDiff(DiffCallback(mData, validList))
+        mData.clear()
+        mData.addAll(validList)
+        diffResult.dispatchUpdatesTo(this)
+    }
+
+    /**
+     * 找到连续章节图片列表
+     */
+    private fun findSequencePicture(
+        list: List<XChapter>,
+        chapterSequence: Int
+    ): List<XPicture> {
+        val array = ArrayList<XPicture>()
+        val len = list.size
+        //after
+        for (s in chapterSequence until len) {
+            val list = getChapterWithSequence(list, s)?.pictureList ?: break
+            array.addAll(list)
+        }
+        //before
+        for (s in chapterSequence - 1 downTo 1) {
+            val list = getChapterWithSequence(list, s)?.pictureList ?: break
+            array.addAll(0, list)
+        }
+        return array
+    }
+
+    private fun getChapterWithSequence(
+        list: List<XChapter>,
+        sequence: Int
+    ): XChapter? {
+        list.forEach {
+            if (it.sequence == sequence) return it
+        }
+        return null
+    }
+
+
+    inner class DiffCallback(
+        private val oldData: List<XPicture>,
+        private val newData: List<XPicture>
+    ) : DiffUtil.Callback() {
+
+        override fun areItemsTheSame(
+            oldItemPosition: Int,
+            newItemPosition: Int
+        ): Boolean {
+            return oldData[oldItemPosition].id == newData[oldItemPosition].id
+        }
+
+        override fun getOldListSize(): Int {
+            return oldData.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newData.size
+        }
+
+        override fun areContentsTheSame(
+            oldItemPosition: Int,
+            newItemPosition: Int
+        ): Boolean {
+            return oldData[oldItemPosition].id == newData[oldItemPosition].id
+        }
+    }
+
+
 }
