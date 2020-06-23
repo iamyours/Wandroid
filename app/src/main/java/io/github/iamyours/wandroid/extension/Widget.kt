@@ -28,7 +28,10 @@ fun ImageView.displayWithUrl2(url: String) {
 fun ImageView.displayBase64(url: String) {
     GlideApp.with(this)
         .load(url)
-        .override(Target.SIZE_ORIGINAL,Target.SIZE_ORIGINAL)
+        .override(
+            context.resources.displayMetrics.widthPixels,
+            Target.SIZE_ORIGINAL
+        )
         .into(this)
 }
 

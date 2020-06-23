@@ -19,9 +19,16 @@ class XPictureVM : BaseViewModel() {
     val chapterSequence = MutableLiveData<Int>()
 
     val chapterId = MutableLiveData<Long>()
+    val refreshEnable = MutableLiveData<Boolean>()
 
     private val _pictures = Transformations.switchMap(chapterSequence) {
         val c = getChapterWithSequence(it)
+        chapter.value = c
+        if (it <= 1) refreshEnable.value = false
+        if (it > 1) {
+            val preChapter = getChapterWithSequence(it - 1)
+            if (preChapter.pictureList == null) refreshEnable.value = true
+        }
         if (c.pictureList == null)
             xApi.pictureList(c.bookId, c.id, c.freeFlag)
         else {//当已经加载过时，更加次id跳转
@@ -69,7 +76,7 @@ class XPictureVM : BaseViewModel() {
                 return it
             }
         }
-        throw RuntimeException("chapter not found")
+        throw RuntimeException("chapter not found $chapterSequence")
     }
 
 
@@ -94,8 +101,8 @@ class XPictureVM : BaseViewModel() {
         chapterSequence.value = sequence
     }
 
-    fun changeFirstPicture(pic: Any) {
-        if (pic is XPicture)
-            chapter.value = getChapter(pic.chapterId)
+    fun loadPre() {
+        val old = chapterSequence.value ?: 1
+        chapterSequence.value = old - 1
     }
 }

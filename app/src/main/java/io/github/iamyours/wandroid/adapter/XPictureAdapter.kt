@@ -3,6 +3,7 @@ package io.github.iamyours.wandroid.adapter
 import androidx.recyclerview.widget.DiffUtil
 import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.databinding.ItemXpictureBinding
+import io.github.iamyours.wandroid.extension.logE
 import io.github.iamyours.wandroid.vo.xxmh.XChapter
 import io.github.iamyours.wandroid.vo.xxmh.XPicture
 
@@ -21,10 +22,11 @@ class XPictureAdapter :
      */
     fun update(list: List<XChapter>, chapterSequence: Int) {
         val validList = findSequencePicture(list, chapterSequence)
+        //todo java.lang.IndexOutOfBoundsException: areItemsTheSame未解决
         val diffResult = DiffUtil.calculateDiff(DiffCallback(mData, validList))
         mData.clear()
         mData.addAll(validList)
-        diffResult.dispatchUpdatesTo(this)
+        notifyDataSetChanged()
     }
 
     /**
@@ -69,6 +71,7 @@ class XPictureAdapter :
             oldItemPosition: Int,
             newItemPosition: Int
         ): Boolean {
+            "$oldItemPosition,$newItemPosition".logE()
             return oldData[oldItemPosition].id == newData[oldItemPosition].id
         }
 

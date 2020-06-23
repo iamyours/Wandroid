@@ -28,13 +28,15 @@
                     app:hasMore="@{vm.hasMore}"
                     app:moreLoading="@{vm.moreLoading}"
                     app:onLoadMoreListener="@{()->vm.loadMore()}"
-                    app:srlEnableRefresh="false">
+                    app:onRefreshListener="@{()->vm.loadPre()}"
+                    app:refreshEnable="@{vm.refreshEnable}">
 
                 <com.scwang.smartrefresh.layout.header.ClassicsHeader
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:srlAccentColor="@color/text_color"
-                        app:srlPrimaryColor="@color/bg_dark" />
+                        app:srlPrimaryColor="@color/bg_dark"
+                        app:srlTextLoading="正在加载上一话" />
 
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerView"
@@ -43,7 +45,6 @@
                         android:clipToPadding="false"
                         android:overScrollMode="never"
                         android:paddingTop="48dp"
-                        app:onFirstObject="@{(pic)->vm.changeFirstPicture(pic)}"
                         tools:listitem="@layout/item_xpicture" />
 
                 <com.scwang.smartrefresh.layout.footer.ClassicsFooter

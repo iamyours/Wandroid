@@ -11,6 +11,7 @@ import io.github.iamyours.wandroid.adapter.XPictureAdapter
 import io.github.iamyours.wandroid.base.BaseActivity
 import io.github.iamyours.wandroid.databinding.ActivityXpictureListBinding
 import io.github.iamyours.wandroid.db.AppDataBase
+import io.github.iamyours.wandroid.extension.logE
 import io.github.iamyours.wandroid.extension.viewModel
 import io.github.iamyours.wandroid.vo.xxmh.XBook
 import io.github.iamyours.wandroid.vo.xxmh.XChapter
@@ -49,9 +50,9 @@ class XPictureListActivity : BaseActivity<ActivityXpictureListBinding>() {
 
     private fun scrollToChapter(chapterId: Long) {
         adapter.getData().forEachIndexed { index, p ->
-            if (p.chapterId == chapterId) {
-                binding.recyclerView.scrollToPosition(index)
-                return@forEachIndexed
+            if (p.chapterId == chapterId && p.sequence == 1) {
+                layoutManager.scrollToPositionWithOffset(index, 0)
+                "chapterId:$chapterId,se:${p.sequence}".logE()
             }
         }
     }
@@ -70,10 +71,13 @@ class XPictureListActivity : BaseActivity<ActivityXpictureListBinding>() {
         finish()
     }
 
+    lateinit var layoutManager: LinearLayoutManager
+
     private fun initRecyclerView() {
         binding.recyclerView.let {
             it.adapter = adapter
-            it.layoutManager = LinearLayoutManager(this)
+            layoutManager = LinearLayoutManager(this)
+            it.layoutManager = layoutManager
         }
         vm.list.observe(this, Observer {
             val chapterSequence = vm.chapterSequence.value ?: 1
