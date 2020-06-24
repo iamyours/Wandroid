@@ -3,11 +3,11 @@ package io.github.iamyours.wandroid.util.glide;
 import android.graphics.Bitmap;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.gif.GifDrawable;
 import com.bumptech.glide.request.FutureTarget;
 
 import java.io.ByteArrayOutputStream;
-import java.nio.ByteBuffer;
 
 import io.github.iamyours.wandroid.App;
 import io.github.iamyours.wandroid.extension.StringKt;
@@ -19,7 +19,9 @@ public class GlideUtil {
         if (isGif) {
             try {
                 FutureTarget<byte[]> target = Glide.with(App.instance)
-                        .as(byte[].class).decode(GifDrawable.class).submit();
+                        .as(byte[].class)
+                        .load(url)
+                        .decode(GifDrawable.class).submit();
                 return target.get();
             } catch (Exception e) {
                 e.printStackTrace();

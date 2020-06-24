@@ -1,8 +1,9 @@
 package io.github.iamyours.wandroid.util
 
-import android.text.TextUtils
+import io.github.iamyours.wandroid.db.AppDataBase
 import io.github.iamyours.wandroid.extension.logE
 import io.github.iamyours.wandroid.net.CacheInterceptor
+import io.github.iamyours.wandroid.vo.UrlTypeVO
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
@@ -29,10 +30,11 @@ object Wget {
         return response.body()?.string() ?: ""
     }
 
+    private val typeDao = AppDataBase.get().urlTypeDao()
     fun head(url: String?): String {
         val md5 = MD5Utils.stringToMD5(url)
-        val value = SP.getString(md5)
-        if (TextUtils.isEmpty(value)) {
+        val value = typeDao.getType(md5)
+        if (value == null) {
             val client = OkHttpClient.Builder()
                 .addNetworkInterceptor(CacheInterceptor())
                 .build()
@@ -46,7 +48,7 @@ object Wget {
             val type = res.header("content-type")
             "time:$time,$type".logE()
             val result = type ?: ""
-            SP.put(md5, result)
+            typeDao.insert(UrlTypeVO(md5, result))
             return result
         }
         return value

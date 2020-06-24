@@ -72,7 +72,6 @@ open class BaseWebViewClient(
     }
 
 
-
     override fun onReceivedSslError(
         view: WebView?,
         handler: SslErrorHandler?,
