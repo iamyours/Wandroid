@@ -14,9 +14,9 @@ class XBookDetailVM : BaseViewModel() {
     }
     val list = Transformations.map(_list) {
         loading.value = false
-        it.content.forEach { c ->
+        it?.content?.forEach { c ->
             c.coverUrl = c.coverUrl.replace(".jpg", ".html")
         }
-        it.content
+        it?.content ?: ArrayList()
     }
 }

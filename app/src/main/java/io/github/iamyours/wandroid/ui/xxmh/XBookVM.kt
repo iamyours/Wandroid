@@ -12,11 +12,13 @@ class XBookVM : BaseViewModel() {
     val list = Transformations.map(bookPage) {
         moreLoading.value = false
         refreshing.value = false
-        hasMore.value = !it.content.isLastPage
-        it.content.list.forEach { b ->
+        val isLast = it?.content?.isLastPage ?: true
+        hasMore.value = !isLast
+        it?.content?.list?.forEach { b ->
             b.coverUrl = b.coverUrl.replace(".jpg", ".html")
+            b.extensionUrl = b.extensionUrl.replace(".jpg", ".html")
         }
-        it.content.list
+        it?.content?.list ?: ArrayList()
     }
 
     override fun refresh() {
