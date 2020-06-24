@@ -13,7 +13,6 @@ import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import io.github.iamyours.router.ARouter
 import io.github.iamyours.router.annotation.Route
@@ -27,18 +26,13 @@ import io.github.iamyours.wandroid.extension.copy
 import io.github.iamyours.wandroid.extension.openBrowser
 import io.github.iamyours.wandroid.extension.viewModel
 import io.github.iamyours.wandroid.util.Constants
-import io.github.iamyours.wandroid.util.FileUtil
-import io.github.iamyours.wandroid.util.MD5Utils
 import io.github.iamyours.wandroid.vo.CacheArticleVO
-import io.github.iamyours.wandroid.vo.WebViewVO
-import io.github.iamyours.wandroid.web.WanAndroidWebClient
 import io.github.iamyours.wandroid.web.WanObject
 import io.github.iamyours.wandroid.web.WebViewClientFactory
 import io.github.iamyours.wandroid.widget.BottomStyleDialog
 import io.github.iamyours.wandroid.widget.WanWebView
 import kotlinx.android.synthetic.main.activity_web.*
 import kotlinx.android.synthetic.main.dialog_more.view.*
-import java.io.File
 
 @Route(path = "/web")
 class WebActivity : BaseActivity<ActivityWebBinding>() {
@@ -97,6 +91,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
             v.dv_collect.visibility = View.GONE
         }
         v.dv_download.isSelected = cached
+        v.dtv_download.text = if (cached) "已下载" else "下载"
         v.dv_download.setOnClickListener {
             downHtml()
             saveCacheOrNot(link, navTitle, cached)

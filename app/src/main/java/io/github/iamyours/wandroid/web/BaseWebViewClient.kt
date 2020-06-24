@@ -4,13 +4,18 @@ import android.content.Intent
 import android.net.http.SslError
 import android.util.Log
 import android.webkit.SslErrorHandler
+import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import io.github.iamyours.wandroid.extension.logE
 import io.github.iamyours.wandroid.ui.web.WebActivity
+import io.github.iamyours.wandroid.util.FileUtil
+import io.github.iamyours.wandroid.util.Wget
+import io.github.iamyours.wandroid.util.glide.GlideUtil
 import io.github.iamyours.wandroid.vo.WebViewVO
+import java.io.ByteArrayInputStream
 import java.net.URISyntaxException
 
 open class BaseWebViewClient(
@@ -71,5 +76,34 @@ open class BaseWebViewClient(
         error: SslError?
     ) {
         super.onReceivedSslError(view, handler, error)
+    }
+
+    override fun shouldInterceptRequest(view: WebView?, url: String?)
+            : WebResourceResponse? {
+        val urlStr = "$url"
+        "shouldInterceptRequest:$url".logE()
+        if (originUrl == url) {
+            val cache = FileUtil.getHtml(originUrl)
+            if (cache != null) {
+                val input = ByteArrayInputStream(cache.toByteArray())
+                return WebResourceResponse("text/html", "utf-8", input)
+            }
+        } else if (urlStr.endsWith(".css") || urlStr.endsWith(".js")) {
+
+        } else {
+            val head = Wget.head(url)
+            "head:$head".logE()
+            if (head.startsWith("image")) {
+                val bytes = GlideUtil.syncLoad(url, head)
+                if (bytes != null) {
+                    return WebResourceResponse(
+                        head,
+                        "utf-8",
+                        ByteArrayInputStream(bytes)
+                    )
+                }
+            }
+        }
+        return super.shouldInterceptRequest(view, url)
     }
 }

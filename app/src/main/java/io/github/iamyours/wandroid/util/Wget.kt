@@ -1,11 +1,10 @@
 package io.github.iamyours.wandroid.util
 
+import android.text.TextUtils
+import io.github.iamyours.wandroid.extension.logE
+import io.github.iamyours.wandroid.net.CacheInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import java.security.SecureRandom
-import java.security.cert.CertificateException
-import java.security.cert.X509Certificate
-import javax.net.ssl.*
 
 object Wget {
     fun get(url: String): String {
@@ -31,17 +30,25 @@ object Wget {
     }
 
     fun head(url: String?): String {
-        val client = OkHttpClient.Builder()
-            .build()
-        val request = Request.Builder()
-            .url(url)
-            .head()
-            .build()
-        val t = System.currentTimeMillis()
-        val res = client.newCall(request).execute()
-        val time = System.currentTimeMillis() - t
-        val type = res.header("content-type")
-        "time:$time,$type"
-        return type ?: ""
+        val md5 = MD5Utils.stringToMD5(url)
+        val value = SP.getString(md5)
+        if (TextUtils.isEmpty(value)) {
+            val client = OkHttpClient.Builder()
+                .addNetworkInterceptor(CacheInterceptor())
+                .build()
+            val request = Request.Builder()
+                .url(url)
+                .head()
+                .build()
+            val t = System.currentTimeMillis()
+            val res = client.newCall(request).execute()
+            val time = System.currentTimeMillis() - t
+            val type = res.header("content-type")
+            "time:$time,$type".logE()
+            val result = type ?: ""
+            SP.put(md5, result)
+            return result
+        }
+        return value
     }
 }
