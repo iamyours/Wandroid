@@ -1,15 +1,18 @@
 package io.github.iamyours.wandroid.binds
 
 import android.app.Activity
+import android.content.Intent
 import android.graphics.Bitmap
 import android.text.Html
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.databinding.Bindable
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.databinding.BindingAdapter
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -23,12 +26,11 @@ import com.bumptech.glide.request.transition.Transition
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
-import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.extension.*
-import io.github.iamyours.wandroid.generated.callback.OnClickListener
 import io.github.iamyours.wandroid.listener.SimpleRecyclerOnScrollerListener
+import io.github.iamyours.wandroid.ui.web.ImageShowActivity
 import io.github.iamyours.wandroid.util.EmptyCornerDrawable
-import io.github.iamyours.wandroid.vo.BannerVO
+import io.github.iamyours.wandroid.web.PositionImage
 
 @BindingAdapter(
     value = ["refreshing", "moreLoading", "hasMore"],
@@ -207,6 +209,42 @@ fun bindDrawer(v: DrawerLayout, open: Boolean) {
 @BindingAdapter(value = ["html"])
 fun bindHtml(tv: TextView, text: String) {
     tv.text = Html.fromHtml(text)
+}
+
+/**
+ * 显示图片
+ */
+@BindingAdapter(value = ["showImage"])
+fun bindImage(iv: ImageView, showImage: PositionImage?) {
+    showImage?.run {
+        val lp = iv.layoutParams as ViewGroup.MarginLayoutParams
+        val parentWidth = iv.context.resources.displayMetrics.widthPixels
+        val scale = parentWidth / clientWidth
+        lp.width = (width * scale).toInt()
+        lp.height = (height * scale).toInt()
+        lp.leftMargin = (x * scale).toInt()
+        lp.topMargin = (y * scale).toInt()
+        "x:${lp.leftMargin},y:${lp.topMargin},w:${lp.width},h:${lp.height}".logE()
+//        iv.visibility = View.VISIBLE
+        iv.layoutParams = lp
+        iv.requestLayout()
+        iv.displayWithUrl(url, lp.width, lp.height) {
+            iv.postDelayed({
+                val activity = iv.getActivity()
+                activity?.let {
+                    val pair: Pair<View, String> = Pair(iv, "image")
+                    val option =
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(
+                            it,
+                            pair
+                        )
+                    val intent = Intent(it, ImageShowActivity::class.java)
+                    intent.putExtra("url", url)
+                    it.startActivityForResult(intent, 1, option.toBundle())
+                }
+            }, 200)
+        }
+    }
 }
 
 

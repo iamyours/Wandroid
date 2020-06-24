@@ -17,9 +17,9 @@ public class GlideUtil {
         boolean isGif = type.endsWith("gif");
         StringKt.logE("syncLoad:" + type + ", " + url);
         if (isGif) {
-            FutureTarget<byte[]> target = Glide.with(App.instance)
-                    .as(byte[].class).decode(GifDrawable.class).submit();
             try {
+                FutureTarget<byte[]> target = Glide.with(App.instance)
+                        .as(byte[].class).decode(GifDrawable.class).submit();
                 return target.get();
             } catch (Exception e) {
                 e.printStackTrace();

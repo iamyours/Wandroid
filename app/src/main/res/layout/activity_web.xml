@@ -7,14 +7,14 @@
 
         <variable
                 name="vm"
-                type="io.github.iamyours.wandroid.ui.web.WebVM"/>
+                type="io.github.iamyours.wandroid.ui.web.WebVM" />
     </data>
 
     <LinearLayout
-            android:orientation="vertical"
-            android:background="@color/bg_dark"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/bg_dark"
+            android:orientation="vertical">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -24,38 +24,35 @@
                     android:layout_width="48dp"
                     android:layout_height="match_parent"
                     android:padding="10dp"
-                    app:srcCompat="@drawable/ic_back"
                     app:back="@{true}"
-                    app:tint="@color/tab_text_color"
-                    />
+                    app:srcCompat="@drawable/ic_back"
+                    app:tint="@color/tab_text_color" />
 
             <TextView
                     android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:text="@{vm.title}"
                     android:textColor="@color/title_color"
                     android:textSize="16sp"
-                    android:layout_weight="1"
-                    android:text="@{vm.title}"
-                    android:gravity="center"
-                    tools:text="test"
-                    android:lines="1"
-                    android:ellipsize="end"
-                    android:layout_height="match_parent"/>
+                    tools:text="test" />
 
             <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="48dp"
                     android:layout_height="match_parent"
-                    android:padding="16dp"
-                    app:tint="@color/tab_text_color"
-                    app:srcCompat="@drawable/ic_more"
                     android:onClick="@{()->vm.showMore()}"
-                    />
+                    android:padding="16dp"
+                    app:srcCompat="@drawable/ic_more"
+                    app:tint="@color/tab_text_color" />
         </LinearLayout>
 
         <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/divider"
-                />
+                android:background="@color/divider" />
 
         <FrameLayout
                 android:layout_width="match_parent"
@@ -64,8 +61,8 @@
             <io.github.iamyours.wandroid.widget.WanWebView
                     android:id="@+id/webView"
                     android:layout_width="match_parent"
-                    android:overScrollMode="never"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never" />
 
             <com.github.ybq.android.spinkit.SpinKitView
                     android:id="@+id/spin_kit"
@@ -74,8 +71,16 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="120dp"
-                    app:gone="@{vm.loaded}"
-                    app:SpinKit_Color="@color/text_color"/>
+                    app:SpinKit_Color="@color/text_color"
+                    app:gone="@{vm.loaded}" />
+
+            <io.github.iamyours.wandroid.widget.TouchImageView
+                    android:id="@+id/showImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="invisible"
+                    app:showImage="@{vm.image}" />
+
         </FrameLayout>
 
     </LinearLayout>

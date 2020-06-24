@@ -12,7 +12,10 @@ import io.github.iamyours.wandroid.ui.login.LoginActivity
 import io.github.iamyours.wandroid.util.Constants
 import io.github.iamyours.wandroid.util.FileUtil
 
-class WanObject(var context: Context) {
+class WanObject(
+    var context: Context,
+    var image: MutableLiveData<PositionImage>
+) {
     val loading = MutableLiveData<Boolean>()
     val msg = MutableLiveData<String>()
 
@@ -66,7 +69,24 @@ class WanObject(var context: Context) {
      * 显示图片
      */
     @JavascriptInterface
-    fun showImage(url: String) {
-
+    fun showImage(
+        url: String,
+        x: Double,
+        y: Double,
+        width: Double,
+        height: Double,
+        clientWidth: Double
+    ) {
+        //发送显示图片消息
+        image.postValue(
+            PositionImage(
+                url,
+                x,
+                y,
+                width,
+                height,
+                clientWidth
+            )
+        )
     }
 }

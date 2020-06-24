@@ -21,10 +21,7 @@ import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.base.BaseActivity
 import io.github.iamyours.wandroid.databinding.ActivityWebBinding
 import io.github.iamyours.wandroid.db.AppDataBase
-import io.github.iamyours.wandroid.extension.arg
-import io.github.iamyours.wandroid.extension.copy
-import io.github.iamyours.wandroid.extension.openBrowser
-import io.github.iamyours.wandroid.extension.viewModel
+import io.github.iamyours.wandroid.extension.*
 import io.github.iamyours.wandroid.util.Constants
 import io.github.iamyours.wandroid.vo.CacheArticleVO
 import io.github.iamyours.wandroid.web.WanObject
@@ -57,6 +54,10 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
     }
     var navTitle = ""
 
+    override fun onEnterAnimationComplete() {
+        super.onEnterAnimationComplete()
+        binding.showImage.visibility = View.INVISIBLE
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +81,34 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
         vm.showMore.observe(this, Observer {
             showMoreDialog()
         })
+        vm.loaded.observe(this, Observer {
+            if (it) {
+                loadBaseScript(webView)
+            }
+        })
+//        binding.showImage.setDisableTouch(true)
+    }
+
+    private fun loadBaseScript(webView: WebView) {
+        //显示图片
+        "loadBaseScript...".logE()
+        val script = """
+            javascript:(function(){
+                var imgs = document.getElementsByTagName("img");
+                var clientWidth = document.body.clientWidth;
+                for(var i=0;i<imgs.length;i++){
+                    imgs[i].onclick = function(e){
+                        var target = e.target;
+                        var rect = target.getBoundingClientRect();
+                        android.showImage(target.src,rect.x,rect.y,rect.width,rect.height,clientWidth);
+                    };
+                }
+            })();
+        """.trimIndent()
+
+        webView.postDelayed({
+            webView.loadUrl(script)
+        }, 300)
     }
 
     private fun showMoreDialog() {
@@ -169,7 +198,10 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                     navTitle = t ?: ""
                 }
             }
-            addJavascriptInterface(WanObject(this@WebActivity), "android")
+            addJavascriptInterface(
+                WanObject(this@WebActivity, vm.image),
+                "android"
+            )
             scrollListener = object : WanWebView.OnScrollChangedListener {
                 override fun onScroll(dx: Int, dy: Int, oldX: Int, oldY: Int) {
                     vm.title.value = if (dy < 10) "" else navTitle

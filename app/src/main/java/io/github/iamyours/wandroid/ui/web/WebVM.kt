@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import io.github.iamyours.wandroid.base.BaseViewModel
+import io.github.iamyours.wandroid.web.PositionImage
 
 class WebVM : BaseViewModel() {
     val loaded = MutableLiveData<Boolean>()
@@ -11,6 +12,8 @@ class WebVM : BaseViewModel() {
     val collect = MutableLiveData<Boolean>()
     val articleId = MutableLiveData<Int>()
     val showMore = MutableLiveData<Boolean>()
+
+    val image = MutableLiveData<PositionImage>()
 
     /**
      * 收藏接口

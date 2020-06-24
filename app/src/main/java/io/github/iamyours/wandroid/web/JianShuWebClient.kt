@@ -30,31 +30,6 @@ class JianShuWebClient(url: String, vo: MutableLiveData<Boolean>) :
         return super.shouldInterceptRequest(view, url)
     }
 
-    override fun onPageFinished(view: WebView?, url: String?) {
-        super.onPageFinished(view, url)
-        val script =
-            """javascript:(function(){
-                            console.log("script......"+document.body.getBoundingClientRect);
-                            var t1 = 0;
-                            var t2 = 0;
-                            var timer = null;
-                            var loadImage = function(){
-                                    var imgs = document.getElementsByTagName("img");
-                                    for(var i=0;i<imgs.length;i++){
-                                        var image = imgs[i];
-                                        if(image.dataset){
-                                            if(image.className && image.className == "user-avatar")continue;
-                                            image.src = "https:"+image.dataset.originalSrc;
-                                            image.classList.remove("image-loading");
-                                        }
-                                    }
-                            };
-                            loadImage();
-                        })();
-                    """.trimIndent()
-        view?.loadUrl(script)
-    }
-
     private val rex =
         "(<style data-vue-ssr-id=[\\s\\S]*?>)([\\s\\S]*]?)(<\\/style>)"
     private val bodyRex = "<body class=\"([\\s\\S]*?)\""

@@ -68,7 +68,10 @@ open class BaseWebViewClient(
     override fun onPageFinished(view: WebView?, url: String?) {
         super.onPageFinished(view, url)
         vo.value = true
+//        loadBaseScript(view)
     }
+
+
 
     override fun onReceivedSslError(
         view: WebView?,
