@@ -40,6 +40,15 @@ object Wget {
                 .build()
             val request = Request.Builder()
                 .url(url)
+                .addHeader("Connection", "keep-alive")
+                .addHeader("Accept", "*/*")
+                .addHeader("Access-Control-Allow-Origin", "*")
+                .addHeader("Access-Control-Allow-Headers", "X-Requested-With")
+                .addHeader("Vary", "Accept-Encoding")
+                .header(
+                    "user-agent",
+                    "Mozilla/5.0 (Linux; Android 8.0; Pixel 2 Build/OPD3.170816.012) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3887.7 Mobile Safari/537.36"
+                )
                 .head()
                 .build()
             val t = System.currentTimeMillis()

@@ -23,6 +23,7 @@ import io.github.iamyours.wandroid.databinding.ActivityWebBinding
 import io.github.iamyours.wandroid.db.AppDataBase
 import io.github.iamyours.wandroid.extension.*
 import io.github.iamyours.wandroid.util.Constants
+import io.github.iamyours.wandroid.util.WebViewUtil
 import io.github.iamyours.wandroid.vo.CacheArticleVO
 import io.github.iamyours.wandroid.web.WanObject
 import io.github.iamyours.wandroid.web.WebViewClientFactory
@@ -90,17 +91,22 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
     }
 
     private fun loadBaseScript(webView: WebView) {
-        //显示图片
+        //显示图片,阻止事件冒泡（CSDN图片显示）
         "loadBaseScript...".logE()
         val script = """
             javascript:(function(){
                 var imgs = document.getElementsByTagName("img");
                 var clientWidth = document.body.clientWidth;
                 for(var i=0;i<imgs.length;i++){
+                    var dataset = imgs[i].dataset;
+                    if(dataset && dataset.src && dataset.src!=imgs[i].src){
+                        imgs[i].src = dataset.src;
+                    }
                     imgs[i].onclick = function(e){
                         var target = e.target;
                         var rect = target.getBoundingClientRect();
                         android.showImage(target.src,rect.x,rect.y,rect.width,rect.height,clientWidth);
+                        e.stopPropagation();
                     };
                 }
             })();
@@ -189,6 +195,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
             }
         }
         binding.webView.run {
+            WebViewUtil.fixWebView(this)
             setBackgroundColor(0)
             loadWeb(this, link)
             webViewClient = WebViewClientFactory.create(link!!, vm.loaded)
@@ -264,4 +271,14 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
     """.trimIndent()
     }
 
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        super.onActivityResult(requestCode, resultCode, data)
+        binding.showImage.postDelayed({
+            binding.showImage.visibility = View.INVISIBLE
+        }, 350)
+    }
 }
