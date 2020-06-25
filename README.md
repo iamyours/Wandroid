@@ -18,6 +18,8 @@
 - [WebView](https://github.com/iamyours/webview_flutter)基于官方`webview_flutter`改造，添加支持`加载离线资源`，`进度监听`等功能
 
 ### 效果图
+#### 离线模式
+![](https://github.com/iamyours/Wandroid/raw/master/screen/offline-image.gif)
 #### 掘金/简书/CSDN
 ![掘金](https://github.com/iamyours/Wandroid/raw/master/screen/juejin.gif)
 ![简书](https://github.com/iamyours/Wandroid/blob/master/screen/jianshu.gif)
