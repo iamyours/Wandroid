@@ -15,7 +15,6 @@ import io.github.iamyours.wandroid.extension.StringKt;
 public class GlideUtil {
     public static byte[] syncLoad(String url, String type) {
         boolean isGif = type.endsWith("gif");
-        StringKt.logE("syncLoad:" + type + ", " + url);
         if (isGif) {
             try {
                 FutureTarget<byte[]> target = Glide.with(App.instance)

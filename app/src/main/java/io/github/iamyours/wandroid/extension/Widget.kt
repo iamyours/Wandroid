@@ -84,26 +84,14 @@ fun ImageView.displayBase64(url: String) {
         .into(this)
 }
 
-fun ImageView.displayWithUrl(
-    url: String,
-    width: Int,
-    height: Int,
-    callback: () -> Unit
+fun ImageView.displayOverride(
+    url: String
 ) {
     Glide.with(this)
         .asBitmap()
         .load(url)
         .override(context.screenWidth(), context.screenHeight())
-        .into(object : SimpleTarget<Bitmap>() {
-            override fun onResourceReady(
-                resource: Bitmap,
-                transition: Transition<in Bitmap>?
-            ) {
-                "drawable:$resource".logE()
-                setImageBitmap(resource)
-                callback()
-            }
-        })
+        .into(this)
 }
 
 fun ImageView.displayWithUrl(url: String?, radius: Float) {

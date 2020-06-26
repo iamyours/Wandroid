@@ -3,6 +3,7 @@ package io.github.iamyours.wandroid.ui.mine
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import io.github.iamyours.wandroid.base.BaseViewModel
+import io.github.iamyours.wandroid.extension.toast
 import io.github.iamyours.wandroid.util.AbsentLiveData
 import io.github.iamyours.wandroid.util.LiveDataBus
 import io.github.iamyours.wandroid.util.SP
@@ -59,7 +60,8 @@ class MineVM : BaseViewModel() {
         route.value = "/cache"
     }
 
-    fun toXBook(){
-        route.value = "/xbook"
+    fun toXBook() {
+        "未开放".toast()
+//        route.value = "/xbook"
     }
 }

@@ -96,7 +96,6 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
         val script = """
             javascript:(function(){
                 var imgs = document.getElementsByTagName("img");
-                var clientWidth = document.body.clientWidth;
                 for(var i=0;i<imgs.length;i++){
                     var dataset = imgs[i].dataset;
                     if(dataset && dataset.src && dataset.src!=imgs[i].src){
@@ -105,7 +104,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                     imgs[i].onclick = function(e){
                         var target = e.target;
                         var rect = target.getBoundingClientRect();
-                        android.showImage(target.src,rect.x,rect.y,rect.width,rect.height,clientWidth);
+                        android.showImage(target.src,rect.x,rect.y,rect.width,rect.height,outerWidth);
                         e.stopPropagation();
                     };
                 }

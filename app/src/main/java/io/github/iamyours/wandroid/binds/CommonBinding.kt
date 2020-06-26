@@ -224,26 +224,23 @@ fun bindImage(iv: ImageView, showImage: PositionImage?) {
         lp.height = (height * scale).toInt()
         lp.leftMargin = (x * scale).toInt()
         lp.topMargin = (y * scale).toInt()
-        "x:${lp.leftMargin},y:${lp.topMargin},w:${lp.width},h:${lp.height}".logE()
-//        iv.visibility = View.VISIBLE
         iv.layoutParams = lp
         iv.requestLayout()
-        iv.displayWithUrl(url, lp.width, lp.height) {
-            iv.postDelayed({
-                val activity = iv.getActivity()
-                activity?.let {
-                    val pair: Pair<View, String> = Pair(iv, "image")
-                    val option =
-                        ActivityOptionsCompat.makeSceneTransitionAnimation(
-                            it,
-                            pair
-                        )
-                    val intent = Intent(it, ImageShowActivity::class.java)
-                    intent.putExtra("url", url)
-                    it.startActivityForResult(intent, 1, option.toBundle())
-                }
-            }, 200)
-        }
+        iv.displayOverride(url)
+        iv.postDelayed({
+            val activity = iv.getActivity()
+            activity?.let {
+                val pair: Pair<View, String> = Pair(iv, "image")
+                val option =
+                    ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        it,
+                        pair
+                    )
+                val intent = Intent(it, ImageShowActivity::class.java)
+                intent.putExtra("url", url)
+                it.startActivityForResult(intent, 1, option.toBundle())
+            }
+        }, 200)
     }
 }
 

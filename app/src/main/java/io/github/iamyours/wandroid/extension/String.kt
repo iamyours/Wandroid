@@ -7,6 +7,7 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import io.github.iamyours.wandroid.App
 import io.github.iamyours.wandroid.BuildConfig
 
 fun String.logE() {
@@ -22,6 +23,10 @@ fun String.copy(context: Context) {
     cm.primaryClip = data
     Toast.makeText(context.applicationContext, "复制成功", Toast.LENGTH_SHORT)
         .show()
+}
+
+fun String.toast() {
+    Toast.makeText(App.instance, this, Toast.LENGTH_SHORT).show()
 }
 
 fun String.openBrowser(context: Context) {
