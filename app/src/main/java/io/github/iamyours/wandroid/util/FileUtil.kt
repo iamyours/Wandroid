@@ -1,6 +1,7 @@
 package io.github.iamyours.wandroid.util
 
 import android.text.TextUtils
+import io.github.iamyours.wandroid.App
 import io.github.iamyours.wandroid.BuildConfig
 import io.github.iamyours.wandroid.extension.logE
 import okhttp3.OkHttpClient
@@ -8,11 +9,20 @@ import okhttp3.Request
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.nio.charset.Charset
 
 
 object FileUtil {
     private fun md5(string: String): String? {
         return MD5Utils.stringToMD5(string)
+    }
+
+    fun readStringInAssets(path: String): String {
+        val input = App.instance.assets.open(path)
+        val len = input.available();
+        val buffer = ByteArray(len)
+        input.read(buffer)
+        return String(buffer, Charset.forName("utf-8"))
     }
 
 

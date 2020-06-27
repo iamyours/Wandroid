@@ -9,6 +9,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
+import io.github.iamyours.wandroid.App
 import io.github.iamyours.wandroid.extension.logE
 import io.github.iamyours.wandroid.ui.web.WebActivity
 import io.github.iamyours.wandroid.util.FileUtil
@@ -91,6 +92,11 @@ open class BaseWebViewClient(
                 return WebResourceResponse("text/html", "utf-8", input)
             }
         } else if (urlStr.endsWith(".css") || urlStr.endsWith(".js")) {
+            if (urlStr.endsWith("dom-to-image.min.js")) {
+                val input = App.instance.assets.open("dom-to-image.min.js")
+                "load dom script.js".logE()
+                return WebResourceResponse("text/javascript", "utf-8", input)
+            }
 
         } else {
             val head = Wget.head(url)

@@ -23,6 +23,7 @@ import io.github.iamyours.wandroid.databinding.ActivityWebBinding
 import io.github.iamyours.wandroid.db.AppDataBase
 import io.github.iamyours.wandroid.extension.*
 import io.github.iamyours.wandroid.util.Constants
+import io.github.iamyours.wandroid.util.FileUtil
 import io.github.iamyours.wandroid.util.WebViewUtil
 import io.github.iamyours.wandroid.vo.CacheArticleVO
 import io.github.iamyours.wandroid.web.WanObject
@@ -87,12 +88,13 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                 loadBaseScript(webView)
             }
         })
-//        binding.showImage.setDisableTouch(true)
+        binding.showImage.setDisableTouch(true)
     }
 
     private fun loadBaseScript(webView: WebView) {
         //显示图片,阻止事件冒泡（CSDN图片显示）
         "loadBaseScript...".logE()
+        //代码图片展示 todo 部分站点显示有问题
         val script = """
             javascript:(function(){
                 var imgs = document.getElementsByTagName("img");
@@ -108,12 +110,30 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                         e.stopPropagation();
                     };
                 }
+               var domScript = document.createElement("script");
+                domScript.setAttribute("type","text/javascript");
+                domScript.setAttribute("src","https://iamyours.com/dom-to-image.min.js");
+                document.body.appendChild(domScript);
+                
+                var pres = document.getElementsByTagName("pre");
+                for(var i=0;i<pres.length;i++){
+                    pres[i].onclick = function(e){
+                        console.log(this.tagName);
+                        var rect = this.getBoundingClientRect();
+                        var imgWidth = this.scrollWidth + 15;
+                        var childWidth = this.children[0].scrollWidth||0;
+                        if(childWidth>imgWidth)imgWidth=childWidth;
+                        domtoimage.toPng(this,{width:imgWidth}).then(function(data){
+                            android.showImage(data,rect.x,rect.y,rect.width,rect.height,outerWidth);
+                        });
+                    };
+                }
             })();
         """.trimIndent()
-
         webView.postDelayed({
             webView.loadUrl(script)
         }, 300)
+
     }
 
     private fun showMoreDialog() {
