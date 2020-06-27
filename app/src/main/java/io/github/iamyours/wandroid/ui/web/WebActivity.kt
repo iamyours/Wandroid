@@ -110,10 +110,6 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                         e.stopPropagation();
                     };
                 }
-               var domScript = document.createElement("script");
-                domScript.setAttribute("type","text/javascript");
-                domScript.setAttribute("src","https://iamyours.com/dom-to-image.min.js");
-                document.body.appendChild(domScript);
                 
                 var pres = document.getElementsByTagName("pre");
                 for(var i=0;i<pres.length;i++){
@@ -124,16 +120,19 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                         var childWidth = this.children[0].scrollWidth||0;
                         if(childWidth>imgWidth)imgWidth=childWidth;
                         domtoimage.toPng(this,{width:imgWidth}).then(function(data){
-                            android.showImage(data,rect.x,rect.y,rect.width,rect.height,outerWidth);
+                            android.showImage(data,rect.x,rect.y,imgWidth,rect.height,outerWidth);
                         });
                     };
                 }
             })();
         """.trimIndent()
+        val dom2ImageScript = FileUtil.readStringInAssets("dom-to-image.js")
         webView.postDelayed({
             webView.loadUrl(script)
         }, 300)
-
+        webView.evaluateJavascript(dom2ImageScript){
+            "result:$it".logE()
+        }
     }
 
     private fun showMoreDialog() {
