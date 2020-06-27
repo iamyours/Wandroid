@@ -7,10 +7,14 @@
 - 图片显示，支持缩放，共享元素无缝转场
 - 支持离线阅读，地铁上阅读更方便
 
+### 后续功能
+- 代码图片展示（开发中，现支持掘金，简书）
+- 文章分类收藏
+
 
 ### 项目地址
 [https://github.com/iamyours/Wandroid](https://github.com/iamyours/Wandroid)<br/>
-[下载地址v1.0.0](https://github.com/iamyours/Wandroid/releases/download/v1.0.0/wanandroid-v1.0.0.apk)<br/>
+[下载地址v1.1.0](https://github.com/iamyours/Wandroid/releases/download/v1.1.0/v1.1.0.apk)<br/>
 [历史版本](https://github.com/iamyours/Wandroid/releases)<br/>
 
 ### Flutter版本
