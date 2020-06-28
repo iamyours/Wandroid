@@ -145,7 +145,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:src="@drawable/ic_arrow_right"
+                    app:srcCompat="@drawable/ic_arrow_right"
                     app:tint="@color/text_color"
                     />
         </LinearLayout>
@@ -167,7 +167,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="15dp"
-                    android:src="@drawable/ic_eye"
+                    app:srcCompat="@drawable/ic_eye"
                     app:tint="@color/text_color"
                     android:layout_height="15dp"/>
 
@@ -184,7 +184,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:src="@drawable/ic_arrow_right"
+                    app:srcCompat="@drawable/ic_arrow_right"
                     app:tint="@color/text_color"
                     />
         </LinearLayout>
