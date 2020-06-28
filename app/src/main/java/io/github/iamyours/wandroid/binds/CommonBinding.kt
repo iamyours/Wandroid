@@ -29,6 +29,7 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener
 import io.github.iamyours.wandroid.extension.*
 import io.github.iamyours.wandroid.listener.SimpleRecyclerOnScrollerListener
 import io.github.iamyours.wandroid.ui.web.ImageShowActivity
+import io.github.iamyours.wandroid.util.Constants
 import io.github.iamyours.wandroid.util.EmptyCornerDrawable
 import io.github.iamyours.wandroid.web.PositionImage
 
@@ -237,7 +238,7 @@ fun bindImage(iv: ImageView, showImage: PositionImage?) {
                         pair
                     )
                 val intent = Intent(it, ImageShowActivity::class.java)
-                intent.putExtra("url", url)
+                Constants.sharedUrl = url
                 it.startActivityForResult(intent, 1, option.toBundle())
             }
         }, 200)
