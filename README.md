@@ -22,8 +22,9 @@
 
 ### 效果图
 #### 离线模式，代码图片展示
-![离线模式](https://github.com/iamyours/Wandroid/raw/master/screen/offline-image.gif)
-![代码](https://github.com/iamyours/Wandroid/raw/master/screen/code.gif)
+<img src="https://github.com/iamyours/Wandroid/raw/master/screen/offline-image.gif" width="33%"/>
+<img src="https://github.com/iamyours/Wandroid/raw/master/screen/offline-image.gif" width="33%" style="margin-left:10px;"/>
+
 #### 掘金/简书/CSDN
 ![掘金](https://github.com/iamyours/Wandroid/raw/master/screen/juejin.gif)
 ![简书](https://github.com/iamyours/Wandroid/blob/master/screen/jianshu.gif)
