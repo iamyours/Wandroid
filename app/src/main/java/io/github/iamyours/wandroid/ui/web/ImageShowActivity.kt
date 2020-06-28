@@ -9,6 +9,7 @@ import io.github.iamyours.wandroid.extension.displayCenterInside
 import io.github.iamyours.wandroid.extension.logE
 import io.github.iamyours.wandroid.extension.screenHeight
 import io.github.iamyours.wandroid.extension.screenWidth
+import io.github.iamyours.wandroid.util.Constants
 import kotlinx.android.synthetic.main.activity_image_show.*
 
 class ImageShowActivity : BaseActivity<ActivityImageShowBinding>() {
@@ -17,13 +18,12 @@ class ImageShowActivity : BaseActivity<ActivityImageShowBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val url = intent.getStringExtra("url")
+        val url = Constants.sharedUrl
         val lp = image.layoutParams
         lp.width = screenWidth()
         lp.height = screenHeight()
         image.layoutParams = lp
         ViewCompat.setTransitionName(image, "image")
-        "imageShow:$url".logE()
         image.displayCenterInside(url)
         image.setOnClickListener { onBackPressed() }
     }

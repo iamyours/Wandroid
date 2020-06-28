@@ -102,10 +102,11 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
     private fun loadBaseScript(webView: WebView) {
         //显示图片,阻止事件冒泡（CSDN图片显示）
         "loadBaseScript...".logE()
-        var ww = webView.width
+        val ww = webView.width
         //代码图片展示 todo 部分站点显示有问题
         val script = """
             javascript:(function(){
+                var lastTime = new Date().getTime();
                 var imgs = document.getElementsByTagName("img");
                 for(var i=0;i<imgs.length;i++){
                     var dataset = imgs[i].dataset;
@@ -113,6 +114,9 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                         imgs[i].src = dataset.src;
                     }
                     imgs[i].onclick = function(e){
+                        var t = new Date().getTime();
+                        if(t-lastTime<500)return;
+                        lastTime = t;
                         var target = e.target;
                         var rect = target.getBoundingClientRect();
                         android.showImage(target.src,rect.x,rect.y,rect.width,rect.height,outerWidth);
@@ -121,20 +125,33 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                 }
                 var ww = ${ww}.0;
                 var scale = ww/outerWidth;
-                var pres = document.getElementsByTagName("${getCodeTag()}");
+                var pres = document.getElementsByTagName("pre");
                 if(pres.length==0)pres = document.getElementsByTagName("pre");
                 for(var i=0;i<pres.length;i++){
                     pres[i].onclick = function(e){
-                        console.log(this.tagName);
+                        var t = new Date().getTime();
+                        if(t-lastTime<500)return;
+                        lastTime = t;
                         var rect = this.getBoundingClientRect();
-                        var imgWidth = this.scrollWidth + 15;
-                        var imgHeight = this.offsetHeight;
-                        domtoimage.toPng(this,{width:imgWidth*scale,height:imgHeight*scale,
+                        var imgWidth = this.scrollWidth;
+                        var node = this;
+                        if(this.childElementCount==1){
+                            var child = this.children[0];
+                            var cw = child.scrollWidth;
+                            if(cw>imgWidth){
+                                imgWidth = cw;
+                                node = child;
+                            }
+                        }
+                        var imgHeight = node.offsetHeight;
+                        imgWidth = imgWidth + 5;
+                        console.log(node.tagName);
+                        domtoimage.toPng(node,{width:imgWidth*scale,height:imgHeight*scale,
                                 style: {
                                     transform: "scale(" + scale + ")",
                                     transformOrigin: "top left",
-                                    width: this.offsetWidth + "px",
-                                    height: this.offsetHeight + "px"
+                                    width: imgWidth + "px",
+                                    height: imgHeight + "px"
                                 }
                             })
                             .then(function(data){

@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import io.github.iamyours.wandroid.extension.logE
 import io.github.iamyours.wandroid.observer.LoadingObserver
 import io.github.iamyours.wandroid.ui.login.LoginActivity
 import io.github.iamyours.wandroid.util.Constants
@@ -78,6 +79,7 @@ class WanObject(
         clientWidth: Double
     ) {
         //发送显示图片消息
+        "showImage:${url.length},w:$width,h:$height".logE()
         image.postValue(
             PositionImage(
                 url,
