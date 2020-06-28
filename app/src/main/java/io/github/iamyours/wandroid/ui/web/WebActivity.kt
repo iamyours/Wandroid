@@ -132,7 +132,6 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                         var t = new Date().getTime();
                         if(t-lastTime<500)return;
                         lastTime = t;
-                        var rect = this.getBoundingClientRect();
                         var imgWidth = this.scrollWidth;
                         var node = this;
                         if(this.childElementCount==1){
@@ -144,6 +143,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                             }
                         }
                         var imgHeight = node.offsetHeight;
+                        var rect = node.getBoundingClientRect();
                         imgWidth = imgWidth + 5;
                         console.log(node.tagName);
                         domtoimage.toPng(node,{width:imgWidth*scale,height:imgHeight*scale,
