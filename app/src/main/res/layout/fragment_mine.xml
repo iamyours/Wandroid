@@ -121,7 +121,7 @@
                 android:layout_width="match_parent"
                 android:gravity="center_vertical"
                 android:paddingLeft="16dp"
-                android:onClick="@{()->vm.toHistoryAction()}"
+                android:onClick="@{()->vm.toCollectAction()}"
                 android:paddingRight="16dp"
                 android:layout_marginTop="50dp"
                 android:layout_height="48dp">

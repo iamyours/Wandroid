@@ -6,9 +6,8 @@
 - 无广告，无需点击展开
 - 图片显示，支持缩放，共享元素无缝转场
 - 支持离线阅读，地铁上阅读更方便
-
+- 代码图片展示
 ### 后续功能
-- 代码图片展示（开发中，现支持掘金，简书）
 - 文章分类收藏
 
 
@@ -22,8 +21,9 @@
 - [WebView](https://github.com/iamyours/webview_flutter)基于官方`webview_flutter`改造，添加支持`加载离线资源`，`进度监听`等功能
 
 ### 效果图
-#### 离线模式
-![](https://github.com/iamyours/Wandroid/raw/master/screen/offline-image.gif)
+#### 离线模式，代码图片展示
+![离线模式](https://github.com/iamyours/Wandroid/raw/master/screen/offline-image.gif)
+![代码](https://github.com/iamyours/Wandroid/raw/master/screen/code.gif)
 #### 掘金/简书/CSDN
 ![掘金](https://github.com/iamyours/Wandroid/raw/master/screen/juejin.gif)
 ![简书](https://github.com/iamyours/Wandroid/blob/master/screen/jianshu.gif)
