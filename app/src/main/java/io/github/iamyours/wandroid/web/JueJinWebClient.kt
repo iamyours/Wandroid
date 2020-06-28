@@ -7,6 +7,7 @@ import android.webkit.WebView
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import io.github.iamyours.wandroid.net.CacheInterceptor
 import okhttp3.*
 import java.io.IOException
 import java.lang.ref.WeakReference
@@ -29,7 +30,7 @@ class JueJinWebClient(url: String, vo: MutableLiveData<Boolean>) :
             if (load) return
             val postId = url?.substring(juejinUrl.length) ?: ""
             detailApi = getDetailApi(postId)
-//            loadUser()
+            loadUser()
             ImageLoaderHandler(view!!).sendEmptyMessageDelayed(1, 60)
         }
     }
@@ -71,7 +72,7 @@ class JueJinWebClient(url: String, vo: MutableLiveData<Boolean>) :
     private var username = ""
 
     private fun loadUser() {
-        val client = OkHttpClient.Builder().build()
+        val client = OkHttpClient.Builder().addNetworkInterceptor(CacheInterceptor()).build()
         val req = Request.Builder().url(detailApi).build()
         val call = client.newCall(req)
         call.enqueue(object : Callback {
