@@ -29,7 +29,7 @@ class JueJinWebClient(url: String, vo: MutableLiveData<Boolean>) :
             if (load) return
             val postId = url?.substring(juejinUrl.length) ?: ""
             detailApi = getDetailApi(postId)
-            loadUser()
+//            loadUser()
             ImageLoaderHandler(view!!).sendEmptyMessageDelayed(1, 60)
         }
     }

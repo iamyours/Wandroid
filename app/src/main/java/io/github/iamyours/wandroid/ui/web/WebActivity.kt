@@ -91,9 +91,18 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
         binding.showImage.setDisableTouch(true)
     }
 
+    private fun getCodeTag(): String {
+        var url = "$link"
+        if (url.contains("juejin.im") || url.contains("jianshu.com")) {
+            return "pre"
+        }
+        return "code"
+    }
+
     private fun loadBaseScript(webView: WebView) {
         //显示图片,阻止事件冒泡（CSDN图片显示）
         "loadBaseScript...".logE()
+        var ww = webView.width
         //代码图片展示 todo 部分站点显示有问题
         val script = """
             javascript:(function(){
@@ -110,18 +119,27 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                         e.stopPropagation();
                     };
                 }
-                
-                var pres = document.getElementsByTagName("pre");
+                var ww = ${ww}.0;
+                var scale = ww/outerWidth;
+                var pres = document.getElementsByTagName("${getCodeTag()}");
+                if(pres.length==0)pres = document.getElementsByTagName("pre");
                 for(var i=0;i<pres.length;i++){
                     pres[i].onclick = function(e){
                         console.log(this.tagName);
                         var rect = this.getBoundingClientRect();
                         var imgWidth = this.scrollWidth + 15;
-                        var childWidth = this.children[0].scrollWidth||0;
-                        if(childWidth>imgWidth)imgWidth=childWidth;
-                        domtoimage.toPng(this,{width:imgWidth}).then(function(data){
-                            android.showImage(data,rect.x,rect.y,imgWidth,rect.height,outerWidth);
-                        });
+                        var imgHeight = this.offsetHeight;
+                        domtoimage.toPng(this,{width:imgWidth*scale,height:imgHeight*scale,
+                                style: {
+                                    transform: "scale(" + scale + ")",
+                                    transformOrigin: "top left",
+                                    width: this.offsetWidth + "px",
+                                    height: this.offsetHeight + "px"
+                                }
+                            })
+                            .then(function(data){
+                                android.showImage(data,rect.x,rect.y,imgWidth,rect.height,outerWidth);
+                            });
                     };
                 }
             })();
@@ -130,7 +148,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
         webView.postDelayed({
             webView.loadUrl(script)
         }, 300)
-        webView.evaluateJavascript(dom2ImageScript){
+        webView.evaluateJavascript(dom2ImageScript) {
             "result:$it".logE()
         }
     }
