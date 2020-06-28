@@ -6,7 +6,6 @@ import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.base.BaseActivity
 import io.github.iamyours.wandroid.databinding.ActivityImageShowBinding
 import io.github.iamyours.wandroid.extension.displayCenterInside
-import io.github.iamyours.wandroid.extension.logE
 import io.github.iamyours.wandroid.extension.screenHeight
 import io.github.iamyours.wandroid.extension.screenWidth
 import io.github.iamyours.wandroid.util.Constants

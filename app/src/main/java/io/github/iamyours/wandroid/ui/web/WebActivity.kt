@@ -134,7 +134,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                         lastTime = t;
                         var imgWidth = this.scrollWidth;
                         var node = this;
-                        if(this.childElementCount==1){
+                        if(this.childElementCount>=1){
                             var child = this.children[0];
                             var cw = child.scrollWidth;
                             if(cw>imgWidth){
