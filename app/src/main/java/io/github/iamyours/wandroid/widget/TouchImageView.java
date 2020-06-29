@@ -13,6 +13,8 @@
 
 package io.github.iamyours.wandroid.widget;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -39,6 +41,7 @@ import android.widget.Scroller;
 
 import androidx.appcompat.widget.AppCompatImageView;
 
+import io.github.iamyours.wandroid.extension.StringKt;
 import io.github.iamyours.wandroid.extension.WidgetKt;
 
 public class TouchImageView extends AppCompatImageView {
@@ -895,6 +898,10 @@ public class TouchImageView extends AppCompatImageView {
         void onMove();
     }
 
+    private void setParentBackgroundAlpha(int alpha) {
+        ((View) getParent()).getBackground().setAlpha(alpha);
+    }
+
     /**
      * Responsible for all touch events. Handles the heavy lifting of drag
      * and also sends
@@ -902,12 +909,15 @@ public class TouchImageView extends AppCompatImageView {
      *
      * @author Ortiz
      */
+
+
     private class PrivateOnTouchListener implements OnTouchListener {
 
         //
         // Remember last point position for dragging
         //
         private PointF last = new PointF();
+        private PointF downPoint = new PointF();
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -917,12 +927,15 @@ public class TouchImageView extends AppCompatImageView {
             PointF curr = new PointF(event.getX(), event.getY());
 
             if (state == State.NONE || state == State.DRAG || state == State.FLING) {
+                float x = event.getRawX();
+                float y = event.getRawY();
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         last.set(curr);
                         if (fling != null)
                             fling.cancelFling();
                         setState(State.DRAG);
+                        downPoint.set(x, y);
                         break;
 
                     case MotionEvent.ACTION_MOVE:
@@ -936,12 +949,17 @@ public class TouchImageView extends AppCompatImageView {
                             matrix.postTranslate(fixTransX, fixTransY);
                             fixTrans();
                             last.set(curr.x, curr.y);
+                            if (getCurrentZoom() == 1.0) {//没有缩放情况下可以拖动退出
+                                dragImage(x, y);
+                            }
                         }
+                        StringKt.logE("state:" + state + ",zoom:" + getCurrentZoom());
                         break;
 
                     case MotionEvent.ACTION_UP:
                     case MotionEvent.ACTION_POINTER_UP:
                         setState(State.NONE);
+                        recoverImage(x, y);
                         break;
                 }
             }
@@ -966,6 +984,53 @@ public class TouchImageView extends AppCompatImageView {
             // indicate event was handled
             //
             return true;
+        }
+
+        private void recoverImage(float x, float y) {
+            if (Math.abs(getTranslationY()) > (getHeight() / 5)) {
+                //执行退出动画
+                WidgetKt.getActivity(TouchImageView.this).onBackPressed();
+            } else {
+                //执行恢复动画
+                layoutRecoverAnim();
+            }
+        }
+
+        private void layoutRecoverAnim() {
+            StringKt.logE("layoutRecoverAnim...");
+            //从手指抬起的地方恢复到原点
+            ObjectAnimator recoverYAnim =
+                    ObjectAnimator.ofFloat(TouchImageView.this,
+                            "translationY", getTranslationY(), 0);
+            ObjectAnimator recoverXAnim =
+                    ObjectAnimator.ofFloat(TouchImageView.this,
+                            "translationX", getTranslationX(), 0);
+            ObjectAnimator recoverXScale =
+                    ObjectAnimator.ofFloat(TouchImageView.this,
+                            "scaleX", 1);
+            ObjectAnimator recoverYScale =
+                    ObjectAnimator.ofFloat(TouchImageView.this,
+                            "scaleY", 1);
+            AnimatorSet set = new AnimatorSet();
+            set.setDuration(100);
+            set.playTogether(recoverXAnim, recoverYAnim, recoverXScale,
+                    recoverYScale);
+            set.start();
+            setParentBackgroundAlpha(255);
+        }
+
+
+        private void dragImage(float x, float y) {
+            float diffX = x - downPoint.x;
+            float diffY = y - downPoint.y;
+            setTranslationX(diffX);
+            setTranslationY(diffY);
+            float scale =
+                    1 - Math.abs(diffY) * 3 / getHeight();
+            setScaleX(scale);
+            setScaleY(scale);
+            int alpha = (int) (255 * scale);
+            setParentBackgroundAlpha(alpha);
         }
     }
 

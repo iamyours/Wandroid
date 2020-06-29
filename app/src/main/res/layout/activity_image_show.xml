@@ -6,6 +6,7 @@
     </data>
 
     <LinearLayout
+            android:id="@+id/ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#222"
@@ -14,7 +15,7 @@
         <io.github.iamyours.wandroid.widget.TouchImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="matrix" />
+                android:layout_height="100dp"
+                android:background="@color/transparent" />
     </LinearLayout>
 </layout>

@@ -33,7 +33,8 @@
         <activity android:name=".ui.xxmh.XBookDetailActivity" />
         <activity android:name=".ui.xxmh.XPictureListActivity" />
         <activity
-                android:name=".ui.web.ImageShowActivity"/>
+                android:name=".ui.web.ImageShowActivity"
+                android:theme="@style/AppThemeTransparent" />
     </application>
 
 </manifest>

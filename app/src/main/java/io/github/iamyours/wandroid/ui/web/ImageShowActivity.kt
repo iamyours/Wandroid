@@ -22,6 +22,7 @@ class ImageShowActivity : BaseActivity<ActivityImageShowBinding>() {
         lp.width = screenWidth()
         lp.height = screenHeight()
         image.layoutParams = lp
+        ll.background.alpha = 255
         ViewCompat.setTransitionName(image, "image")
         image.displayCenterInside(url)
         image.setOnClickListener { onBackPressed() }

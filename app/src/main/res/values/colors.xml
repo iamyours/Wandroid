@@ -3,6 +3,7 @@
     <color name="colorPrimary">#1F2023</color>
     <color name="colorPrimaryDark">#1F2023</color>
     <color name="colorAccent">#FFF</color>
+    <color name="transparent">#0000</color>
     <color name="tab_select_color">#89B3F8</color>
     <color name="tab_unselect_color">#9AA0A6</color>
     <color name="article_read_color">#969696</color>

@@ -3,6 +3,7 @@ package io.github.iamyours.wandroid
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
+import com.tencent.bugly.crashreport.CrashReport
 import io.github.iamyours.wandroid.db.AppDataBase
 import java.security.SecureRandom
 import javax.net.ssl.HttpsURLConnection
@@ -14,6 +15,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        CrashReport.initCrashReport(this, "e31c9fd182", false)
         AppDataBase.init(this)
         handleSSL()
     }

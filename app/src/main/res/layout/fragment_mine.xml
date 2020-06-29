@@ -162,7 +162,7 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:clickable="true"
-                android:onClick="@{()->vm.toCollectAction()}"
+                android:onClick="@{()->vm.toHistoryAction()}"
                 android:layout_height="48dp">
 
             <androidx.appcompat.widget.AppCompatImageView
