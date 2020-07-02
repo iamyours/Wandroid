@@ -15,7 +15,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        CrashReport.initCrashReport(this, "e31c9fd182", false)
+//        CrashReport.initCrashReport(this, "e31c9fd182", false)
         AppDataBase.init(this)
         handleSSL()
     }

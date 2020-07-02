@@ -6,6 +6,7 @@ import android.content.ContextWrapper
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
+import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -18,6 +19,8 @@ import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import io.github.iamyours.wandroid.util.EmptyCornerDrawable
 import io.github.iamyours.wandroid.util.glide.GlideApp
+import io.github.iamyours.wandroid.widget.TouchImageView
+import kotlinx.android.synthetic.main.activity_image_show.*
 
 fun Context.getActivity(): Activity? {
     var ctx = this
@@ -67,6 +70,38 @@ fun ImageView.displayCenterInside(url: String?) {
                 scaleType = ImageView.ScaleType.FIT_CENTER
             }
         })
+}
+
+fun TouchImageView.displayCenterInside(url: String?, w: Float, h: Float) {
+    Glide.with(this)
+        .asDrawable()
+        .fitCenter()
+        .load(url)
+        .into(object : SimpleTarget<Drawable>() {
+            override fun onResourceReady(
+                resource: Drawable,
+                transition: Transition<in Drawable>?
+            ) {
+                setImageDrawableToWith(resource, w, h)
+                if (resource is GifDrawable) {
+                    resource.setVisible(true, true)
+                    resource.start()
+                }
+
+            }
+        })
+}
+
+fun View.displayWhenLayout(callback: () -> Unit) {
+    viewTreeObserver.addOnGlobalLayoutListener(object :
+        ViewTreeObserver.OnGlobalLayoutListener {
+        override fun onGlobalLayout() {
+            viewTreeObserver.removeOnGlobalLayoutListener(this)
+            if (width > 0) {
+                callback()
+            }
+        }
+    })
 }
 
 fun ImageView.displayWithUrl2(url: String) {

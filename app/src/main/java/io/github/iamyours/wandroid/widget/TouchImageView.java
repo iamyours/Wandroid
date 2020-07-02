@@ -184,6 +184,18 @@ public class TouchImageView extends AppCompatImageView {
         fitImageToView();
     }
 
+    public void setImageDrawableToWith(Drawable drawable, float w, float h) {
+        float imgWidth = drawable.getIntrinsicWidth();
+        float imgHeight = drawable.getIntrinsicHeight();
+        float radioNew = imgHeight / imgWidth;
+        float imageRadio = h / w;
+        if (radioNew > imageRadio) {//图片过长，宽度自适应
+//            float fitCenterWidth = w * h / imgHeight;
+            normalizedScale = radioNew/imageRadio;
+        }
+        setImageDrawable(drawable);
+    }
+
     @Override
     public void setImageURI(Uri uri) {
         super.setImageURI(uri);
@@ -1027,6 +1039,7 @@ public class TouchImageView extends AppCompatImageView {
             setTranslationY(diffY);
             float scale =
                     1 - Math.abs(diffY) * 3 / getHeight();
+            if (scale < 0.7) scale = 0.7f;
             setScaleX(scale);
             setScaleY(scale);
             int alpha = (int) (255 * scale);

@@ -15,7 +15,9 @@ open abstract class BaseActivity<T : ViewDataBinding> : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        try {
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }catch (e:Exception){}
         binding = DataBindingUtil.setContentView(this, layoutId)
         binding.lifecycleOwner = this
         loadingState.observe(this, LoadingObserver(this))

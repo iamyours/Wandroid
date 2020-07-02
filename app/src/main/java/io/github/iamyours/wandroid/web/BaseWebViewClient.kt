@@ -98,11 +98,6 @@ open class BaseWebViewClient(
                 return WebResourceResponse("text/html", "utf-8", input)
             }
         } else if (urlStr.endsWith(".css") || urlStr.endsWith(".js")) {
-            if (urlStr.endsWith("dom-to-image.min.js")) {
-                val input = App.instance.assets.open("dom-to-image.min.js")
-                "load dom script.js".logE()
-                return WebResourceResponse("text/javascript", "utf-8", input)
-            }
 
         } else if (urlStr.startsWith("http")) {
             val head = Wget.head(url)
