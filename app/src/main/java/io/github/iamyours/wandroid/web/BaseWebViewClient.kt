@@ -28,7 +28,7 @@ open class BaseWebViewClient(
         view: WebView,
         url: String?
     ): Boolean {
-        "shouldOverrideUrlLoading：$url,thread:${Thread.currentThread()}".logE()
+
         if (url == null) {
             return false
         }
@@ -51,6 +51,11 @@ open class BaseWebViewClient(
             return true
         }
         val isHttp = url.startsWith("http://") || url.startsWith("https://")
+        "shouldOverrideUrlLoading：$url,isHttp:$isHttp,thread:${Thread.currentThread()}".logE()
+        if (!isHttp) {//fix issue #5,阻止一些非http请求（如简书：jianshu://notes/xxx)
+            "invalid url:$url".logE()
+            return true
+        }
         val fileName = url.substring(url.lastIndexOf("/"))
         val isResource = fileName.contains(".")
         val originName = originUrl.substring(originUrl.lastIndexOf("/"))
@@ -59,11 +64,12 @@ open class BaseWebViewClient(
             view,
             url
         )
+
         return if (isHttp && !isResource) {
             WebActivity.nav(url, view.context)
             true
         } else
-            super.shouldOverrideUrlLoading(view, url ?: "")
+            false
     }
 
     override fun onPageFinished(view: WebView?, url: String?) {
@@ -84,7 +90,7 @@ open class BaseWebViewClient(
     override fun shouldInterceptRequest(view: WebView?, url: String?)
             : WebResourceResponse? {
         val urlStr = "$url"
-        "shouldInterceptRequest:$url".logE()
+//        "shouldInterceptRequest:$url".logE()
         if (originUrl == url) {
             val cache = FileUtil.getHtml(originUrl)
             if (cache != null) {
@@ -98,7 +104,7 @@ open class BaseWebViewClient(
                 return WebResourceResponse("text/javascript", "utf-8", input)
             }
 
-        } else {
+        } else if (urlStr.startsWith("http")) {
             val head = Wget.head(url)
             "head:$head".logE()
             if (head.startsWith("image")) {
