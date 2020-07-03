@@ -2,7 +2,7 @@
 .main-header-box{display:none;}
 .article-area{padding:0 8px;background:#3f3f3f;color:#969696;}
 blockquote{background:#555;border-left:3px solid #222;margin:0px;padding:5px 16px;}
-code{color:#c7254e;border-radius:4px;background-color:#282828;padding:2px 4px;font-size:12px;}
+code{color:#c7254e;border-radius:4px;background-color:transparent!important;padding:2px 4px;font-size:12px;}
 a{margin:0px;color:#3194d0;}
 pre{background:#282c34;border-radius:4px;padding:15px;overflow-x:auto;}
 figure{margin:0;border-radius:4px;}
@@ -98,3 +98,40 @@ tr{}
 #note-show .content .show-content-free .collapse-free-content:after{
     position:relative!important;
 }
+.copyable{
+color:#c8c8c8!important;
+}
+span{
+background:transparent!important;
+}
+h1,h2,h3,h4,h5,h6 span{
+color:#c8c8c8!important;
+}
+h2[data-tool="mdnice编辑器"]{
+background-image:url()!important;
+}
+p[data-tool="mdnice编辑器"]{
+color:#c8c8c8!important;
+}
+p[data-tool="mdnice编辑器"] strong{
+color:#ffffff!important;
+}
+p[data-tool="mdnice编辑器"] code{
+color:#c7254e!important;
+}
+ul[data-tool="mdnice编辑器"] li code{
+color:#c7254e!important;
+}
+ul[data-tool="mdnice编辑器"] li section{
+color:#c8c8c8!important;
+}
+ul[data-tool="mdnice编辑器"] li strong{
+color:#ffffff!important;
+}
+pre[data-tool="mdnice编辑器"] span[style*="url("]{
+display:none!important;
+}
+span.content{
+color:#c8c8c8!important;
+}
+
