@@ -61,7 +61,7 @@ class MineVM : BaseViewModel() {
     }
 
     fun toXBook() {
-        "未开放".toast()
-//        route.value = "/xbook"  //老司机自行开放
+//        "未开放".toast()
+        route.value = "/xbook"  //老司机自行开放
     }
 }

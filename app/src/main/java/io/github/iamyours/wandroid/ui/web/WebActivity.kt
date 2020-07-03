@@ -103,7 +103,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
         //显示图片,阻止事件冒泡（CSDN图片显示）
         "loadBaseScript...".logE()
         val ww = webView.width
-        //代码图片展示 todo 部分站点显示有问题
+        //代码图片展示 todo li离线部分图片显示不完整（长代码）
         val script = """
             javascript:(function(){
                 var lastTime = new Date().getTime();
@@ -134,17 +134,20 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                         lastTime = t;
                         var imgWidth = this.scrollWidth;
                         var node = this;
-                        if(this.childElementCount>=1){
-                            var child = this.children[0];
+                        for(var n=0;n<this.childElementCount;n++){
+                            var child = this.children[n];
+                            if(child.tagName=="CODE"){
                             var cw = child.scrollWidth;
-                            if(cw>imgWidth){
-                                imgWidth = cw;
-                                node = child;
+                                if(cw>imgWidth){
+                                    imgWidth = cw;
+                                    node = child;
+                                }
                             }
                         }
+                        
+                        imgWidth = imgWidth+3;
                         var imgHeight = node.offsetHeight;
                         var rect = node.getBoundingClientRect();
-                        imgWidth = imgWidth + 5;
                         console.log(node.tagName);
                         domtoimage.toPng(node,{width:imgWidth*scale,height:imgHeight*scale,
                                 style: {
@@ -155,6 +158,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                                 }
                             })
                             .then(function(data){
+                                console.log(data);
                                 android.showImage(data,rect.x,rect.y,imgWidth,rect.height,outerWidth);
                             });
                     };
@@ -292,6 +296,29 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
     private fun downHtml() {
         val script = """
             javascript:(function(){
+                var links = document.getElementsByTagName("link");
+                for(var i=0;i<links.length;i++){
+                    var href = links[i].href;
+                    if(href && (href.endsWith(".js")|| href.endsWith(".css"))){
+                        links[i].setAttribute("crossorigin","anonymous");
+                    }
+                }
+                var output_wrapper = document.getElementsByClassName("output_wrapper");
+                if(output_wrapper.length>0){
+                    output_wrapper[0].style.color="#c8c8c8";
+                }
+                var mainNave = document.getElementsByClassName("main-nav");
+                if(mainNave.length>0){
+                    mainNave[0].style.display="none";
+                }
+                mainNave = document.getElementsByClassName("main-header");
+                if(mainNave.length>0){
+                    mainNave[0].style.display="none";
+                }
+                mainNave = document.getElementsByClassName("suspension-panel");
+                if(mainNave.length>0){
+                    mainNave[0].style.display="none";
+                }
                 var url = document.URL.toString();
                 var html = document.documentElement.outerHTML;
                 android.saveHtml(url,html);

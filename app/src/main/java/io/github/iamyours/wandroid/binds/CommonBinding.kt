@@ -241,7 +241,7 @@ fun bindImage(iv: ImageView, showImage: PositionImage?) {
                 Constants.sharedUrl = url
                 it.startActivityForResult(intent, 1, option.toBundle())
             }
-        }, 200)
+        }, 100)
     }
 }
 

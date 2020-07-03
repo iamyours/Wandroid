@@ -184,16 +184,21 @@ public class TouchImageView extends AppCompatImageView {
         fitImageToView();
     }
 
-    public void setImageDrawableToWith(Drawable drawable, float w, float h) {
+
+    public void setImageDrawableToWith(Drawable d, float w, float h) {
+        Drawable drawable = d != null ? d : getDrawable();
         float imgWidth = drawable.getIntrinsicWidth();
         float imgHeight = drawable.getIntrinsicHeight();
         float radioNew = imgHeight / imgWidth;
         float imageRadio = h / w;
         if (radioNew > imageRadio) {//图片过长，宽度自适应
-//            float fitCenterWidth = w * h / imgHeight;
-            normalizedScale = radioNew/imageRadio;
+            normalizedScale = radioNew / imageRadio;
         }
-        setImageDrawable(drawable);
+        if (drawable != null) {
+            setImageDrawable(drawable);
+        } else {
+            fitImageToView();
+        }
     }
 
     @Override

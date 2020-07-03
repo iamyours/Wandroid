@@ -3,7 +3,6 @@ package io.github.iamyours.wandroid.extension
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
-import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewTreeObserver
@@ -20,7 +19,6 @@ import com.bumptech.glide.request.transition.Transition
 import io.github.iamyours.wandroid.util.EmptyCornerDrawable
 import io.github.iamyours.wandroid.util.glide.GlideApp
 import io.github.iamyours.wandroid.widget.TouchImageView
-import kotlinx.android.synthetic.main.activity_image_show.*
 
 fun Context.getActivity(): Activity? {
     var ctx = this

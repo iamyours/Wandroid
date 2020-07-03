@@ -23,7 +23,7 @@ class JianShuWebClient(url: String, vo: MutableLiveData<Boolean>) :
         if (urlStr.startsWith("https://www.jianshu.com/p/")) {
             val cache = FileUtil.getHtml(originUrl)
             val response = cache ?: Wget.get(url ?: "")
-            val res = cache ?: darkBody(replaceCss(response, view!!.context))
+            val res = darkBody(replaceCss(response, view!!.context))
             val input = ByteArrayInputStream(res.toByteArray())
             return WebResourceResponse("text/html", "utf-8", input)
         }
