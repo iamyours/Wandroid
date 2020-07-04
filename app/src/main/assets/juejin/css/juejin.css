@@ -134,4 +134,19 @@ display:none!important;
 span.content{
 color:#c8c8c8!important;
 }
+.recommended-area{
+display:none!important;
+}
+recommend-box{
+display:none!important;
+}
+.follow-button{
+display:none!important;
+}
+.extension{
+display:none!important;}
+.article-content pre>code.hljs{
+padding:18px 10px 12px;
+display:inline-block;
+}
 
