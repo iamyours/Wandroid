@@ -193,6 +193,8 @@ public class TouchImageView extends AppCompatImageView {
         float imageRadio = h / w;
         if (radioNew > imageRadio) {//图片过长，宽度自适应
             normalizedScale = radioNew / imageRadio;
+        }else {
+            normalizedScale = 1f;
         }
         if (drawable != null) {
             setImageDrawable(drawable);

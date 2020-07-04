@@ -149,12 +149,12 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                         var imgHeight = node.offsetHeight;
                         var rect = node.getBoundingClientRect();
                         console.log(node.tagName);
-                        domtoimage.toPng(node,{width:imgWidth*scale,height:imgHeight*scale,
+                        domtoimage.toPng(node,{width:imgWidth*scale,height:rect.height*scale,
                                 style: {
                                     transform: "scale(" + scale + ")",
                                     transformOrigin: "top left",
                                     width: imgWidth + "px",
-                                    height: imgHeight + "px"
+                                    height: rect.height + "px"
                                 }
                             })
                             .then(function(data){
@@ -246,7 +246,8 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
     private fun initWebView() {
         binding.webView.settings.run {
             javaScriptEnabled = true
-            cacheMode = WebSettings.LOAD_NO_CACHE
+            domStorageEnabled = true
+            databaseEnabled = true
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
             }
@@ -294,15 +295,19 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
      * 保存css/图片/html内容
      */
     private fun downHtml() {
-        val script = """
-            javascript:(function(){
-                var links = document.getElementsByTagName("link");
+        val jianshu = """
+            var links = document.getElementsByTagName("link");
                 for(var i=0;i<links.length;i++){
                     var href = links[i].href;
                     if(href && (href.endsWith(".js")|| href.endsWith(".css"))){
-                        links[i].setAttribute("crossorigin","anonymous");
+                        links[i].href = "";
                     }
                 }
+        """.trimIndent()
+        val addScript = if (link!!.contains("jianshu")) jianshu else ""
+        val script = """
+            javascript:(function(){
+                $addScript
                 var output_wrapper = document.getElementsByClassName("output_wrapper");
                 if(output_wrapper.length>0){
                     output_wrapper[0].style.color="#c8c8c8";
