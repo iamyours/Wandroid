@@ -22,7 +22,7 @@
 
 ### 效果图
 #### 离线模式，代码图片展示
-<img src="https://github.com/iamyours/Wandroid/raw/master/screen/offline-image.gif" width="%33"/><img src="https://github.com/iamyours/Wandroid/raw/master/screen/code1.gif" width="%33"/> <img src="https://github.com/iamyours/Wandroid/raw/master/screen/code2.gif" width="%33"/>
+<img src="https://github.com/iamyours/Wandroid/raw/master/screen/offline-image.gif" style="max-width:33%;width:%33;"/><img src="https://github.com/iamyours/Wandroid/raw/master/screen/code1.gif" style="max-width:33%;width:%33;"/> <img src="https://github.com/iamyours/Wandroid/raw/master/screen/code2.gif" style="max-width:33%;width:%33;"/>
 
 #### 掘金/简书/CSDN
 ![掘金](https://github.com/iamyours/Wandroid/raw/master/screen/juejin.gif)
