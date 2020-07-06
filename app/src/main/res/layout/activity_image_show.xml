@@ -23,7 +23,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="bottom"
-                android:padding="15dp"
+                android:padding="18dp"
                 android:tint="@color/tab_select_color"
                 app:srcCompat="@drawable/ic_screen_rotation" />
     </FrameLayout>
