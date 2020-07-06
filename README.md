@@ -22,6 +22,9 @@
 
 ### 效果图
 #### 离线模式，代码图片展示
+<style>
+table th{width:30%;}
+</style>
 |![离线](https://github.com/iamyours/Wandroid/raw/master/screen/offline-image.gif) | ![code1](https://github.com/iamyours/Wandroid/raw/master/screen/code1.gif) | ![code2](https://github.com/iamyours/Wandroid/raw/master/screen/code2.gif) |
 |:-|:-|:-|
 #### 掘金/简书/CSDN
