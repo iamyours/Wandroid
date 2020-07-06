@@ -3,6 +3,7 @@ package io.github.iamyours.wandroid.ui.xxmh
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import io.github.iamyours.wandroid.base.BaseViewModel
+import io.github.iamyours.wandroid.extension.changeExt
 import io.github.iamyours.wandroid.net.xxmh.XBookApi
 import io.github.iamyours.wandroid.util.AbsentLiveData
 import io.github.iamyours.wandroid.vo.xxmh.XBook
@@ -42,7 +43,7 @@ class XPictureVM : BaseViewModel() {
         loading.value = false
         moreLoading.value = false
         it.content.forEach { p ->
-            p.url = p.url.replace(".jpg", ".html")
+            p.url = p.url.changeExt("html")
         }
         if (it.content.isNotEmpty()) {
             notLoaded = false

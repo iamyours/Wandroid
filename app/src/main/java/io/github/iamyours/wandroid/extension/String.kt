@@ -16,6 +16,10 @@ fun String.logE() {
     }
 }
 
+fun String.changeExt(ext: String): String {
+    return substring(0, lastIndexOf(".") + 1) + ext
+}
+
 fun String.copy(context: Context) {
     val cm =
         context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

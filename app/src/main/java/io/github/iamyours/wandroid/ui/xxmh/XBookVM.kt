@@ -2,6 +2,7 @@ package io.github.iamyours.wandroid.ui.xxmh
 
 import androidx.lifecycle.Transformations
 import io.github.iamyours.wandroid.base.BaseViewModel
+import io.github.iamyours.wandroid.extension.changeExt
 import io.github.iamyours.wandroid.net.xxmh.XBookApi
 
 class XBookVM : BaseViewModel() {
@@ -15,8 +16,8 @@ class XBookVM : BaseViewModel() {
         val isLast = it?.content?.isLastPage ?: true
         hasMore.value = !isLast
         it?.content?.list?.forEach { b ->
-            b.coverUrl = b.coverUrl.replace(".jpg", ".html")
-            b.extensionUrl = b.extensionUrl.replace(".jpg", ".html")
+            b.coverUrl = b.coverUrl.changeExt("html")
+            b.extensionUrl = b.extensionUrl.changeExt("html")
         }
         it?.content?.list ?: ArrayList()
     }
