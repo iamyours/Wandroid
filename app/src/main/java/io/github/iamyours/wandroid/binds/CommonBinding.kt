@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.text.Html
+import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -226,7 +227,7 @@ fun bindImage(iv: ImageView, showImage: PositionImage?) {
         lp.leftMargin = (x * scale).toInt()
         lp.topMargin = (y * scale).toInt()
         iv.layoutParams = lp
-        iv.requestLayout()
+        if (TextUtils.isEmpty(url)) return@run
         iv.displayOverride(url)
         iv.postDelayed({
             val activity = iv.getActivity()

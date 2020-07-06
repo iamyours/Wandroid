@@ -149,6 +149,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                         var imgHeight = node.offsetHeight;
                         var rect = node.getBoundingClientRect();
                         console.log(node.tagName);
+                        android.showImage("",rect.x,rect.y,imgWidth,rect.height,outerWidth);
                         domtoimage.toPng(node,{width:imgWidth*scale,height:rect.height*scale,
                                 style: {
                                     transform: "scale(" + scale + ")",
