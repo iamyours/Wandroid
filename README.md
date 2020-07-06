@@ -22,8 +22,8 @@
 
 ### 效果图
 #### 离线模式，代码图片展示
-<img src="https://github.com/iamyours/Wandroid/raw/master/screen/offline-image.gif" width="33%" style="float:left;margin-right:10px;"/>&nbsp;&nbsp;<img src="https://github.com/iamyours/Wandroid/raw/master/screen/code.gif" width="33%"/>
-
+|![离线](https://github.com/iamyours/Wandroid/raw/master/screen/offine-image.gif) | ![code1](https://github.com/iamyours/Wandroid/raw/master/screen/code1.gif) | ![code2](https://github.com/iamyours/Wandroid/raw/master/screen/code2.gif) |
+|:-|:-|:-|
 #### 掘金/简书/CSDN
 ![掘金](https://github.com/iamyours/Wandroid/raw/master/screen/juejin.gif)
 ![简书](https://github.com/iamyours/Wandroid/blob/master/screen/jianshu.gif)
@@ -47,6 +47,7 @@ MVVM+Room实现<br/>
 ### 相关文章整理
 - [WebView文章黑夜模式适配](https://juejin.im/post/5d8655535188253f74438ae9)<br/>
 - [Glide实现WebView离线图片的酷炫展示效果](https://juejin.im/post/5ef717966fb9a07e99508933)<br/>
+- [Webview优化 | 优雅的在手机上阅读代码](https://juejin.im/post/5efffa20e51d4534714aa7e7)<br/>
 - [MVVM模式封装实践](https://juejin.im/post/5d764e54e51d4561d044cd4b)<br/>
 - [LiveData+Retrofit网络请求实战](https://juejin.im/post/5d56497f518825107c565d88)<br/>
 - [基于Transform实现更高效的组件化路由框架](https://juejin.im/post/5cf35bde6fb9a07ed440e99a)<br/>
