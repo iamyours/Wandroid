@@ -16,6 +16,12 @@ fun String.logE() {
     }
 }
 
+fun String.logV() {
+    if (BuildConfig.DEBUG) {
+        Log.v("Wandroid", this)
+    }
+}
+
 fun String.changeExt(ext: String): String {
     return substring(0, lastIndexOf(".") + 1) + ext
 }

@@ -645,6 +645,7 @@ public final class WanDiskLruCache implements Closeable {
         checkNotClosed();
         Entry entry = lruEntries.get(key);
         if (entry == null || entry.currentEditor != null) {
+            StringKt.logE("cacheToPermanent null:" + key);
             return false;
         }
 
@@ -652,12 +653,15 @@ public final class WanDiskLruCache implements Closeable {
             File file = entry.getCleanFile(i);
             if (file.exists()) {
                 FileUtil.copyFileToDirectory(file, permanentDirectory);
+                file.delete();
             }
             size -= entry.lengths[i];
             StringKt.logE("cacheToPermanent:" + entry.getLengths() + ",key:" + entry.key);
             entry.lengths[i] = 0;
         }
-        permanentEntries.put(key, entry);
+        Entry pEntry = new Entry(key, permanentDirectory);
+        pEntry.readable = true;
+        permanentEntries.put(key, pEntry);
         lruEntries.remove(key);
         addOpt(PERMANENT, key);
 
@@ -683,6 +687,21 @@ public final class WanDiskLruCache implements Closeable {
             permanentEntries.remove(key);
         }
         addOpt(REMOVE, key);
+        return true;
+    }
+
+    /**
+     * 将下载好的tmp文件放入永久区
+     */
+    public synchronized boolean tempToPermanent(File tmp, String key) throws IOException {
+        StringKt.logV("tempToPermanent:" + key);
+        Entry entry = new Entry(key, permanentDirectory);
+        for (int i = 0; i < valueCount; i++) {
+            File file = entry.getCleanFile(i);
+            tmp.renameTo(file);
+        }
+        permanentEntries.put(key, entry);
+        addOpt(PERMANENT, key);
         return true;
     }
 

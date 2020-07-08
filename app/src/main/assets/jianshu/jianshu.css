@@ -16,4 +16,4 @@ a[title="站长统计"]{display:none!important;}
 .note-content blockquote{margin:10px 0px!important;}
 .meta{height:25px!important;}
 .article-info{margin-bottom:0px!important;}
-hr{display:none}
+hr{display:none}div[aria-label="baidu-ad"]{display:none;}

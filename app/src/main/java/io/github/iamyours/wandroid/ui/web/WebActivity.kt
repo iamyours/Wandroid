@@ -187,7 +187,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
         v.dv_download.isSelected = cached
         v.dtv_download.text = if (cached) "已下载" else "下载"
         v.dv_download.setOnClickListener {
-            downHtml()
+            downHtml(cached)
             saveCacheOrNot(link, navTitle, cached)
             dialog.dismiss()
         }
@@ -296,7 +296,8 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
     /**
      * 保存css/图片/html内容
      */
-    private fun downHtml() {
+    private fun downHtml(cached: Boolean) {
+        //这段脚本是为了解决简书文章离线缓存后代码无法显示bug
         val jianshu = """
             var links = document.getElementsByTagName("link");
                 for(var i=0;i<links.length;i++){
@@ -331,9 +332,15 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                 var urls = [];
                 var imgs = document.getElementsByTagName("img");
                 for(var i=0;i<imgs.length;i++){
-                    urls.push(imgs[i].src);
+                    var img = imgs[i];
+                    var imgRect = img.getBoundingClientRect();
+                    if(imgRect.x > 0 && imgRect.y > 0){
+                        var dataset = img.dataset || {};
+                        var src = img.src || dataset.src || dataset.originalSrc;
+                        urls.push(src);
+                    }
                 }
-                android.saveHtml(url,html,urls.join(", "));
+                android.saveHtml(url,html,urls.join(", "),$cached);
             })();
         """.trimIndent()
         webView.loadUrl(script)

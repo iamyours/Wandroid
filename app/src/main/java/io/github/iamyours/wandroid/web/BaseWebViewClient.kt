@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import io.github.iamyours.wandroid.App
 import io.github.iamyours.wandroid.extension.logE
+import io.github.iamyours.wandroid.extension.logV
 import io.github.iamyours.wandroid.ui.web.WebActivity
 import io.github.iamyours.wandroid.util.FileUtil
 import io.github.iamyours.wandroid.util.Wget
@@ -101,7 +102,7 @@ open class BaseWebViewClient(
 
         } else if (urlStr.startsWith("http")) {
             val head = Wget.head(url)
-            "head:$head".logE()
+            "head:$head".logV()
             if (head.startsWith("image")) {
                 val bytes = GlideUtil.syncLoad(url, head)
                 if (bytes != null) {

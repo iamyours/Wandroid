@@ -9,10 +9,12 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import io.github.iamyours.wandroid.extension.logE
+import io.github.iamyours.wandroid.extension.logV
 import io.github.iamyours.wandroid.observer.LoadingObserver
 import io.github.iamyours.wandroid.ui.login.LoginActivity
 import io.github.iamyours.wandroid.util.Constants
 import io.github.iamyours.wandroid.util.FileUtil
+import io.github.iamyours.wandroid.util.Wget
 import io.github.iamyours.wandroid.util.glide.GlideUtil
 
 class WanObject(
@@ -59,16 +61,35 @@ class WanObject(
      * 离线保存html
      */
     @JavascriptInterface
-    fun saveHtml(url: String, html: String, urls: String) {
+    fun saveHtml(url: String, html: String, urls: String, cached: Boolean) {
         loading.postValue(true)
         Constants.IO.execute {
-            FileUtil.saveHtml(url, html)
+            if (cached) {
+                FileUtil.deleteHtml(url)
+            } else
+                FileUtil.saveHtml(url, html)
             urls.split(", ").forEach {
-                if (!TextUtils.isEmpty(it)) {
-                    GlideUtil.cacheToPermanent(it)
+                var imgUrl = it
+                if (imgUrl.startsWith("//")) {//简书图片懒加载地址
+                    imgUrl = "https:$imgUrl"
+                }
+                if (!TextUtils.isEmpty(imgUrl) && !imgUrl.startsWith("data:image")) {
+                    if (cached) {
+                        GlideUtil.removePermanent(imgUrl)
+                    } else {
+                        if (!GlideUtil.cacheToPermanent(imgUrl)) {//缓存区没有，重新下载
+                            val tmp = GlideUtil.permanentTempName(imgUrl)
+                            if (Wget.download(imgUrl, tmp)) {
+                                "download success:$url".logV()
+                                GlideUtil.tempToPermanent(imgUrl)
+                            } else {
+                                "download fail:$url".logE()
+                            }
+                        }
+                    }
                 }
             }
-            msg.postValue("下载成功")
+            msg.postValue(if (cached) "删除成功" else "下载成功")
             loading.postValue(false)
         }
     }

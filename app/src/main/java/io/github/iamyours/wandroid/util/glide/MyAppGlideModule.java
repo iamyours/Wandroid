@@ -26,6 +26,7 @@ public class MyAppGlideModule extends AppGlideModule {
         Log.e("GlideModule", "registerComponents");
         registry.prepend(String.class, ByteBuffer.class,
                 new Base64ModelLoaderFactory());
+
     }
 
     @Override

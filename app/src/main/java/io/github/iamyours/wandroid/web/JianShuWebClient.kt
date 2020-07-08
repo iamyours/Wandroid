@@ -16,18 +16,33 @@ import java.util.regex.Pattern
  */
 class JianShuWebClient(url: String, vo: MutableLiveData<Boolean>) :
     BaseWebViewClient(url, vo) {
+    var offlineMode = false
 
     override fun shouldInterceptRequest(view: WebView?, url: String?)
             : WebResourceResponse? {
         val urlStr = url ?: ""
         if (urlStr.startsWith("https://www.jianshu.com/p/")) {
             val cache = FileUtil.getHtml(originUrl)
+            if (cache != null) offlineMode = true
             val response = cache ?: Wget.get(url ?: "")
             val res = darkBody(replaceCss(response, view!!.context))
             val input = ByteArrayInputStream(res.toByteArray())
             return WebResourceResponse("text/html", "utf-8", input)
         }
         return super.shouldInterceptRequest(view, url)
+    }
+
+    override fun onPageFinished(view: WebView?, url: String?) {
+        super.onPageFinished(view, url)
+        val script = """
+            console.log("jianshu script...");
+            var imgs = document.getElementsByClassName("image-loading");
+            for(var i=0;i<imgs.length;i++){
+                imgs[i].src = imgs[i].dataset.originalSrc;
+                imgs[i].className="";
+            }
+        """.trimIndent()
+        view?.evaluateJavascript(script){}
     }
 
     private val rex =

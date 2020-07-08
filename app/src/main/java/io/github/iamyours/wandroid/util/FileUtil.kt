@@ -29,9 +29,14 @@ object FileUtil {
     fun saveHtml(url: String, html: String) {
         val name = "${md5(url)}.html"
         val htmlPath = "/data/data/${BuildConfig.APPLICATION_ID}/html"
-        val file = File("$htmlPath/resources")
-        if (!file.exists()) file.mkdirs()
+        File(htmlPath).mkdirs()
         writeString2File("$htmlPath/$name", html)
+    }
+
+    fun deleteHtml(url: String) {
+        val name = "${md5(url)}.html"
+        val htmlPath = "/data/data/${BuildConfig.APPLICATION_ID}/html"
+        File(htmlPath, name).delete()
     }
 
     private fun download2File(file: File, resUrl: String) {

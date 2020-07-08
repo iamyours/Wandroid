@@ -3,6 +3,7 @@ package io.github.iamyours.wandroid.util.glide.cache
 import com.bumptech.glide.load.Key
 import com.bumptech.glide.load.engine.cache.DiskCache
 import com.bumptech.glide.load.engine.cache.SafeKeyGenerator
+import io.github.iamyours.wandroid.extension.logE
 import java.io.File
 import java.io.IOException
 
@@ -61,6 +62,7 @@ class WanDiskLruCacheWrapper(//常驻图片文件
 
     override fun get(key: Key): File? {
         val safeKey = safeKeyGenerator!!.getSafeKey(key)
+        "\nkey:$key \nsafeKey:$safeKey".logE()
         var result: File? = null
         try {
             // It is possible that the there will be a put in between these two gets. If so that shouldn't
@@ -77,15 +79,17 @@ class WanDiskLruCacheWrapper(//常驻图片文件
     /**
      * 将缓存中的文件移动到permanent
      */
-    fun cacheToPermanent(key: Key) {
+    fun cacheToPermanent(key: Key): Boolean {
         val safeKey = safeKeyGenerator!!.getSafeKey(key)
+        "safeKey:$safeKey".logE()
         try {
-            getDiskCache()!!.cacheToPermanent(safeKey)
+            return getDiskCache()!!.cacheToPermanent(safeKey)
         } catch (e: IOException) {
         }
+        return false
     }
 
-    fun removePermanent(key:Key){
+    fun removePermanent(key: Key) {
         val safeKey = safeKeyGenerator!!.getSafeKey(key)
         try {
             getDiskCache()!!.removePermanent(safeKey)
@@ -157,5 +161,28 @@ class WanDiskLruCacheWrapper(//常驻图片文件
     @Synchronized
     private fun resetDiskCache() {
         diskLruCache = null
+    }
+
+    fun permanentTempFile(url: String): File {
+        val key = PermanentKey(url)
+        val safeKey = safeKeyGenerator!!.getSafeKey(key)
+        return File(permanentDirectory, "$safeKey.tmp")
+    }
+
+    /**
+     * 将永久区中tmp重命名
+     */
+    fun tempToPermanent(url: String): Boolean {
+        try {
+            val key = PermanentKey(url)
+            val safeKey = safeKeyGenerator!!.getSafeKey(key)
+            return getDiskCache()!!.tempToPermanent(
+                permanentTempFile(url),
+                safeKey
+            )
+        } catch (e: IOException) {
+
+        }
+        return false
     }
 }

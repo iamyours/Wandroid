@@ -7,35 +7,32 @@
 
         <variable
                 name="vm"
-                type="io.github.iamyours.wandroid.ui.article.ArticleVM"/>
+                type="io.github.iamyours.wandroid.ui.article.ArticleVM" />
     </data>
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:background="@color/bg_dark"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/bg_dark">
 
         <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"
-                app:tabIndicatorHeight="0dp"
+                android:layout_height="44dp"
                 android:layout_alignParentBottom="true"
-                android:layout_height="44dp"/>
+                app:tabIndicatorHeight="0dp" />
 
         <View
                 android:id="@+id/div"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="#2f2f2f"
                 android:layout_above="@id/tabLayout"
-                />
+                android:background="#2f2f2f" />
 
         <FrameLayout
                 android:id="@+id/fl_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/div"
-                />
-
+                android:layout_above="@id/div" />
     </RelativeLayout>
 </layout>

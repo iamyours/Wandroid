@@ -2,10 +2,14 @@ package io.github.iamyours.wandroid.util
 
 import io.github.iamyours.wandroid.db.AppDataBase
 import io.github.iamyours.wandroid.extension.logE
+import io.github.iamyours.wandroid.extension.logV
 import io.github.iamyours.wandroid.net.CacheInterceptor
 import io.github.iamyours.wandroid.vo.UrlTypeVO
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okio.Okio
+import java.io.File
+import java.io.FileOutputStream
 
 object Wget {
     fun get(url: String): String {
@@ -34,6 +38,7 @@ object Wget {
     fun head(url: String?): String {
         val md5 = MD5Utils.stringToMD5(url)
         val value = typeDao.getType(md5)
+        "head:$url".logV()
         if (value == null) {
             val client = OkHttpClient.Builder()
                 .addNetworkInterceptor(CacheInterceptor())
@@ -61,5 +66,23 @@ object Wget {
             return result
         }
         return value
+    }
+
+    fun download(url: String, tmp: File): Boolean {
+        "downloading...$url".logV()
+        val request = Request.Builder().url(url).build()
+        return ClientUtil.getUnsafeOkHttpClient().newCall(request).execute()
+            ?.apply {
+                val md5 = MD5Utils.stringToMD5(url)
+                val type = header("content-type")
+                val result = type ?: ""
+                typeDao.insert(UrlTypeVO(md5, result))
+            }?.body()?.run {
+
+            val buffer = Okio.buffer(Okio.sink(tmp))
+            buffer.writeAll(source())
+            buffer.close()
+            true
+        } ?: false
     }
 }
