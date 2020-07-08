@@ -25,6 +25,7 @@ import io.github.iamyours.wandroid.extension.*
 import io.github.iamyours.wandroid.util.Constants
 import io.github.iamyours.wandroid.util.FileUtil
 import io.github.iamyours.wandroid.util.WebViewUtil
+import io.github.iamyours.wandroid.util.glide.GlideUtil
 import io.github.iamyours.wandroid.vo.CacheArticleVO
 import io.github.iamyours.wandroid.web.WanObject
 import io.github.iamyours.wandroid.web.WebViewClientFactory
@@ -103,7 +104,7 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
         //显示图片,阻止事件冒泡（CSDN图片显示）
         "loadBaseScript...".logE()
         val ww = webView.width
-        //代码图片展示 todo li离线部分图片显示不完整（长代码）
+        //代码图片展示
         val script = """
             javascript:(function(){
                 var lastTime = new Date().getTime();
@@ -327,7 +328,12 @@ class WebActivity : BaseActivity<ActivityWebBinding>() {
                 }
                 var url = document.URL.toString();
                 var html = document.documentElement.outerHTML;
-                android.saveHtml(url,html);
+                var urls = [];
+                var imgs = document.getElementsByTagName("img");
+                for(var i=0;i<imgs.length;i++){
+                    urls.push(imgs[i].src);
+                }
+                android.saveHtml(url,html,urls.join(", "));
             })();
         """.trimIndent()
         webView.loadUrl(script)

@@ -11,8 +11,21 @@ import java.io.ByteArrayOutputStream;
 
 import io.github.iamyours.wandroid.App;
 import io.github.iamyours.wandroid.extension.StringKt;
+import io.github.iamyours.wandroid.util.glide.cache.PermanentKey;
+import io.github.iamyours.wandroid.util.glide.cache.WanDiskLruCacheWrapper;
 
 public class GlideUtil {
+
+    public static void cacheToPermanent(String url) {
+        PermanentKey key = new PermanentKey(url);
+        WanDiskLruCacheWrapper.getInstance().cacheToPermanent(key);
+    }
+
+    public static void removePermanent(String url){
+        PermanentKey key = new PermanentKey(url);
+        WanDiskLruCacheWrapper.getInstance().removePermanent(key);
+    }
+
     public static byte[] syncLoad(String url, String type) {
         boolean isGif = type.endsWith("gif");
         if (isGif) {

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import io.github.iamyours.wandroid.base.BaseActivity
 import io.github.iamyours.wandroid.databinding.ActivityMainBinding
@@ -11,6 +12,7 @@ import io.github.iamyours.wandroid.ui.home.HomeFragment
 import io.github.iamyours.wandroid.ui.mine.MineFragment
 import io.github.iamyours.wandroid.ui.project.ProjectFragment
 import io.github.iamyours.wandroid.ui.wx.WxArticleFragment
+import io.github.iamyours.wandroid.util.glide.GlideUtil
 import io.github.iamyours.wandroid.vo.TabItem
 import kotlinx.android.synthetic.main.view_tab.view.*
 
@@ -28,6 +30,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
         initFragments()
         initTabLayout()
+
     }
 
     /**

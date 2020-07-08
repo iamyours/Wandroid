@@ -2,6 +2,7 @@ package io.github.iamyours.wandroid.web
 
 import android.content.Context
 import android.content.Intent
+import android.text.TextUtils
 import android.webkit.JavascriptInterface
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
@@ -12,6 +13,7 @@ import io.github.iamyours.wandroid.observer.LoadingObserver
 import io.github.iamyours.wandroid.ui.login.LoginActivity
 import io.github.iamyours.wandroid.util.Constants
 import io.github.iamyours.wandroid.util.FileUtil
+import io.github.iamyours.wandroid.util.glide.GlideUtil
 
 class WanObject(
     var context: Context,
@@ -57,10 +59,15 @@ class WanObject(
      * 离线保存html
      */
     @JavascriptInterface
-    fun saveHtml(url: String, html: String) {
+    fun saveHtml(url: String, html: String, urls: String) {
         loading.postValue(true)
         Constants.IO.execute {
             FileUtil.saveHtml(url, html)
+            urls.split(", ").forEach {
+                if (!TextUtils.isEmpty(it)) {
+                    GlideUtil.cacheToPermanent(it)
+                }
+            }
             msg.postValue("下载成功")
             loading.postValue(false)
         }
