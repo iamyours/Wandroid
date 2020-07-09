@@ -27,14 +27,15 @@ data class ArticleVO(
     @Ignore
     var read: Boolean,
     @Ignore
-    var originId: Int
+    var originId: Int,
+    @Ignore
+    var top: Boolean
 ) {
-
 
     constructor() : this(
         -1, "", -1, "",
         false, false, -1, "", "", "", 0L, -1, "",
-        "", "", false, -1
+        "", "", false, -1, false
     )
 
     fun getFixedTitle(): String {//空出5个空格，用于显示logo

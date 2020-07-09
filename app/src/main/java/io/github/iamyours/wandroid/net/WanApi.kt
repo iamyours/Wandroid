@@ -69,6 +69,13 @@ interface WanApi {
     ): LiveData<ApiResponse<PageVO<ArticleVO>>>
 
     /**
+     * 置顶文章列表
+     */
+    @GET("article/top/json")
+    fun articleTopList(
+    ): LiveData<ApiResponse<List<ArticleVO>>>
+
+    /**
      * 知识体系下文章
      */
     @GET("article/list/{page}/json")

@@ -60,7 +60,10 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding>() {
             it.layoutManager = LinearLayoutManager(activity)
         }
         vm.articlePage.observe(this, Observer {
-            adapter.addAll(it.datas, it.curPage == 1)
+            it?.run {
+                adapter.addAll(datas, curPage == 1)
+            }
+
         })
     }
 

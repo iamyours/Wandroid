@@ -10,6 +10,7 @@ import okhttp3.Request
 import okio.Okio
 import java.io.File
 import java.io.FileOutputStream
+import java.lang.Exception
 
 object Wget {
     fun get(url: String): String {
@@ -56,16 +57,19 @@ object Wget {
                 )
                 .head()
                 .build()
-            val t = System.currentTimeMillis()
-            val res = client.newCall(request).execute()
-            val time = System.currentTimeMillis() - t
-            val type = res.header("content-type")
-            "time:$time,$type".logE()
-            val result = type ?: ""
-            typeDao.insert(UrlTypeVO(md5, result))
-            return result
+            try {
+                val t = System.currentTimeMillis()
+                val res = client.newCall(request).execute()
+                val time = System.currentTimeMillis() - t
+                val type = res.header("content-type")
+                "time:$time,$type".logE()
+                val result = type ?: ""
+                typeDao.insert(UrlTypeVO(md5, result))
+                return result
+            } catch (e: Exception) {
+            }
         }
-        return value
+        return value ?: ""
     }
 
     fun download(url: String, tmp: File): Boolean {
@@ -79,10 +83,10 @@ object Wget {
                 typeDao.insert(UrlTypeVO(md5, result))
             }?.body()?.run {
 
-            val buffer = Okio.buffer(Okio.sink(tmp))
-            buffer.writeAll(source())
-            buffer.close()
-            true
-        } ?: false
+                val buffer = Okio.buffer(Okio.sink(tmp))
+                buffer.writeAll(source())
+                buffer.close()
+                true
+            } ?: false
     }
 }
