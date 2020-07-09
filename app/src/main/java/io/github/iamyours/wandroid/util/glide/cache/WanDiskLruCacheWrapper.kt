@@ -62,7 +62,6 @@ class WanDiskLruCacheWrapper(//常驻图片文件
 
     override fun get(key: Key): File? {
         val safeKey = safeKeyGenerator!!.getSafeKey(key)
-        "\nkey:$key \nsafeKey:$safeKey".logE()
         var result: File? = null
         try {
             // It is possible that the there will be a put in between these two gets. If so that shouldn't

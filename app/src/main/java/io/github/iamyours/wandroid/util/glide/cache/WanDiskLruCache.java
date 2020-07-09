@@ -205,7 +205,7 @@ public final class WanDiskLruCache implements Closeable {
         if (valueCount <= 0) {
             throw new IllegalArgumentException("valueCount <= 0");
         }
-        StringKt.logE("open WanDiskLruCache...");
+        StringKt.logV("open WanDiskLruCache...");
         // If a bkp file exists, use it instead.
         File backupFile = new File(directory, JOURNAL_FILE_BACKUP);
         if (backupFile.exists()) {
@@ -434,7 +434,7 @@ public final class WanDiskLruCache implements Closeable {
         checkNotClosed();
         Entry permanentEntry = readPermanentEntry(key);
         if (permanentEntry != null) {
-            StringKt.logE("read from permanent permanent directory:" + key);
+            StringKt.logV("read from permanent permanent directory:" + key);
             return new Value(key, permanentEntry.sequenceNumber,
                     permanentEntry.cleanFiles,
                     permanentEntry.lengths);
@@ -645,7 +645,7 @@ public final class WanDiskLruCache implements Closeable {
         checkNotClosed();
         Entry entry = lruEntries.get(key);
         if (entry == null || entry.currentEditor != null) {
-            StringKt.logE("cacheToPermanent null:" + key);
+            StringKt.logV("cacheToPermanent null:" + key);
             return false;
         }
 
@@ -656,7 +656,7 @@ public final class WanDiskLruCache implements Closeable {
                 file.delete();
             }
             size -= entry.lengths[i];
-            StringKt.logE("cacheToPermanent:" + entry.getLengths() + ",key:" + entry.key);
+            StringKt.logV("cacheToPermanent:" + entry.getLengths() + ",key:" + entry.key);
             entry.lengths[i] = 0;
         }
         Entry pEntry = new Entry(key, permanentDirectory);
@@ -724,7 +724,7 @@ public final class WanDiskLruCache implements Closeable {
                 throw new IOException("failed to delete " + file);
             }
             size -= entry.lengths[i];
-            StringKt.logE("remove:" + entry.getLengths() + ",key:" + entry.key);
+            StringKt.logV("remove:" + entry.getLengths() + ",key:" + entry.key);
             entry.lengths[i] = 0;
         }
 
