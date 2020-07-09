@@ -42,12 +42,19 @@ fun bindSmartRefreshLayout(
     smartLayout: SmartRefreshLayout,
     refreshing: Boolean,
     moreLoading: Boolean,
-    hasMore: Boolean
+    hasMore: Boolean?
 
 ) {
-    if (!refreshing) smartLayout.finishRefresh()
-    if (!moreLoading) smartLayout.finishLoadMore()
-    smartLayout.setNoMoreData(!hasMore)
+    "refreshing:$refreshing,moreLoading:$moreLoading,hasMore:$hasMore".logE()
+    if (!refreshing) {
+        smartLayout.finishRefresh()
+    }
+    if (!moreLoading) {
+        smartLayout.finishLoadMore()
+    }
+
+    if (hasMore != null)
+        smartLayout.setNoMoreData(!hasMore)//调用次方法会停止刷新动作
 }
 
 @BindingAdapter(value = ["refreshEnable"])
@@ -55,7 +62,7 @@ fun bindSmartRefreshLayoutRefresh(
     smartLayout: SmartRefreshLayout,
     refreshEnable: Boolean
 ) {
-    smartLayout.setEnableRefresh(refreshEnable)
+//    smartLayout.setEnableRefresh(refreshEnable)
 }
 
 @BindingAdapter(

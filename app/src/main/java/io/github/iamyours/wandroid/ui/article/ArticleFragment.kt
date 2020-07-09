@@ -63,7 +63,6 @@ class ArticleFragment : BaseFragment<FragmentArticleBinding>() {
             it?.run {
                 adapter.addAll(datas, curPage == 1)
             }
-
         })
     }
 

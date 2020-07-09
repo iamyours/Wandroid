@@ -23,7 +23,11 @@ class ArticleVM : BaseViewModel() {
     private val topArticleList =
         Transformations.switchMap(page) {
             if (it == 0) api.articleTopList()
-            else MutableLiveData()
+            else {
+                val data = MutableLiveData<ApiResponse<List<ArticleVO>>>()
+                data.value = ApiResponse(null,0,"")
+                data
+            }
         }
 
     val articlePage =
@@ -37,6 +41,16 @@ class ArticleVM : BaseViewModel() {
                     a.read = dao.isRead(username, a.id)
                 }
             }
+            hasMore.value = !(list.data?.over ?: false)
+            list.data?.run {
+                if (curPage == 1) {
+                    refreshing.value = false
+                } else {
+                    moreLoading.value = false
+                }
+            }
+
+
             list.data
         }
 
@@ -48,7 +62,6 @@ class ArticleVM : BaseViewModel() {
             AbsentLiveData.create()
     }
     val banners: LiveData<List<BannerVO>> = Transformations.map(bannerList) {
-        loading.value = false
         it.data ?: ArrayList()
     }
 

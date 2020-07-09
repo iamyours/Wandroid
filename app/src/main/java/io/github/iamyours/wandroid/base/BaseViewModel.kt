@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import io.github.iamyours.wandroid.extension.logE
 import io.github.iamyours.wandroid.net.ApiResponse
 import io.github.iamyours.wandroid.net.WanApi
 import io.github.iamyours.wandroid.util.LiveDataBus
@@ -63,6 +64,7 @@ open class BaseViewModel : ViewModel() {
     }
 
     open fun refresh() {
+        "refresh...".logE()
         page.value = 0
         refreshing.value = true
     }

@@ -29,14 +29,21 @@ data class ArticleVO(
     @Ignore
     var originId: Int,
     @Ignore
-    var top: Boolean
+    var top: Boolean,
+    @Ignore
+    var shareUser:String
 ) {
 
     constructor() : this(
         -1, "", -1, "",
         false, false, -1, "", "", "", 0L, -1, "",
-        "", "", false, -1, false
+        "", "", false, -1, false,""
     )
+
+    fun getFixedName():String{
+        if(TextUtils.isEmpty(author))return shareUser
+        return author
+    }
 
     fun getFixedTitle(): String {//空出5个空格，用于显示logo
         return "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$title"
