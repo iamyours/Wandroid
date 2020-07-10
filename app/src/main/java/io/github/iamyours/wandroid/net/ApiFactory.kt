@@ -3,6 +3,7 @@ package io.github.iamyours.wandroid.net
 import io.github.iamyours.wandroid.App
 import io.github.iamyours.wandroid.BuildConfig
 import io.github.iamyours.wandroid.net.wan.WanResponse
+import io.github.iamyours.wandroid.util.ClientUtil
 import io.github.iamyours.wandroid.util.SP
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
@@ -29,6 +30,7 @@ object ApiFactory {
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             clientBuilder.addInterceptor(loggingInterceptor)
         }
+        ClientUtil.setUnsafe(clientBuilder)
         if (saveCookie) {
             clientBuilder.cookieJar(object : CookieJar {
                 override fun saveFromResponse(
