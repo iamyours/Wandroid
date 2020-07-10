@@ -7,18 +7,27 @@ import java.lang.reflect.Type
 import retrofit2.CallAdapter.Factory
 import java.lang.reflect.ParameterizedType
 
-class LiveDataCallAdapterFactory : Factory() {
-    override fun get(returnType: Type, annotations: Array<Annotation>, retrofit: Retrofit): CallAdapter<*, *>? {
+class LiveDataCallAdapterFactory(var creator: (Int, String, Any?) -> Any) :
+    Factory() {
+
+
+    override fun get(
+        returnType: Type,
+        annotations: Array<Annotation>,
+        retrofit: Retrofit
+    ): CallAdapter<*, *>? {
         if (getRawType(returnType) != LiveData::class.java) return null
         //获取第一个泛型类型
-        val observableType = getParameterUpperBound(0, returnType as ParameterizedType)
+        val observableType =
+            getParameterUpperBound(0, returnType as ParameterizedType)
+
         val rawType = getRawType(observableType)
-        if (rawType != ApiResponse::class.java) {
+        if (rawType != creator(0, "", null).javaClass) {
             throw IllegalArgumentException("type must be ApiResponse")
         }
         if (observableType !is ParameterizedType) {
             throw IllegalArgumentException("resource must be parameterized")
         }
-        return LiveDataCallAdapter<Any>(observableType)
+        return LiveDataCallAdapter<Any>(observableType,creator)
     }
 }

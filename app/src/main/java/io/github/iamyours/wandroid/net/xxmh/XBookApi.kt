@@ -3,7 +3,10 @@ package io.github.iamyours.wandroid.net.xxmh
 import androidx.lifecycle.LiveData
 import io.github.iamyours.wandroid.App
 import io.github.iamyours.wandroid.BuildConfig
+import io.github.iamyours.wandroid.net.ApiFactory
 import io.github.iamyours.wandroid.net.CacheInterceptor
+import io.github.iamyours.wandroid.net.LiveDataCallAdapterFactory
+import io.github.iamyours.wandroid.net.wan.WanResponse
 import io.github.iamyours.wandroid.vo.xxmh.*
 import okhttp3.Cache
 import okhttp3.OkHttpClient
@@ -25,27 +28,9 @@ interface XBookApi {
         }
 
         fun get(url: String): XBookApi {
-            val file =
-                File(App.instance.cacheDir, "http-cache")
-            val clientBuilder = OkHttpClient.Builder()
-                .cache(Cache(file,1024 * 1024 * 20))
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(1, TimeUnit.MINUTES)
-                .writeTimeout(1, TimeUnit.MINUTES)
-            clientBuilder.addInterceptor(CacheInterceptor())
-            if (BuildConfig.DEBUG) {
-                val loggingInterceptor = HttpLoggingInterceptor()
-                loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-                clientBuilder.addInterceptor(loggingInterceptor)
+            return ApiFactory.create(url, false) { code, msg, content ->
+                XResponse(msg, code, content)
             }
-
-            return Retrofit.Builder()
-                .baseUrl(url)
-                .client(clientBuilder.build())
-                .addCallAdapterFactory(XLiveDataCallAdapterFactory())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(XBookApi::class.java)
         }
     }
 
