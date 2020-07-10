@@ -5,9 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import io.github.iamyours.wandroid.extension.logE
-import io.github.iamyours.wandroid.net.ApiResponse
-import io.github.iamyours.wandroid.net.WanApi
+import io.github.iamyours.wandroid.net.wan.WanResponse
+import io.github.iamyours.wandroid.net.wan.WanApi
 import io.github.iamyours.wandroid.util.LiveDataBus
 import io.github.iamyours.wandroid.util.SP
 import io.github.iamyours.wandroid.vo.PageVO
@@ -71,7 +70,7 @@ open class BaseViewModel : ViewModel() {
     /**
      * 处理分页数据
      */
-    fun <T> mapPage(source: LiveData<ApiResponse<PageVO<T>>>): LiveData<PageVO<T>> {
+    fun <T> mapPage(source: LiveData<WanResponse<PageVO<T>>>): LiveData<PageVO<T>> {
         return Transformations.map(source) {
             refreshing.value = false
             moreLoading.value = false

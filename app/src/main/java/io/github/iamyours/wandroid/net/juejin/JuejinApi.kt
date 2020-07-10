@@ -16,11 +16,11 @@ interface JuejinApi {
     ): LiveData<JuejinResponse<JuejinEntryList<JuejinArticleVO>>>
 
     companion object {
-        fun create(): JuejinApi {
-            return create("https://timeline-merger-ms.juejin.im/v1/")
+        fun get(): JuejinApi {
+            return get("https://timeline-merger-ms.juejin.im/v1/")
         }
 
-        fun create(url: String): JuejinApi {
+        fun get(url: String): JuejinApi {
             return ApiFactory.create(
                 url,
                 false

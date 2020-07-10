@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="vo"
+                type="io.github.iamyours.wandroid.vo.juejin.JuejinArticleVO" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            tools:background="@color/bg_dark">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center_vertical">
+
+            <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:radius="@{15}"
+                    app:url="@{vo.user.avatarLarge}"
+                    tools:background="#ccc" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:text="@{vo.user.username}"
+                    android:textColor="@color/title_color"
+                    android:textSize="12dp"
+                    tools:text="张三" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vo.tagText}"
+                    android:textColor="@color/text_color"
+                    android:textSize="12dp"
+                    tools:text="Android/MVVM" />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{vo.title}"
+                        android:textColor="@color/title_color"
+                        android:textSize="14dp"
+                        android:textStyle="bold"
+                        tools:text="使用OnBackPressedDispatcher处理回退事件" />
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@{vo.summaryInfo}"
+                        android:textColor="@color/text_color"
+                        android:textSize="12dp"
+                        tools:text="在单 Activity 多 Fragment 的场景下处理回退按键一直是一件比较恶心的事情。前段时间看 jetpack 在宣传中有提到利用 OnBackPressedDispatcher 处理回退，于是研究了一下。 这里可以看到会把第一个可以触发的 OnBackPressedC…" />
+            </LinearLayout>
+
+            <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    app:gone="@{vo.emptyScreen}"
+                    app:radius="@{4}"
+                    app:url="@{vo.screenshot}" />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical">
+
+            <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:padding="4dp"
+                    android:tint="@color/text_color"
+                    app:srcCompat="@drawable/ic_like_up" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vo.collectionCountText}"
+                    android:textColor="@color/text_color"
+                    android:textSize="12dp"
+                    tools:text="123" />
+
+            <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginLeft="15dp"
+                    android:padding="4dp"
+                    android:tint="@color/text_color"
+                    app:srcCompat="@drawable/ic_comment" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vo.commentCountText}"
+                    android:textColor="@color/text_color"
+                    android:textSize="12dp"
+                    tools:text="123" />
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginTop="10dp"
+                android:background="@color/divider" />
+    </LinearLayout>
+</layout>

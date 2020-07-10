@@ -5,13 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import io.github.iamyours.wandroid.base.BaseViewModel
 import io.github.iamyours.wandroid.db.AppDataBase
-import io.github.iamyours.wandroid.net.ApiResponse
+import io.github.iamyours.wandroid.net.wan.WanResponse
 import io.github.iamyours.wandroid.util.AbsentLiveData
 import io.github.iamyours.wandroid.util.LiveDataUtil
 import io.github.iamyours.wandroid.util.SP
 import io.github.iamyours.wandroid.vo.ArticleVO
 import io.github.iamyours.wandroid.vo.BannerVO
-import io.github.iamyours.wandroid.vo.PageVO
 
 class ArticleVM : BaseViewModel() {
     private val dao = AppDataBase.get().historyDao()
@@ -24,8 +23,13 @@ class ArticleVM : BaseViewModel() {
         Transformations.switchMap(page) {
             if (it == 0) api.articleTopList()
             else {
-                val data = MutableLiveData<ApiResponse<List<ArticleVO>>>()
-                data.value = ApiResponse(null,0,"")
+                val data = MutableLiveData<WanResponse<List<ArticleVO>>>()
+                data.value =
+                    WanResponse(
+                        null,
+                        0,
+                        ""
+                    )
                 data
             }
         }
