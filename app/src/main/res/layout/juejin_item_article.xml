@@ -35,15 +35,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
                     android:text="@{vo.user.username}"
                     android:textColor="@color/title_color"
                     android:textSize="12dp"
                     tools:text="张三" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    app:level="@{vo.user.level}"
+                    />
+
+
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
                     android:text="@{vo.tagText}"
                     android:textColor="@color/text_color"
                     android:textSize="12dp"

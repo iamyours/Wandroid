@@ -12,6 +12,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.databinding.BindingAdapter
@@ -27,6 +28,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener
+import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.extension.*
 import io.github.iamyours.wandroid.listener.SimpleRecyclerOnScrollerListener
 import io.github.iamyours.wandroid.ui.web.ImageShowActivity
@@ -132,6 +134,25 @@ fun bindBanner(banner: BGABanner, data: List<Any>?) {
 fun bindImage(iv: ImageView, url: String?, radius: Int?) {
     if (url != null) {
         iv.displayWithUrl(url, (radius ?: 1).toFloat())
+    }
+}
+
+@BindingAdapter(value = ["level"])
+fun bindLevel(iv: AppCompatImageView, level: Int) {
+    val rid = when (level) {
+        1 -> R.drawable.lv1
+        2 -> R.drawable.lv2
+        3 -> R.drawable.lv3
+        4 -> R.drawable.lv4
+        5 -> R.drawable.lv5
+        6 -> R.drawable.lv6
+        else -> 0
+    }
+    if (rid != 0) {
+        iv.setImageResource(rid)
+        iv.visibility = View.VISIBLE
+    } else {
+        iv.visibility = View.GONE
     }
 }
 
