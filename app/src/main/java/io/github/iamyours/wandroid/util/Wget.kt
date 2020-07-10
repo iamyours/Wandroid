@@ -13,6 +13,7 @@ import java.io.FileOutputStream
 import java.lang.Exception
 
 object Wget {
+    val headers = HashMap<String, String>()
     fun get(url: String): String {
         val client = OkHttpClient.Builder()
             .build()
@@ -38,7 +39,7 @@ object Wget {
     private val typeDao = AppDataBase.get().urlTypeDao()
     fun head(url: String?): String {
         val md5 = MD5Utils.stringToMD5(url)
-        val value = typeDao.getType(md5)
+        val value = headers[md5] ?: typeDao.getType(md5)
         "head:$url".logV()
         if (value == null) {
             val client = OkHttpClient.Builder()
@@ -65,9 +66,12 @@ object Wget {
                 "time:$time,$type".logE()
                 val result = type ?: ""
                 typeDao.insert(UrlTypeVO(md5, result))
+                headers[md5] = result
                 return result
             } catch (e: Exception) {
             }
+        } else {
+            headers[md5] = value
         }
         return value ?: ""
     }

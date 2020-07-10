@@ -64,7 +64,6 @@ open class BaseViewModel : ViewModel() {
     }
 
     open fun refresh() {
-        "refresh...".logE()
         page.value = 0
         refreshing.value = true
     }

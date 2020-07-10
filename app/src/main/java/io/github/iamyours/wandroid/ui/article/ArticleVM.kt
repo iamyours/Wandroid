@@ -49,8 +49,6 @@ class ArticleVM : BaseViewModel() {
                     moreLoading.value = false
                 }
             }
-
-
             list.data
         }
 

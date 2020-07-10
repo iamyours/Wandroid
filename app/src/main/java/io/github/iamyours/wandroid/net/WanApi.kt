@@ -84,6 +84,13 @@ interface WanApi {
         @Query("cid") cid: Int
     ): LiveData<ApiResponse<PageVO<ArticleVO>>>
 
+    /**
+     * 问答列表
+     */
+    @GET("wenda/list/{page}/json")
+    fun qAList(
+        @Path("page") page: Int
+    ): LiveData<ApiResponse<PageVO<ArticleVO>>>
 
     /**
      * 项目分类
