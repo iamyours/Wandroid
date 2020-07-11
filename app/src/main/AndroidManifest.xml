@@ -34,7 +34,9 @@
         <activity android:name=".ui.xxmh.XPictureListActivity" />
         <activity
                 android:name=".ui.web.ImageShowActivity"
-                android:theme="@style/AppThemeTransparent" android:configChanges="orientation|keyboardHidden|screenSize"/>
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:theme="@style/AppThemeTransparent" />
+        <activity android:name=".ui.web.Web2Activity" />
     </application>
 
 </manifest>

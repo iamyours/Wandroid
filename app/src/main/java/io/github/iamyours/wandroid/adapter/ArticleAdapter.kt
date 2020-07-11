@@ -32,7 +32,7 @@ class ArticleAdapter : DataBoundAdapter<ArticleVO, ItemArticleBinding>() {
             dao.addHistory(history)
             item.read = true
             notifyDataSetChanged()
-            RouterUtil.navWeb(item, it.context)
+            RouterUtil.navWeb2(item, it.context)
         }
     }
 

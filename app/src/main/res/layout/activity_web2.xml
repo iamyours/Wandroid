@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="vm"
+                type="io.github.iamyours.wandroid.ui.web.Web2VM" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_dark"
+            android:orientation="vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    app:back="@{true}"
+                    app:srcCompat="@drawable/ic_back"
+                    app:tint="@color/tab_text_color" />
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:text="@{vm.title}"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp"
+                    tools:text="test" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:onClick="@{()->vm.showMore()}"
+                    android:padding="16dp"
+                    app:srcCompat="@drawable/ic_more"
+                    app:tint="@color/tab_text_color" />
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/divider" />
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <io.github.iamyours.wandroid.widget.WanWebView
+                    android:id="@+id/webView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never" />
+
+            <com.github.ybq.android.spinkit.SpinKitView
+                    android:id="@+id/spin_kit"
+                    style="@style/SpinKitView.Wave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="120dp"
+                    app:SpinKit_Color="@color/text_color"
+                    app:gone="@{vm.loaded}" />
+
+            <io.github.iamyours.wandroid.widget.TouchImageView
+                    android:id="@+id/showImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:visibility="invisible"
+                    app:showImage="@{vm.image}" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+</layout>
