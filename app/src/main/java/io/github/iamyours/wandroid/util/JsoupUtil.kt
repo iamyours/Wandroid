@@ -7,7 +7,7 @@ import org.jsoup.Jsoup
 object JsoupUtil {
     val WAN_ANDROID = "wanandroid.com"
     val JIAN_SHU = "https://www.jianshu.com"
-    val JUE_JIN = "https://juejin.im/post/"
+    val JUE_JIN = "https://juejin.im/"
     val WEI_XIN = "https://mp.weixin.qq.com/s"
     val CSDN = "blog.csdn.net/"
     val cssMap = HashMap<String, String>()
@@ -23,15 +23,24 @@ object JsoupUtil {
         		return e.offsetTop;
         	}
             var bodyWidth = document.body.offsetWidth-16;
+            
+            function getDomWidth(dom){
+                var width = dom.getBoundingClientRect().width;
+                if(width==0)return getDomWidth(dom.parentElement);
+                return width;
+            }
         
             for(var i=0;i<imgs.length;i++){
                 var img = imgs[i];
-                var width = bodyWidth;
+                var width = getDomWidth(img);
                 var dataset = img.dataset;
                 var w = dataset.width||dataset.w;
                 var h = dataset.height||dataset.h;
-                
                 var height = width * h /w;
+                if(dataset.ratio){
+                    height = width * dataset.ratio;
+                    h = w * dataset.ratio;
+                }
                 var style = img.style;
                 style.width = w>width?width+"px":w+"px";
                 style.height = w>width?height+"px":h+"px";
@@ -61,8 +70,9 @@ object JsoupUtil {
         							// 获取自定义属性data-src，用真图片替换假图片
         							imgs[i].src = imgs[i].getAttribute('data-src');
                                     imgs[i].style.backgroundImage="";
+                                    imgs[i].style.background="transparent";
         						}
-        					},100)
+        					},1000)
         				})(i)
         			}
         		}
@@ -111,7 +121,14 @@ object JsoupUtil {
                 }
             }
             url.startsWith(WEI_XIN) -> {
-
+                val elements = doc.select("div.rich_media_inner")
+                css = cssMap[JUE_JIN]
+                if (css == null) {
+                    css = FileUtil.readStringInAssets("weixin/weixin2.css")
+                }
+                if (elements.size == 1) {
+                    content = elements[0].outerHtml()
+                }
             }
             url.contains(CSDN) -> {
 
@@ -121,6 +138,7 @@ object JsoupUtil {
             <!DOCTYPE html>
             <html>
                 <head>
+                    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                     <script type="text/javascript">
                         $script
                     </script>

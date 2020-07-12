@@ -4,6 +4,7 @@ import io.github.iamyours.wandroid.db.AppDataBase
 import io.github.iamyours.wandroid.extension.logE
 import io.github.iamyours.wandroid.extension.logV
 import io.github.iamyours.wandroid.net.CacheInterceptor
+import io.github.iamyours.wandroid.net.RedirectInterceptor
 import io.github.iamyours.wandroid.vo.UrlTypeVO
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -17,6 +18,9 @@ object Wget {
     fun get(url: String): String {
         val client = OkHttpClient.Builder()
         ClientUtil.setUnsafe(client)
+        client.followRedirects(false)
+        client.followSslRedirects(false)
+        client.addInterceptor(RedirectInterceptor())
         val request = Request.Builder()
             .url(url)
             .header(
@@ -25,7 +29,8 @@ object Wget {
             )
             .build()
         val response = client.build().newCall(request).execute()
-        return response.body()?.string() ?: ""
+        val result = response.body()?.string() ?: ""
+        return result
     }
 
     @JvmStatic
