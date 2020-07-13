@@ -5,7 +5,10 @@ import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.webkit.WebChromeClient
+import android.webkit.WebResourceResponse
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.lifecycle.Observer
 import io.github.iamyours.router.ARouter
 import io.github.iamyours.router.annotation.Route
@@ -19,9 +22,12 @@ import io.github.iamyours.wandroid.extension.copy
 import io.github.iamyours.wandroid.extension.openBrowser
 import io.github.iamyours.wandroid.extension.viewModel
 import io.github.iamyours.wandroid.util.Constants
+import io.github.iamyours.wandroid.util.FileUtil
+import io.github.iamyours.wandroid.util.JsoupUtil
 import io.github.iamyours.wandroid.widget.BottomStyleDialog
 import io.github.iamyours.wandroid.widget.WanWebView
 import kotlinx.android.synthetic.main.dialog_more.view.*
+import java.io.ByteArrayInputStream
 
 @Route(path = "/web2")
 class Web2Activity : BaseActivity<ActivityWeb2Binding>() {
@@ -75,15 +81,36 @@ class Web2Activity : BaseActivity<ActivityWeb2Binding>() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
                 WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG)
             }
+            webViewClient = object : WebViewClient() {
+                override fun shouldInterceptRequest(
+                    view: WebView,
+                    url: String
+                ): WebResourceResponse? {
+                    if (url == link) {
+                        val html = JsoupUtil.parseArticleHtml(url)
+                        val input = ByteArrayInputStream(html.toByteArray())
+                        return WebResourceResponse("text/html", "utf-8", input)
+                    }
+                    if(url.endsWith("resources/js/highlight.pack.js")){
+                        val html = FileUtil.readStringInAssets("js/highlight.min.js")
+                        val input = ByteArrayInputStream(html.toByteArray())
+                        return WebResourceResponse("text/javascript", "utf-8", input)
+                    }
+                    return super.shouldInterceptRequest(view, url)
+                }
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    super.onPageFinished(view, url)
+                    vm.loaded.value = true
+                }
+            }
+            webChromeClient = object:WebChromeClient(){
+                override fun onReceivedTitle(view: WebView?, title: String) {
+                    super.onReceivedTitle(view, title)
+                    navTitle = title
+                }
+            }
+            loadUrl(link)
         }
-        vm.html.observe(this, Observer {
-            binding.webView.loadData(
-                it,
-                "text/html",
-                "UTF-8"
-            )
-            vm.loaded.value = true
-        })
     }
 
     private fun showMoreDialog() {

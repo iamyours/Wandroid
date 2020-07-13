@@ -1,0 +1,167 @@
+.article-content p{color:#969696!important;}.article-content li{color:#969696!important;}
+.main-header-box{display:none;}
+.article-area{padding:0 8px;background:#3f3f3f;color:#969696;}
+blockquote{background:#555;border-left:3px solid #222;margin:0px;padding:5px 16px;}
+code{color:#c7254e;border-radius:4px;background-color:transparent!important;padding:2px 4px;font-size:12px;}
+a{margin:0px;color:#3194d0;}
+pre{background:#282c34;border-radius:4px;padding:15px;overflow-x:auto;}
+figure{margin:0;border-radius:4px;}
+.lazyload{width:100%!important;height:unset!important;border-radius:4px;background:#858585;}
+.suspension-panel{display:none;}
+.copy-code-btn{display:none;}
+.author-info-block{display:flex;align-items:center;}
+.author-info-block .avatar{flex:0 0 auto;width:40px;height:40px;
+border-radius:50%;background-repeat:no-repeat;background-size:40px;
+margin-right:8px;}
+.username{font-size:14px;font-weight:700;color:#9AA0A6;border-width:0px;}
+.author-info-block .meta-box{
+font-size:12px;
+color:#9AA0A6;
+}
+.article-banner{display:none;}
+.books-recommend{display:none;}
+.footer-author-block{display:none;}
+.action-box{display:none;}
+.sidebar{display:none;}
+.article-suspended-panel{display:none;}
+.image-viewer-box{display:none;}
+.open-in-app{display:none;}
+.tag-list-box{display:none;}
+.comment-list-box{display:none;}
+.article-title{font-size:22px;color:#c8c8c8;}
+h1{font-size:22px;}
+h2{font-size:20px;}
+h3{font-size:18px;}
+h4{font-size:16px;}
+a{text-decoration:none;}
+.article-content{word-break: break-word}
+.article-content table{display:inline-block!important;font-size:1rem;width:auto;max-width:100%;overflow:auto;border:1px solid #555;}
+.article-content thead{background:#333;color:#969696;text-align:left}
+.article-content tr:nth-child(2n){background-color:#555}
+.article-content td,.article-content th{padding:5px;min-width:80px;max-width:120px;}
+.article-content td{min-width:80px;max-width:120px;}
+tr{}
+.views-count{margin-left:8px;}
+.hljs {
+	display: block;
+	padding: 5px;
+	color: #abb2bf;
+	background: #282c34;
+	border-radius:4px;
+	font-size:12px;
+}
+
+ .hljs-comment, .hljs-quote {
+	color: #5c6370;
+	font-style: italic
+}
+
+ .hljs-doctag, .hljs-formula, .hljs-keyword {
+	color: #c678dd
+}
+
+ .hljs-deletion, .hljs-name, .hljs-section, .hljs-selector-tag, .hljs-subst {
+	color: #e06c75
+}
+
+ .hljs-literal {
+	color: #56b6c2
+}
+
+ .hljs-addition, .hljs-attribute, .hljs-meta-string, .hljs-regexp, .hljs-string {
+	color: #98c379
+}
+
+ .hljs-built_in, .hljs-class .hljs-title {
+	color: #e6c07b
+}
+
+ .hljs-attr, .hljs-number, .hljs-selector-attr, .hljs-selector-class, .hljs-selector-pseudo, .hljs-template-variable, .hljs-type, .hljs-variable {
+	color: #d19a66
+}
+
+ .hljs-bullet, .hljs-link, .hljs-meta, .hljs-selector-id, .hljs-symbol, .hljs-title {
+	color: #61aeee
+}
+
+ .hljs-emphasis {
+	font-style: italic
+}
+
+ .hljs-strong {
+	font-weight: 700
+}
+
+ .hljs-link {
+	text-decoration: underline
+}
+#note-show .content .show-content-free .collapse-free-content:after{
+    position:relative!important;
+}
+.copyable{
+color:#c8c8c8!important;
+}
+span{
+background:transparent!important;
+}
+h1,h2,h3,h4,h5,h6 span{
+color:#c8c8c8!important;
+}
+h2[data-tool="mdnice编辑器"]{
+background-image:url()!important;
+}
+p[data-tool="mdnice编辑器"]{
+color:#c8c8c8!important;
+}
+p[data-tool="mdnice编辑器"] strong{
+color:#ffffff!important;
+}
+p[data-tool="mdnice编辑器"] code{
+color:#c7254e!important;
+}
+ul[data-tool="mdnice编辑器"] li code{
+color:#c7254e!important;
+}
+ul[data-tool="mdnice编辑器"] li section{
+color:#c8c8c8!important;
+}
+ul[data-tool="mdnice编辑器"] li strong{
+color:#ffffff!important;
+}
+pre[data-tool="mdnice编辑器"] span[style*="url("]{
+display:none!important;
+}
+span.content{
+color:#c8c8c8!important;
+}
+.recommended-area{
+display:none!important;
+}
+recommend-box{
+display:none!important;
+}
+.follow-button{
+display:none!important;
+}
+.extension{
+display:none!important;}
+.article-content pre>code.hljs{
+padding:18px 10px 12px;
+display:inline-block;
+}
+.article-area img{
+background:#999999;
+border-radius:4px;
+background-image:url(https://myossf.oss-cn-hongkong.aliyuncs.com/public/loading4.gif);
+background-repeat:no-repeat;
+background-position:center;
+background-size:20px;
+}
+.article-area{
+line-height:1.7;
+}
+table{
+border-collapse: collapse;
+border-spacing: 0;
+table-layout: fixed;
+}
