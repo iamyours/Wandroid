@@ -11,6 +11,7 @@ background-image:url(https://myossf.oss-cn-hongkong.aliyuncs.com/public/loading4
 background-repeat:no-repeat;
 background-position:center;
 background-size:20px;
+width:100%;
 }
 .rich_media_area_primary code{
 font-family:Menlo, "Operator Mono", Consolas, Monaco, monospace!important;
@@ -32,4 +33,35 @@ code span[style*="color: rgb(0, 0, 0)"]{
 }
 code span[style*="color: rgb(0, 0, 136)"]{
     color:rgb(69, 69, 255) !important;
+}
+
+.rich_media_content:not(code) span[style*="color: rgb(0, 0, 0)"]{
+    color:#969696!important;
+}
+img[data-copyright="0"]{
+display:block!important;
+}
+.rich_media_content{
+font-size:16px;
+}
+pre{
+overflow:scroll;
+}
+code{
+color:#A9B7C6;
+}
+.hljs-keyword,.hljs-literal{
+color:#CC7832!important;
+}
+.hljs-title{
+color:#FFC66D!important;
+}
+.hljs-params{
+color:#A9B7C6!important;
+}
+.hljs-string{
+color:#6A8659!important;
+}
+section p span[style*="color: rgb(55, 55, 55)"]{
+color:#969696!important;
 }

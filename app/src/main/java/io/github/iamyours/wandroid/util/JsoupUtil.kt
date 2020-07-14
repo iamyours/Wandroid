@@ -27,11 +27,13 @@ object JsoupUtil {
                 var width = dom.clientWidth;
                 var parent = dom.parentElement;
                 var parentTag = parent.tagName;
+                var parentWidth = parent.clientWidth;
+                console.log("tag:"+parentTag+",width:"+width+","+parentWidth);
                 if(parentTag=="FIGURE"){//掘金
-                    return parent.clientWidth;
+                    return parentWidth;
                 }
                 if(parent.className=="image-view"){//简书
-                    return parent.clientWidth;
+                    return parentWidth;
                 }
                 if(width==0)return getDomWidth(dom.parentElement);
                 return width;
@@ -39,6 +41,7 @@ object JsoupUtil {
             
             function setImgStyle(img){
                 var width = getDomWidth(img);
+                console.log("finalWidth:"+width);
                 var dataset = img.dataset;
                 var w = dataset.width||dataset.w||dataset.originalWidth;
                 var h = dataset.height||dataset.h||dataset.originalHeight;
@@ -50,8 +53,8 @@ object JsoupUtil {
                 img.className="";
                 if(dataset&&w){
                     var style = img.style;
-                    img.style.width = w>width?width+"px":w+"px";
-                    img.style.height = w>width?height+"px":h+"px";
+                    img.style.width = w>width/2?width+"px":w+"px";
+                    img.style.height = w>width/2?height+"px":h+"px";
                     img.src="data:image/gif;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg==";
                 }
             }
@@ -162,18 +165,18 @@ object JsoupUtil {
             }
             url.startsWith(WEI_XIN) -> {
                 selector = "div.rich_media_inner"
-                cssPath = "weixin/weixin2.css"
+                cssPath = "web2/dark/weixin.css"
                 titleSelector = ".rich_media_title"
             }
             url.contains(CSDN) -> {
-                selector="#article"
-                titleSelector="h1.article_title"
-                cssPath="web2/dark/csdn.css"
+                selector = "#article"
+                titleSelector = "h1.article_title"
+                cssPath = "web2/dark/csdn.css"
             }
         }
 
         val elements = doc.select(selector)
-        val titleElements = doc.select(titleSelector)
+
         css = cssMap[siteKey]
         if (css == null) {
             css = FileUtil.readStringInAssets(cssPath)
@@ -182,16 +185,20 @@ object JsoupUtil {
             val ele = elements[0]
             ele.select("script").remove()
             ele.select("link").remove()
-            content = elements[0].outerHtml()
+            ele.select("article-type").remove()
+            val titleElements = ele.select(titleSelector)
+            content = ele.outerHtml()
+            if (titleElements.size == 1) {
+                title = titleElements[0].ownText()
+            }
         }
-        if(titleElements.size==1){
-            title = titleElements[0].text()
-        }
+
         return """
             <!DOCTYPE html>
             <html>
                 <head>
                     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
                     <title>$title</title>
                     $customJs
                     <script type="text/javascript">
