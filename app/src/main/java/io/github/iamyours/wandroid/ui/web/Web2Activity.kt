@@ -17,13 +17,10 @@ import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.base.BaseActivity
 import io.github.iamyours.wandroid.databinding.ActivityWeb2Binding
 import io.github.iamyours.wandroid.db.AppDataBase
-import io.github.iamyours.wandroid.extension.arg
-import io.github.iamyours.wandroid.extension.copy
-import io.github.iamyours.wandroid.extension.openBrowser
-import io.github.iamyours.wandroid.extension.viewModel
-import io.github.iamyours.wandroid.util.Constants
-import io.github.iamyours.wandroid.util.FileUtil
-import io.github.iamyours.wandroid.util.JsoupUtil
+import io.github.iamyours.wandroid.extension.*
+import io.github.iamyours.wandroid.util.*
+import io.github.iamyours.wandroid.util.glide.GlideUtil
+import io.github.iamyours.wandroid.web.WanObject
 import io.github.iamyours.wandroid.widget.BottomStyleDialog
 import io.github.iamyours.wandroid.widget.WanWebView
 import kotlinx.android.synthetic.main.dialog_more.view.*
@@ -41,6 +38,20 @@ class Web2Activity : BaseActivity<ActivityWeb2Binding>() {
         collect.value = intent.getBooleanExtra("collect", false)
         articleId.value = intent.getIntExtra("articleId", 0)
         articleUrl.value = link
+    }
+    override fun onEnterAnimationComplete() {
+        super.onEnterAnimationComplete()
+        binding.showImage.visibility = View.INVISIBLE
+    }
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        super.onActivityResult(requestCode, resultCode, data)
+        binding.showImage.postDelayed({
+            binding.showImage.visibility = View.INVISIBLE
+        }, 350)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +76,26 @@ class Web2Activity : BaseActivity<ActivityWeb2Binding>() {
             showMoreDialog()
         })
         initWebView()
+        vm.loaded.observe(this, Observer {
+            if (it) {
+                loadScript()
+            }
+        })
+    }
+
+    override fun onBackPressed() {
+        backAction()
+    }
+
+    private fun backAction() {
+        finish()
+    }
+
+    private fun loadScript() {
+        binding.webView.let {
+            val script = Script.getDom2Image(it.width)
+            it.evaluateJavascript(script) {}
+        }
     }
 
     private fun initWebView() {
@@ -73,6 +104,10 @@ class Web2Activity : BaseActivity<ActivityWeb2Binding>() {
                 javaScriptEnabled = true
             }
             setBackgroundColor(0)
+            addJavascriptInterface(
+                WanObject(context, vm.image),
+                "android"
+            )
             scrollListener = object : WanWebView.OnScrollChangedListener {
                 override fun onScroll(dx: Int, dy: Int, oldX: Int, oldY: Int) {
                     vm.title.value = if (dy < 10) "" else navTitle
@@ -91,19 +126,63 @@ class Web2Activity : BaseActivity<ActivityWeb2Binding>() {
                         val input = ByteArrayInputStream(html.toByteArray())
                         return WebResourceResponse("text/html", "utf-8", input)
                     }
-                    if(url.endsWith("resources/js/highlight.pack.js")){
-                        val html = FileUtil.readStringInAssets("js/highlight.min.js")
+                    else if (url.endsWith("resources/js/highlight.pack.js")) {
+                        val html =
+                            FileUtil.readStringInAssets("js/highlight.min.js")
                         val input = ByteArrayInputStream(html.toByteArray())
-                        return WebResourceResponse("text/javascript", "utf-8", input)
+                        return WebResourceResponse(
+                            "text/javascript",
+                            "utf-8",
+                            input
+                        )
+                    }
+                    else if (url.endsWith("resources/js/dom-to-image.js")) {
+                        val html =
+                            FileUtil.readStringInAssets("dom-to-image.min.js")
+                        val input = ByteArrayInputStream(html.toByteArray())
+                        return WebResourceResponse(
+                            "text/javascript",
+                            "utf-8",
+                            input
+                        )
+                    }
+                    else if (url.startsWith("http")) {
+                        val head = Wget.head(url)
+                        if (head.startsWith("image")) {
+                            val bytes = GlideUtil.syncLoad(url, head)
+                            if (bytes != null) {
+                                return WebResourceResponse(
+                                    head,
+                                    "utf-8",
+                                    ByteArrayInputStream(bytes)
+                                )
+                            }
+                        }
                     }
                     return super.shouldInterceptRequest(view, url)
                 }
+
+                override fun shouldOverrideUrlLoading(
+                    view: WebView,
+                    url: String
+                ): Boolean {
+                    val isHttp =
+                        url.startsWith("http://") || url.startsWith("https://")
+                    return if (isHttp) {
+                        RouterUtil.navWeb2(url, view.context)
+                        true
+                    } else {
+                        true
+                    }
+                    return super.shouldOverrideUrlLoading(view, url)
+                }
+
                 override fun onPageFinished(view: WebView?, url: String?) {
                     super.onPageFinished(view, url)
                     vm.loaded.value = true
                 }
             }
-            webChromeClient = object:WebChromeClient(){
+            webChromeClient = object : WebChromeClient() {
                 override fun onReceivedTitle(view: WebView?, title: String) {
                     super.onReceivedTitle(view, title)
                     navTitle = title

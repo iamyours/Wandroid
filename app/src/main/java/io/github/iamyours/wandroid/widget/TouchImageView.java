@@ -918,7 +918,10 @@ public class TouchImageView extends AppCompatImageView {
     }
 
     private void setParentBackgroundAlpha(int alpha) {
-        ((View) getParent()).getBackground().setAlpha(alpha);
+        View parent = (View) getParent();
+        if(parent!=null&&parent.getBackground()!=null){
+            parent.getBackground().setAlpha(alpha);
+        }
     }
 
     /**

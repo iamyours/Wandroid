@@ -95,8 +95,7 @@ class JueJinWebClient(url: String, vo: MutableLiveData<Boolean>) :
 
 
     private fun getDetailApi(postId: String): String {//头像没有加载，手动调用
-        return "https://post-storage-api-ms.juejin" +
-                ".im/v1/getDetailData?src=web&type=entry&postId=$postId"
+        return "https://post-storage-api-ms.juejin.im/v1/getDetailData?src=web&type=entry&postId=$postId"
     }
 
     override fun shouldInterceptRequest(view: WebView?, url: String?)

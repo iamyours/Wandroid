@@ -17,10 +17,6 @@ class Web2VM : BaseViewModel() {
 
     val image = MutableLiveData<PositionImage>()
 
-    val html = Transformations.switchMap(articleUrl) {
-        JsoupUtil.parseHtml(it)
-    }
-
     /**
      * 收藏接口
      */

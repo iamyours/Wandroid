@@ -48,6 +48,18 @@ object RouterUtil {
     }
 
     @JvmOverloads
+    fun navWeb2(
+        link: String,
+        context: Context
+    ) {
+        val bundle = Bundle()
+        bundle.putString("link", link)
+        ARouter.getInstance().build("/web2")
+            .with(bundle)
+            .navigation(context)
+    }
+
+    @JvmOverloads
     fun navWeb(
         item: CacheArticleVO,
         context: Context,

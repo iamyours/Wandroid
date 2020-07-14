@@ -3,6 +3,7 @@ package io.github.iamyours.wandroid.binds
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Rect
 import android.text.Html
 import android.text.TextUtils
 import android.view.Gravity
@@ -14,7 +15,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.app.ActivityOptionsCompat
-import androidx.core.util.Pair
 import androidx.databinding.BindingAdapter
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +34,7 @@ import io.github.iamyours.wandroid.listener.SimpleRecyclerOnScrollerListener
 import io.github.iamyours.wandroid.ui.web.ImageShowActivity
 import io.github.iamyours.wandroid.util.Constants
 import io.github.iamyours.wandroid.util.EmptyCornerDrawable
+import io.github.iamyours.wandroid.util.ImageUtil
 import io.github.iamyours.wandroid.web.PositionImage
 
 @BindingAdapter(
@@ -47,7 +48,6 @@ fun bindSmartRefreshLayout(
     hasMore: Boolean?
 
 ) {
-    "refreshing:$refreshing,moreLoading:$moreLoading,hasMore:$hasMore".logE()
     if (!refreshing) {
         smartLayout.finishRefresh()
     }
@@ -221,7 +221,7 @@ fun bindSelect(v: View, select: Boolean) {
 fun bindBackAction(v: View, select: Boolean) {
     if (select) {
         v.setOnClickListener {
-            (v.context as Activity).finish()
+            (v.context as Activity).onBackPressed()
         }
     }
 }
@@ -250,27 +250,35 @@ fun bindImage(iv: ImageView, showImage: PositionImage?) {
         val lp = iv.layoutParams as ViewGroup.MarginLayoutParams
         val parentWidth = iv.context.resources.displayMetrics.widthPixels
         val scale = parentWidth / clientWidth
-        lp.width = (width * scale).toInt()
-        lp.height = (height * scale).toInt()
-        lp.leftMargin = (x * scale).toInt()
-        lp.topMargin = (y * scale).toInt()
+        val rect = Rect()
+        rect.left = (x * scale).toInt()
+        rect.right = rect.left + (width * scale).toInt()
+        rect.top = (y * scale).toInt()
+        rect.bottom = rect.top + (height * scale).toInt()
+        lp.leftMargin = rect.left
+        lp.width = rect.width()
+        lp.height = rect.height()
+        lp.topMargin = rect.top
         iv.layoutParams = lp
         if (TextUtils.isEmpty(url)) return@run
-        iv.displayOverride(url)
-        iv.postDelayed({
-            val activity = iv.getActivity()
-            activity?.let {
-                val pair: Pair<View, String> = Pair(iv, "image")
-                val option =
-                    ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        it,
-                        pair
-                    )
-                val intent = Intent(it, ImageShowActivity::class.java)
-                Constants.sharedUrl = url
-                it.startActivityForResult(intent, 1, option.toBundle())
+        iv.displayOverride(url){
+            ImageUtil.checkImage(iv, rect) {
+                "finished:".logE()
+                val activity = iv.getActivity()
+                activity?.let {
+                    val pair: androidx.core.util.Pair<View, String> =
+                        androidx.core.util.Pair(iv, "image")
+                    val option =
+                        ActivityOptionsCompat.makeSceneTransitionAnimation(
+                            it,
+                            pair
+                        )
+                    val intent = Intent(it, ImageShowActivity::class.java)
+                    Constants.sharedUrl = url
+                    it.startActivityForResult(intent, 1, option.toBundle())
+                }
             }
-        }, 100)
+        }
     }
 }
 

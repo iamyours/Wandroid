@@ -65,3 +65,26 @@ color:#6A8659!important;
 section p span[style*="color: rgb(55, 55, 55)"]{
 color:#969696!important;
 }
+pre[data-tool="mdnice编辑器"] span[style*="background: url("]{
+display:none!important;
+}
+
+pre[data-tool="mdnice编辑器"] code[style*="color: black"]{
+color:#A9B7C6!important;
+}
+
+pre[data-tool="mdnice编辑器"] code span[style*="color: #1c00cf"]{
+color:#A9B7C6!important;
+}
+strong:not(pre){
+color:#969696!important;
+}
+li:not(pre){
+color:#969696!important;
+}
+li section:not(code){
+color:#969696!important;
+}
+pre section[style*="background: rgb("]{
+background:transparent!important;
+}

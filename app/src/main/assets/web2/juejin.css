@@ -6,7 +6,6 @@ code{color:#c7254e;border-radius:4px;background-color:transparent!important;padd
 a{margin:0px;color:#3194d0;}
 pre{background:#282c34;border-radius:4px;padding:15px;overflow-x:auto;}
 figure{margin:0;border-radius:4px;}
-.lazyload{width:100%!important;height:unset!important;border-radius:4px;background:#858585;}
 .suspension-panel{display:none;}
 .copy-code-btn{display:none;}
 .author-info-block{display:flex;align-items:center;}
@@ -35,11 +34,12 @@ h3{font-size:18px;}
 h4{font-size:16px;}
 a{text-decoration:none;}
 .article-content{word-break: break-word}
-.article-content table{display:inline-block!important;font-size:1rem;width:auto;max-width:100%;overflow:auto;border:1px solid #555;}
+.article-content table{display:inline-block!important;font-size:1rem;width:100%;max-width:100%;overflow:auto;border:1px solid #555;}
 .article-content thead{background:#333;color:#969696;text-align:left}
 .article-content tr:nth-child(2n){background-color:#555}
-.article-content td,.article-content th{padding:5px;min-width:80px;max-width:120px;}
-.article-content td{min-width:80px;max-width:120px;}
+.article-content td, .article-content th{
+padding:12px 7px;
+}
 tr{}
 .views-count{margin-left:8px;}
 .hljs {
@@ -156,6 +156,10 @@ background-image:url(https://myossf.oss-cn-hongkong.aliyuncs.com/public/loading4
 background-repeat:no-repeat;
 background-position:center;
 background-size:20px;
+max-width:100%!important;
+}
+th img{
+width:200px;
 }
 .article-area{
 line-height:1.7;

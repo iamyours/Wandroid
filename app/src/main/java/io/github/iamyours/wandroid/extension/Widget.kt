@@ -3,6 +3,7 @@ package io.github.iamyours.wandroid.extension
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.view.ViewTreeObserver
@@ -118,13 +119,22 @@ fun ImageView.displayBase64(url: String) {
 }
 
 fun ImageView.displayOverride(
-    url: String
+    url: String,
+    callback: () -> Unit
 ) {
     Glide.with(this)
         .asBitmap()
         .load(url)
         .override(context.screenWidth(), context.screenHeight())
-        .into(this)
+        .into(object : SimpleTarget<Bitmap>() {
+            override fun onResourceReady(
+                resource: Bitmap,
+                transition: Transition<in Bitmap>?
+            ) {
+                setImageBitmap(resource)
+                callback()
+            }
+        })
 }
 
 fun ImageView.displayWithUrl(url: String?, radius: Float) {
