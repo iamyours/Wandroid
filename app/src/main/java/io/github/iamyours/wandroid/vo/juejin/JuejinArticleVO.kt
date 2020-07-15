@@ -32,7 +32,7 @@ data class JuejinArticleVO(
 ) {
     fun getTagText(): String {
         if (tags.isEmpty()) return category.name
-        return "${category.name}/${tags[0].title}"
+        return "${tags[0].title}"
     }
 
     fun isEmptyScreen(): Boolean {

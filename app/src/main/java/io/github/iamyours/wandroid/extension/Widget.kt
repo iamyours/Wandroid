@@ -10,9 +10,12 @@ import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.gif.GifDrawable
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
@@ -71,11 +74,39 @@ fun ImageView.displayCenterInside(url: String?) {
         })
 }
 
-fun TouchImageView.displayCenterInside(url: String?, w: Float, h: Float) {
+fun TouchImageView.displayCenterInside(
+    url: String?,
+    w: Float,
+    h: Float,
+    onLoadingFinished: () -> Unit
+) {
+    val listener = object : RequestListener<Drawable> {
+        override fun onLoadFailed(
+            e: GlideException?,
+            model: Any?,
+            target: Target<Drawable>?,
+            isFirstResource: Boolean
+        ): Boolean {
+            onLoadingFinished()
+            return false
+        }
+
+        override fun onResourceReady(
+            resource: Drawable?,
+            model: Any?,
+            target: Target<Drawable>?,
+            dataSource: DataSource?,
+            isFirstResource: Boolean
+        ): Boolean {
+            onLoadingFinished()
+            return false
+        }
+    }
     Glide.with(this)
         .asDrawable()
         .fitCenter()
         .load(url)
+        .listener(listener)
         .into(object : SimpleTarget<Drawable>() {
             override fun onResourceReady(
                 resource: Drawable,

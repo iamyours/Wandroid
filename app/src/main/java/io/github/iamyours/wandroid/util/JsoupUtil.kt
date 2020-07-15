@@ -214,7 +214,7 @@ object JsoupUtil {
                 selector = "div#blogDetail"
                 siteKey = WAN_ANDROID
                 titleSelector = "h1.blog_title"
-                cssPath = "web2/wanandroid.css"
+                cssPath = "web2/dark/wanandroid.css"
                 customScript = "hljs.initHighlightingOnLoad();"
                 customJs = """
                         <script type="text/javascript" src="/resources/js/highlight.pack.js"></script>
@@ -233,7 +233,7 @@ object JsoupUtil {
             url.startsWith(JUE_JIN) -> {
                 titleSelector = "h1.article-title"
                 selector = "div.article-area"
-                cssPath = "web2/juejin.css"
+                cssPath = "web2/dark/juejin.css"
                 customScript = """//加载头像
                     function addUser(response){
                         var divs = document.getElementsByClassName("author-info-box");

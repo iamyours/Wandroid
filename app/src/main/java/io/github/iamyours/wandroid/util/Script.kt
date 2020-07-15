@@ -41,7 +41,6 @@ object Script {
                                 }
                             }
                         }
-                        
                         imgWidth = imgWidth+3;
                         var imgHeight = node.offsetHeight;
                         var rect = node.getBoundingClientRect();
@@ -56,7 +55,6 @@ object Script {
                                 }
                             })
                             .then(function(data){
-                                console.log(data);
                                 android.showImage(data,rect.x,rect.y,imgWidth,rect.height,outerWidth);
                             });
                     };
