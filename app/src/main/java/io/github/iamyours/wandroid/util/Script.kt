@@ -33,7 +33,7 @@ object Script {
                         var node = this;
                         for(var n=0;n<this.childElementCount;n++){
                             var child = this.children[n];
-                            if(child.tagName=="CODE"){
+                            if(child.tagName=="CODE"||child.tagName=='SECTION'){
                             var cw = child.scrollWidth;
                                 if(cw>imgWidth){
                                     imgWidth = cw;
