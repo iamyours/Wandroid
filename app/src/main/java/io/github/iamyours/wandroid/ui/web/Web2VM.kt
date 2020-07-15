@@ -13,6 +13,7 @@ class Web2VM : BaseViewModel() {
     val articleId = MutableLiveData<Int>()
     val showMore = MutableLiveData<Boolean>()
     val articleUrl = MutableLiveData<String>()
+    val errorMsg = MutableLiveData<String>()
 
 
     val image = MutableLiveData<PositionImage>()
@@ -23,16 +24,24 @@ class Web2VM : BaseViewModel() {
     val _collectAction = Transformations.switchMap(refreshTrigger) {
         val id = articleId.value ?: 0
         if (it) {
-            api.collect(id)
+            if (id > 0)
+                api.collect(id)
+            else
+                api.collect(title.value, articleUrl.value)
         } else {
             api.uncollect(id)
         }
     }
 
-    val collectAction = Transformations.map(_collectAction) {
+    private val collectAction = Transformations.map(_collectAction) {
         loading.value = false
         if (it.errorCode == 0) {
             collect.value = !(collect.value ?: false)
+            it.data?.run {
+                articleId.value = id
+            }
+        } else {
+            errorMsg.value = it.errorMsg
         }
     }
 

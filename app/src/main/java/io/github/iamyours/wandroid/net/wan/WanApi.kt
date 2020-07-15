@@ -3,10 +3,7 @@ package io.github.iamyours.wandroid.net.wan
 import androidx.lifecycle.LiveData
 import io.github.iamyours.wandroid.net.ApiFactory
 import io.github.iamyours.wandroid.vo.*
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface WanApi {
     companion object {
@@ -107,13 +104,24 @@ interface WanApi {
      * 收藏
      */
     @POST("lg/collect/{id}/json")
-    fun collect(@Path("id") articleId: Int): LiveData<WanResponse<String>>
+    fun collect(@Path("id") articleId: Int): LiveData<WanResponse<ArticleVO>>
 
     /**
      * 取消收藏
      */
     @POST("lg/uncollect_originId/{id}/json")
-    fun uncollect(@Path("id") articleId: Int): LiveData<WanResponse<String>>
+    fun uncollect(@Path("id") articleId: Int): LiveData<WanResponse<ArticleVO>>
+
+    /**
+     * 收藏站外网址
+     */
+    @POST("lg/collect/add/json")
+    @FormUrlEncoded
+    fun collect(
+        @Field("title") title: String?,
+        @Field("link") link: String?
+    ): LiveData<WanResponse<ArticleVO>>
+
 
     /**
      * 收藏文章分页列表

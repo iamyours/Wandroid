@@ -168,7 +168,7 @@ object JsoupUtil {
                                         imgs[i].style.background="transparent";
                                     }
                                 }
-        					},1000)
+        					},100)
         				})(i)
         			}
         		}

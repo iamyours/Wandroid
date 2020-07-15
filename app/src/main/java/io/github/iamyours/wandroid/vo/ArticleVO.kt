@@ -31,17 +31,17 @@ data class ArticleVO(
     @Ignore
     var top: Boolean,
     @Ignore
-    var shareUser:String
+    var shareUser: String
 ) {
 
     constructor() : this(
         -1, "", -1, "",
         false, false, -1, "", "", "", 0L, -1, "",
-        "", "", false, -1, false,""
+        "", "", false, -1, false, ""
     )
 
-    fun getFixedName():String{
-        if(TextUtils.isEmpty(author))return shareUser
+    fun getFixedName(): String {
+        if (TextUtils.isEmpty(author)) return shareUser
         return author
     }
 
@@ -60,7 +60,11 @@ data class ArticleVO(
         }
     }
 
-    fun getSuperEmpty(): Boolean {
+    fun isSuperEmpty(): Boolean {
         return TextUtils.isEmpty(superChapterName)
+    }
+
+    fun isChapterNameEmpty(): Boolean {
+        return TextUtils.isEmpty(chapterName)
     }
 }

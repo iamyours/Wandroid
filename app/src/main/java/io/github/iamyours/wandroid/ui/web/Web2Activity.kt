@@ -20,6 +20,7 @@ import io.github.iamyours.wandroid.db.AppDataBase
 import io.github.iamyours.wandroid.extension.*
 import io.github.iamyours.wandroid.util.*
 import io.github.iamyours.wandroid.util.glide.GlideUtil
+import io.github.iamyours.wandroid.vo.CacheArticleVO
 import io.github.iamyours.wandroid.web.WanObject
 import io.github.iamyours.wandroid.widget.BottomStyleDialog
 import io.github.iamyours.wandroid.widget.WanWebView
@@ -39,10 +40,12 @@ class Web2Activity : BaseActivity<ActivityWeb2Binding>() {
         articleId.value = intent.getIntExtra("articleId", 0)
         articleUrl.value = link
     }
+
     override fun onEnterAnimationComplete() {
         super.onEnterAnimationComplete()
         binding.showImage.visibility = View.INVISIBLE
     }
+
     override fun onActivityResult(
         requestCode: Int,
         resultCode: Int,
@@ -62,6 +65,9 @@ class Web2Activity : BaseActivity<ActivityWeb2Binding>() {
             val data = Intent()
             data.putExtra("collect", vm.collect.value ?: false)
             setResult(Constants.RESULT_COLLECT_CHANGED, data)
+        })
+        vm.errorMsg.observe(this, Observer {
+            it.toast()
         })
         vm.toLogin.observe(this, Observer {
             ARouter.getInstance()
@@ -122,11 +128,12 @@ class Web2Activity : BaseActivity<ActivityWeb2Binding>() {
                     url: String
                 ): WebResourceResponse? {
                     if (url == link) {
-                        val html = JsoupUtil.parseArticleHtml(url)
+                        val cachedString = FileUtil.getHtml(url)
+                        val html =
+                            cachedString ?: JsoupUtil.parseArticleHtml(url)
                         val input = ByteArrayInputStream(html.toByteArray())
                         return WebResourceResponse("text/html", "utf-8", input)
-                    }
-                    else if (url.endsWith("resources/js/highlight.pack.js")) {
+                    } else if (url.endsWith("resources/js/highlight.pack.js")) {
                         val html =
                             FileUtil.readStringInAssets("js/highlight.min.js")
                         val input = ByteArrayInputStream(html.toByteArray())
@@ -135,8 +142,7 @@ class Web2Activity : BaseActivity<ActivityWeb2Binding>() {
                             "utf-8",
                             input
                         )
-                    }
-                    else if (url.endsWith("resources/js/dom-to-image.js")) {
+                    } else if (url.endsWith("resources/js/dom-to-image.js")) {
                         val html =
                             FileUtil.readStringInAssets("dom-to-image.min.js")
                         val input = ByteArrayInputStream(html.toByteArray())
@@ -145,8 +151,7 @@ class Web2Activity : BaseActivity<ActivityWeb2Binding>() {
                             "utf-8",
                             input
                         )
-                    }
-                    else if (url.startsWith("http")) {
+                    } else if (url.startsWith("http")) {
                         val head = Wget.head(url)
                         if (head.startsWith("image")) {
                             val bytes = GlideUtil.syncLoad(url, head)
@@ -186,6 +191,7 @@ class Web2Activity : BaseActivity<ActivityWeb2Binding>() {
                 override fun onReceivedTitle(view: WebView?, title: String) {
                     super.onReceivedTitle(view, title)
                     navTitle = title
+                    vm.title.value = title
                 }
             }
             loadUrl(link)
@@ -197,16 +203,13 @@ class Web2Activity : BaseActivity<ActivityWeb2Binding>() {
         val dialog = BottomStyleDialog(this)
         dialog.setContentView(v)
         val cached = cacheDao.hasCache(link ?: "")
-        if (vm.articleId.value == 0) {
-            v.dv_collect.visibility = View.GONE
-        }
         v.dv_download.isSelected = cached
         v.dtv_download.text = if (cached) "已下载" else "下载"
-//        v.dv_download.setOnClickListener {
-//            downHtml(cached)
-//            saveCacheOrNot(link, navTitle, cached)
-//            dialog.dismiss()
-//        }
+        v.dv_download.setOnClickListener {
+            binding.webView.evaluateJavascript(Script.downloadHtmlScript(cached)) {}
+            saveCacheOrNot(link, navTitle, cached)
+            dialog.dismiss()
+        }
         v.dv_link.setOnClickListener {
             link?.copy(it.context)
             dialog.dismiss()
@@ -222,5 +225,21 @@ class Web2Activity : BaseActivity<ActivityWeb2Binding>() {
         }
         v.dtv_cancel.setOnClickListener { dialog.dismiss() }
         dialog.show()
+    }
+
+    private fun saveCacheOrNot(
+        link: String?,
+        navTitle: String,
+        cached: Boolean
+    ) {
+        link?.let {
+            if (cached) {
+                cacheDao.delete(link)
+            } else {
+                val cache =
+                    CacheArticleVO(it, navTitle, System.currentTimeMillis())
+                cacheDao.add(cache)
+            }
+        }
     }
 }

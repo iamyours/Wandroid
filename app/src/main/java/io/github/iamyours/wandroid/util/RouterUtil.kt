@@ -17,7 +17,7 @@ object RouterUtil {
         bundle.putInt("articleId", item.id)
         bundle.putBoolean("collect", item.collect)
         bundle.putString("link", item.link)
-        ARouter.getInstance().build("/web")
+        ARouter.getInstance().build("/web2")
             .with(bundle)
             .navigation(context) { _, resultCode, data ->
                 if (resultCode == Constants.RESULT_COLLECT_CHANGED) {
@@ -67,7 +67,7 @@ object RouterUtil {
     ) {
         val bundle = Bundle()
         bundle.putString("link", item.link)
-        ARouter.getInstance().build("/web")
+        ARouter.getInstance().build("/web2")
             .with(bundle)
             .navigation(context)
     }

@@ -20,6 +20,7 @@ import io.github.iamyours.wandroid.vo.WebViewVO
 import java.io.ByteArrayInputStream
 import java.net.URISyntaxException
 
+@Deprecated("已废弃，请使用Web2Activity")
 open class BaseWebViewClient(
     protected var originUrl: String, private var vo:
     MutableLiveData<Boolean>

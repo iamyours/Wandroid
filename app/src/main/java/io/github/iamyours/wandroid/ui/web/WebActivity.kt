@@ -35,6 +35,7 @@ import kotlinx.android.synthetic.main.activity_web.*
 import kotlinx.android.synthetic.main.dialog_more.view.*
 
 @Route(path = "/web")
+@Deprecated("已经废弃，使用Web2Activity")
 class WebActivity : BaseActivity<ActivityWebBinding>() {
     companion object {
         fun nav(link: String, context: Context) {
