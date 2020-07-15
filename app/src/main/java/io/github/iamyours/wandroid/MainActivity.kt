@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
 import io.github.iamyours.wandroid.base.BaseActivity
 import io.github.iamyours.wandroid.databinding.ActivityMainBinding
+import io.github.iamyours.wandroid.extension.logE
 import io.github.iamyours.wandroid.ui.home.HomeFragment
 import io.github.iamyours.wandroid.ui.mine.MineFragment
 import io.github.iamyours.wandroid.ui.project.ProjectFragment
@@ -26,7 +27,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private val fragments = ArrayList<Fragment>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initFragments()
+        if (savedInstanceState != null) {
+            fragments.clear()
+            tabs.forEach {
+                "restore:${it.fragmentCls.simpleName}".logE()
+                supportFragmentManager
+                    .getFragment(
+                        savedInstanceState,
+                        it.fragmentCls.simpleName
+                    )?.run {
+                        "fragment:$this".logE()
+                        fragments.add(this)
+                    }
+            }
+        } else {
+            initFragments()
+        }
         initTabLayout()
     }
 
@@ -35,6 +51,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
      */
     override fun onSaveInstanceState(outState: Bundle) {
         fragments.forEach {
+            "onSaveInstanceState:${it.javaClass.simpleName}".logE()
             supportFragmentManager.putFragment(
                 outState,
                 it.javaClass.simpleName,
