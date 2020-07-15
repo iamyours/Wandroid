@@ -30,6 +30,7 @@ class ImageShowActivity : BaseActivity<ActivityImageShowBinding>() {
 
         image.setOnClickListener { onBackPressed() }
         val url = Constants.sharedUrl
+        supportPostponeEnterTransition()
 
         ll.displayWhenLayout {
             lw = ll.width
@@ -38,7 +39,9 @@ class ImageShowActivity : BaseActivity<ActivityImageShowBinding>() {
                 url,
                 ll.width.toFloat(),
                 ll.height.toFloat()
-            )
+            ){
+                supportStartPostponedEnterTransition()
+            }
         }
         iv_screen.setOnClickListener {
             rotationImage()
