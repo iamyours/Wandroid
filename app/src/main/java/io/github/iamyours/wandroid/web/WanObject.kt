@@ -57,6 +57,11 @@ class WanObject(
         context.startActivity(intent)
     }
 
+    @JavascriptInterface
+    fun test(obj: Any) {
+        "$obj".logE()
+    }
+
     /**
      * 离线保存html
      */

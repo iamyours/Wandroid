@@ -32,6 +32,7 @@
         <activity android:name=".ui.xxmh.XBookListActivity" />
         <activity android:name=".ui.xxmh.XBookDetailActivity" />
         <activity android:name=".ui.xxmh.XPictureListActivity" />
+        <activity android:name=".ui.xxmh.competitive.CompetitiveBookListActivity" />
         <activity
                 android:name=".ui.web.ImageShowActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"

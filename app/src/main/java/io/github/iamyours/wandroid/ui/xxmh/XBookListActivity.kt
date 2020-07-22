@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import io.github.iamyours.router.ARouter
 import io.github.iamyours.router.annotation.Route
 import io.github.iamyours.wandroid.R
 import io.github.iamyours.wandroid.adapter.XBookAdapter
@@ -24,6 +25,10 @@ class XBookListActivity : BaseActivity<ActivityXbookListBinding>() {
         binding.executePendingBindings()
         initRecyclerView()
         vm.autoRefresh()
+        binding.tvRight.setOnClickListener {
+            ARouter.getInstance().build("/competitiveBook")
+                .navigation(this)
+        }
     }
 
     private fun initRecyclerView() {

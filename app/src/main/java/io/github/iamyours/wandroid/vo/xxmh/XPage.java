@@ -8,5 +8,6 @@ public class XPage<T> {
     public int total;
     public int pages;
     public boolean isLastPage;
+    public boolean hasNextPage;
     public List<T> list;
 }

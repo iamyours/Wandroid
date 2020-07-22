@@ -46,4 +46,9 @@ interface XBookApi {
         @Query("chapterId") chapterId: Long,
         @Query("free") free: Boolean
     ): LiveData<XResponse<List<XPicture>>>
+
+    @GET("/home/query/books?filter=competitive&type=cartoon&paged=true&size=20")
+    fun competitivePage(
+        @Query("page") page: Int
+    ): LiveData<XResponse<XPage<XBook>>>
 }

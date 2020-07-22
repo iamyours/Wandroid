@@ -39,7 +39,7 @@ class XPictureAdapter :
         val array = ArrayList<XPicture>()
         val len = list.size
         //after
-        for (s in chapterSequence until len) {
+        for (s in chapterSequence .. len) {
             val list = getChapterWithSequence(list, s)?.pictureList ?: break
             array.addAll(list)
         }

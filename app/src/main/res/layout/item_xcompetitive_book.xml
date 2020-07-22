@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="vo"
+                type="io.github.iamyours.wandroid.vo.xxmh.XBook" />
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            tools:background="@color/bg_dark">
+
+        <ImageView
+                android:layout_width="80dp"
+                android:layout_height="120dp"
+                android:layout_marginTop="4dp"
+                android:scaleType="centerCrop"
+                app:radius="@{4}"
+                app:url="@{vo.coverUrl}"
+                tools:src="@mipmap/ic_launcher" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="vertical">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:lines="1"
+                        android:text="@{vo.name}"
+                        android:textColor="@color/title_color"
+                        android:textSize="14dp"
+                        tools:text="七公主" />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:text="@{vo.simpleDesc}"
+                        android:textColor="@color/text_color"
+                        android:textSize="12dp"
+                        tools:text="共60话" />
+            </LinearLayout>
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:lines="4"
+                    android:text="@{vo.description}"
+                    android:textColor="@color/text_color"
+                    android:textSize="12dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
