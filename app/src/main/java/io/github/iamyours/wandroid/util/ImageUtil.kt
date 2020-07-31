@@ -23,7 +23,7 @@ object ImageUtil {
         ) {
             callback()
         } else {
-            handler.postDelayed({ checkImage(iv, rect, callback) }, 150)
+            handler.postDelayed({ checkImage(iv, rect, callback) }, 100)
         }
     }
 }

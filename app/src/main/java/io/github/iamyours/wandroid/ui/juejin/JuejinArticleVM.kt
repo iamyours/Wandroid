@@ -14,11 +14,11 @@ class JuejinArticleVM : BaseViewModel() {
         mApi.aritcleList(it)
     }
     val articleList = Transformations.map(_articleList) {
-        it.d?.entrylist?.findLast { true }?.run { lastItemTime = createdAt }
+        it?.d?.entrylist?.findLast { true }?.run { lastItemTime = createdAt }
         refreshing.value = false
         moreLoading.value = false
-        if (TextUtils.isEmpty(before.value)) it.d?.first = true
-        it.d
+        if (TextUtils.isEmpty(before.value)) it?.d?.first = true
+        it?.d
     }
 
     override fun refresh() {
