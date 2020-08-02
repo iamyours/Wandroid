@@ -12,6 +12,7 @@ import io.github.iamyours.wandroid.extension.viewModel
 /**
  * 掘金文章列表
  */
+@Deprecated(message = "废弃，掘金接口升级了")
 class JuejinArticleFragment : BaseFragment<JuejinFragmentArticleBinding>() {
     override val layoutId: Int
         get() = R.layout.juejin_fragment_article

@@ -15,9 +15,9 @@ class HomeFragment :
     BaseFragment<FragmentHomeBinding>() {
     override val layoutId: Int
         get() = R.layout.fragment_home
-    private val titles = arrayOf("热门", "每日一问", "掘金")
+    private val titles = arrayOf("热门", "每日一问")
     val fragments =
-        arrayOf(ArticleFragment(), QaFragment(), JuejinArticleFragment())
+        arrayOf(ArticleFragment(), QaFragment())
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
