@@ -253,39 +253,6 @@
                 android:layout_height="1px"
                 android:background="@color/divider" />
 
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    app:srcCompat="@drawable/ic_logo_juejin" />
-
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="掘金账号"
-                    android:textColor="@color/title_color"
-                    android:textSize="14sp" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    app:srcCompat="@drawable/ic_arrow_right"
-                    app:tint="@color/text_color" />
-        </LinearLayout>
-
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:background="@color/divider" />
 
         <TextView
                 android:layout_width="match_parent"
