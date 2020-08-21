@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import java.util.List;
 
+import io.github.iamyours.wandroid.extension.StringKt;
+
 public class XChapter implements Parcelable {
     public long id;
     public String title;
@@ -14,6 +16,10 @@ public class XChapter implements Parcelable {
     public int state;//0:没有数据  1:抓取中   2:有数据
     public boolean freeFlag;
     public List<XPicture> pictureList;
+
+    public String getCoverUrl() {
+        return StringKt.changeExt(coverUrl, "html");
+    }
 
     public XChapter() {
     }

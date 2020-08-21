@@ -26,7 +26,7 @@ class XBookListActivity : BaseActivity<ActivityXbookListBinding>() {
         initRecyclerView()
         vm.autoRefresh()
         binding.tvRight.setOnClickListener {
-            ARouter.getInstance().build("/competitiveBook")
+            ARouter.getInstance().build("/updateBook")
                 .navigation(this)
         }
     }

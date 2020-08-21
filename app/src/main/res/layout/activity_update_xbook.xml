@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:background="@color/bg_dark">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    app:back="@{true}"
+                    app:srcCompat="@drawable/ic_back"
+                    app:tint="@color/tab_text_color" />
+
+            <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:text="今日更新"
+                    android:textColor="@color/title_color"
+                    android:textSize="16sp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="48dp"
+                    android:layout_height="match_parent"
+
+                    />
+        </LinearLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/divider" />
+
+        <com.easywidgets.tablayout.EasyTabLayout
+                android:id="@+id/tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                app:tl_indicator_color="@color/tab_select_color"
+                app:tl_indicator_corner_radius="2dp"
+                app:tl_indicator_height="3dp"
+                app:tl_indicator_margin_bottom="3dp"
+                app:tl_indicator_width="60dp"
+                app:tl_textSelectColor="@color/tab_select_color"
+                app:tl_textSelectSize="18sp"
+                app:tl_textUnselectColor="@color/tab_unselect_color"
+                app:tl_textsize="14sp" />
+
+
+        <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+    </LinearLayout>
+</layout>

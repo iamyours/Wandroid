@@ -13,6 +13,8 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical">
 
         <RelativeLayout
@@ -37,7 +39,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:gravity="center"
-                    android:text="推荐"
+                    android:text="更新"
                     android:textColor="@color/text_color"
                     android:textSize="14sp" />
 

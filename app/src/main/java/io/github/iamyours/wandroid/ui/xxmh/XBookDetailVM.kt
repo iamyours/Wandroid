@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import io.github.iamyours.wandroid.base.BaseViewModel
 import io.github.iamyours.wandroid.net.xxmh.XBookApi
+import io.github.iamyours.wandroid.util.StringUtil
 import io.github.iamyours.wandroid.vo.xxmh.XBook
 
 class XBookDetailVM : BaseViewModel() {
@@ -14,9 +15,6 @@ class XBookDetailVM : BaseViewModel() {
     }
     val list = Transformations.map(_list) {
         loading.value = false
-        it?.content?.forEach { c ->
-            c.coverUrl = c.coverUrl.replace(".jpg", ".html")
-        }
         it?.content ?: ArrayList()
     }
 }

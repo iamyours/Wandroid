@@ -17,10 +17,6 @@ class XBookVM : BaseViewModel() {
         refreshing.value = false
         val isLast = it?.content?.isLastPage ?: true
         hasMore.value = !isLast
-        it?.content?.list?.forEach { b ->
-            b.coverUrl = b.coverUrl.changeExt("html")
-            b.extensionUrl = b.extensionUrl.changeExt("html")
-        }
         it?.content?.list ?: ArrayList()
     }
 

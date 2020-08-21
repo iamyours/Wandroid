@@ -50,8 +50,14 @@ interface XBookApi {
         @Query("free") free: Boolean
     ): LiveData<XResponse<List<XPicture>>>
 
-    @GET("/home/query/books?filter=competitive&type=cartoon&paged=true&size=20")
+    @GET("home/query/books?filter=competitive&type=cartoon&paged=true&size=20")
     fun competitivePage(
         @Query("page") page: Int
+    ): LiveData<XResponse<XPage<XBook>>>
+
+    @GET("home/query/books?type=cartoon&paged=true&size=20")
+    fun updateBookPage(
+        @Query("page") page: Int,
+        @Query("updateDay") day: Int
     ): LiveData<XResponse<XPage<XBook>>>
 }

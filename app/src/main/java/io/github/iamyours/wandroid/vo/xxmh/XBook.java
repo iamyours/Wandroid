@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import io.github.iamyours.wandroid.extension.StringKt;
+
 @Entity
 public class XBook implements Parcelable {
     @PrimaryKey
@@ -24,6 +26,14 @@ public class XBook implements Parcelable {
     public long lastReadTime;
 
     public XBook() {
+    }
+
+    public String getCoverUrl() {
+        return StringKt.changeExt(coverUrl, "html");
+    }
+
+    public String getExtensionUrl() {
+        return StringKt.changeExt(extensionUrl, "html");
     }
 
     protected XBook(Parcel in) {

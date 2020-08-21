@@ -2,12 +2,18 @@ package io.github.iamyours.wandroid.vo.xxmh;
 
 import java.util.Objects;
 
+import io.github.iamyours.wandroid.extension.StringKt;
+
 public class XPicture {
     public long id;
     public String url;
     public int sequence;
     public long chapterId;
     public int chapterSequence;
+
+    public String getUrl() {
+        return StringKt.changeExt(url, "html");
+    }
 
     public String getSequenceText() {
         return "" + sequence;

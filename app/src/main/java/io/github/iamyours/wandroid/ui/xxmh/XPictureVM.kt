@@ -42,9 +42,6 @@ class XPictureVM : BaseViewModel() {
     val list = Transformations.map(_pictures) {
         loading.value = false
         moreLoading.value = false
-        it.content?.forEach { p ->
-            p.url = p.url.changeExt("html")
-        }
         if (it.content!!.isNotEmpty()) {
             notLoaded = false
             val cId = it.content[0].chapterId
