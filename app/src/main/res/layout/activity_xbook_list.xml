@@ -19,43 +19,64 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="48dp"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    app:back="@{true}"
-                    app:srcCompat="@drawable/ic_back"
-                    app:tint="@color/tab_text_color" />
-
             <TextView
+                    android:id="@+id/tv_cancel"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_centerInParent="true"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
                     android:gravity="center"
-                    android:lines="1"
-                    android:text="xx漫画"
-                    android:textColor="@color/title_color"
-                    android:textSize="16sp" />
+                    android:text="取消"
+                    android:textColor="@color/text_color"
+                    android:textSize="14sp"
+                    app:back="@{true}" />
 
             <TextView
                     android:id="@+id/tv_right"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
                     android:text="推荐"
+                    android:textColor="@color/text_color"
+                    android:textSize="14sp" />
+
+            <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/tv_cancel"
+                    android:layout_toRightOf="@id/tv_right"
+                    android:background="@drawable/bg_search"
+                    android:hint="搜索关键词"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:lines="1"
+                    android:paddingLeft="40dp"
+                    android:text="@={vm.keyword}"
                     android:textColor="@color/title_color"
-                    android:textSize="14dp" />
+                    android:textColorHint="@color/text_color"
+                    android:textSize="14sp"
+                    app:searchAction="@{()->vm.refresh()}" />
+
+            <ImageView
+                    android:id="@+id/iv_search"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/tv_right"
+                    android:padding="13dp"
+                    android:tint="@color/text_color"
+                    app:srcCompat="@drawable/ic_search" />
         </RelativeLayout>
 
         <View
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:background="@color/divider" />
+
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
                 android:id="@+id/refreshLayout"

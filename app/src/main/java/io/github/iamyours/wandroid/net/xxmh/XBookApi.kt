@@ -35,7 +35,10 @@ interface XBookApi {
     }
 
     @GET("xbook/bookPage?size=20")
-    fun bookPage(@Query("page") page: Int): LiveData<XResponse<XPage<XBook>>>
+    fun bookPage(
+        @Query("page") page: Int,
+        @Query("title") title: String
+    ): LiveData<XResponse<XPage<XBook>>>
 
     @GET("xbook/getChapters")
     fun chapterList(@Query("bookId") bookId: Int): LiveData<XResponse<List<XChapter>>>
