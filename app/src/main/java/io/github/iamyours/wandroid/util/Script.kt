@@ -71,11 +71,9 @@ object Script {
             for(var i=0;i<imgs.length;i++){
                 var img = imgs[i];
                 var imgRect = img.getBoundingClientRect();
-                if(imgRect.x > 0 && imgRect.y > 0){
-                    var dataset = img.dataset || {};
-                    var src = img.src || dataset.src || dataset.originalSrc;
-                    urls.push(src);
-                }
+                var dataset = img.dataset || {};
+                var src = img.src || dataset.src || dataset.originalSrc;
+                urls.push(src);
             }
             android.saveHtml(url,html,urls.join(", "),$cached); 
         """.trimIndent()
